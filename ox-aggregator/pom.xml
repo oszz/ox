@@ -5,7 +5,7 @@
   <groupId>org.oszz.ox</groupId>
   <artifactId>ox-aggregator</artifactId>
   <version>1.0.0</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>ox-aggregator</name>
   <url>http://maven.apache.org</url>
