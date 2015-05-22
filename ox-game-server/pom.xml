@@ -76,5 +76,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.oszz.ox</groupId>
+			<artifactId>ox-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
 	</dependencies>
 </project>

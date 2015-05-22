@@ -60,9 +60,10 @@ public class HeartbeatService implements IService {
 
 	@Override
 	public boolean restart() {
+		stop();
 		init();
 		start();
-		return false;
+		return true;
 	}
 
 
