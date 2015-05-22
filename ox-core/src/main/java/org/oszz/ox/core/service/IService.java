@@ -5,7 +5,7 @@ package org.oszz.ox.core.service;
  * @author ZZ
  *
  */
-public interface IServcie {
+public interface IService {
 
 	/**
 	 * 创建服务
@@ -26,12 +26,19 @@ public interface IServcie {
 	 * @author ZZ
 	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
 	 */
-	public boolean startup();
+	public boolean start();
 	
 	/**
-	 * 销毁服务
+	 * 重启服务
 	 * @author ZZ
 	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
 	 */
-	public boolean destroy();
+	public boolean restart();
+	
+	/**
+	 * 停止并销毁服务
+	 * @author ZZ
+	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
+	 */
+	public boolean stop();
 }
