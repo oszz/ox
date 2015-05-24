@@ -26,6 +26,15 @@ public class Globals {
 	private static Map<Class<?>, Object> configs;
 	
 	/**
+	 * 配置类的数组
+	 */
+	private static Class<?>[] configClasses = new Class<?>[]{
+			ServerConfig.class, 
+			JettyServerConfig.class,
+			MinaServerConfig.class, 
+			DBConfig.class}; 
+	
+	/**
 	 * 初始化
 	 * @author ZZ
 	 */
@@ -45,19 +54,11 @@ public class Globals {
 		Properties confProps = lpf.load(configFilePath);
 		LoggerWritor.info(GameLogger.SYSTEM, "read config file:" + configFilePath);
 		
-		ServerConfig sc = lpf.load(confProps, ServerConfig.class);
-		LoggerWritor.info(GameLogger.SYSTEM, "load config:" + sc);
-		JettyServerConfig jsc  = lpf.load(confProps, JettyServerConfig.class);
-		LoggerWritor.info(GameLogger.SYSTEM, "load config:" + jsc);
-		MinaServerConfig msc = lpf.load(confProps, MinaServerConfig.class);
-		LoggerWritor.info(GameLogger.SYSTEM, "load config:" + msc);
-		DBConfig dbc = lpf.load(confProps, DBConfig.class);
-		LoggerWritor.info(GameLogger.SYSTEM, "load config:" + dbc);
-		
-		configs.put(ServerConfig.class, sc);
-		configs.put(JettyServerConfig.class, jsc);
-		configs.put(MinaServerConfig.class, msc);
-		configs.put(DBConfig.class, dbc);
+		for(Class<?> clazz : configClasses){
+			Object configObj = lpf.load(confProps, clazz);
+			configs.put(clazz, configObj);
+			LoggerWritor.info(GameLogger.SYSTEM, "load config:" + configObj);
+		}
 		LoggerWritor.info(GameLogger.SYSTEM, "init config end.");
 	}
 	

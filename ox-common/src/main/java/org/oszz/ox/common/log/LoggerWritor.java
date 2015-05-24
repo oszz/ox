@@ -8,28 +8,30 @@ import org.slf4j.Logger;
  *
  */
 public class LoggerWritor {
+	
+	private static final String LOG_START_STR = "OX-GameServer ";
 
 	public static void info(Logger log, String content){
 		if(log.isInfoEnabled()){
-			log.info(content);
+			log.info(LOG_START_STR + content);
 		}
 	}
 	
 	public static void debug(Logger log, String content){
 		if(log.isDebugEnabled()){
-			log.debug(content);
+			log.debug(LOG_START_STR +content);
 		}
 	}
 	
 	public static void warn(Logger log, String content){
 		if(log.isWarnEnabled()){
-			log.warn(content);
+			log.warn(LOG_START_STR +content);
 		}
 	}
 	
 	public static void error(Logger log, String content){
 		if(log.isErrorEnabled()){
-			log.error(content);
+			log.error(LOG_START_STR +content);
 		}
 	}
 }
