@@ -11,10 +11,10 @@ public interface IServer {
 	
 	public void setHandler(IHandler handler);
 	
-	public void start();
+	public void start() throws Exception;
 	
-	public void stop();
+	public void stop()  throws Exception;
 	
-	public void restart();
+	public void restart()  throws Exception;
 	
 }
