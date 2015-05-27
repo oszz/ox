@@ -1,8 +1,11 @@
 package org.oszz.ox.core.server;
 
+import java.util.List;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.oszz.ox.core.filter.IFilter;
 
 public class JettyServer implements IServer{
 	
@@ -49,6 +52,18 @@ public class JettyServer implements IServer{
 	public void restart() throws Exception {
 		stop();
 		start();
+	}
+
+	@Override
+	public void addFilterAtLast(IFilter filter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<IFilter> getFilterChain() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
