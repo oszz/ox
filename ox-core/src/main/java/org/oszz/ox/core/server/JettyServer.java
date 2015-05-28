@@ -3,8 +3,6 @@ package org.oszz.ox.core.server;
 import java.util.List;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.oszz.ox.core.filter.IFilter;
 
 public class JettyServer implements IServer{
@@ -36,9 +34,7 @@ public class JettyServer implements IServer{
 	@Override
 	public void start() throws Exception {
 		server = new Server(this.port);
-		HandlerCollection handlers = new HandlerCollection();
-		handlers.addHandler((AbstractHandler)handler);
-		server.setHandler(handlers);
+		server.setHandler(handler.getServerHandler());
 		server.start();
 		server.join();
 	}

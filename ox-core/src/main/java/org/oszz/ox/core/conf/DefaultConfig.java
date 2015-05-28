@@ -1,4 +1,4 @@
-package org.oszz.ox.core.gsDefault;
+package org.oszz.ox.core.conf;
 
 /**
  * 默认配置
@@ -11,6 +11,16 @@ public enum DefaultConfig {
 	 * 默认字符集
 	 */
 	CHARSET("UTF-8"),
+	
+	/**
+	 * GET请求
+	 */
+	HTTP_GET_REQUEST("GET"),
+	
+	/**
+	 * POST请求
+	 */
+	HTTP_POST_REQUEST("POST"),
 	;
 
 	private String value = "";

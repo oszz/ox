@@ -6,30 +6,33 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jetty.continuation.Continuation;
+import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.oszz.ox.core.gsDefault.DefaultConfig;
+import org.oszz.ox.core.conf.DefaultConfig;
 
 /**
  * jetty's server的请求处理者
  * @author ZZ
  *
  */
-public class JettyServerHandler extends AbstractHandler implements IHandler{
+public class JettyServerHandler extends AbstractHandler{
 	
 	private String charset = null;
 	
-	public JettyServerHandler(){
+	
+	protected JettyServerHandler(){
 		this(DefaultConfig.CHARSET.getValue());
 	}
 
-	public JettyServerHandler(String charset){
+	protected JettyServerHandler(String charset){
 		this.charset = charset;
 	}
-	public String getCharset() {
+	protected String getCharset() {
 		return charset;
 	}
-	public void setCharset(String charset) {
+	protected void setCharset(String charset) {
 		this.charset = charset;
 	}
 
@@ -42,6 +45,18 @@ public class JettyServerHandler extends AbstractHandler implements IHandler{
 		String charset = getCharset();
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
+
+		final Continuation continuation = ContinuationSupport.getContinuation(request);  
+		
+		String methodName = request.getMethod();
+		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			
+		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			
+		}
+		
+		response.getWriter().write("ssssssss");
+		response.getWriter().flush();
 	}
 
 }

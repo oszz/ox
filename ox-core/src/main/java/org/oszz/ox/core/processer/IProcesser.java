@@ -1,6 +1,6 @@
 package org.oszz.ox.core.processer;
 
-import org.oszz.ox.core.Player;
+import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
 
 /**
@@ -10,5 +10,5 @@ import org.oszz.ox.core.message.IMessage;
  */
 public interface IProcesser {
 
-	public void handle(Player player, IMessage message);
+	public void handle(IPlayer iPlayer, IMessage message);
 }

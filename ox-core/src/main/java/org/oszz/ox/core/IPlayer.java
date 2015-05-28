@@ -5,6 +5,6 @@ package org.oszz.ox.core;
  * @author ZZ
  *
  */
-public class Player {
+public interface IPlayer {
 
 }

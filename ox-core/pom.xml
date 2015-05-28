@@ -28,6 +28,12 @@
 			<artifactId>jetty-server</artifactId>
 			<version>9.3.0.M2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-continuation</artifactId>
+			<version>9.3.0.M2</version>
+		</dependency>
 
 	</dependencies>
 </project>

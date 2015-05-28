@@ -12,4 +12,9 @@ public interface IMessage {
 	 * @author ZZ
 	 */
 	public void execute();
+	
+	
+	public short getCode();
+	
+	public int getLength();
 }
