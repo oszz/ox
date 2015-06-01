@@ -9,7 +9,6 @@ import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.common.log.LoggerWritor;
 import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
-import org.oszz.ox.server.base.conf.MinaServerConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.log.GameLogger;
 
@@ -31,7 +30,6 @@ public class Globals {
 	private static Class<?>[] configClasses = new Class<?>[]{
 			ServerConfig.class, 
 			JettyServerConfig.class,
-			MinaServerConfig.class, 
 			DBConfig.class}; 
 	
 	/**

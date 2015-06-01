@@ -1,5 +1,7 @@
 package org.oszz.ox.core;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 玩家
  * @author ZZ
@@ -7,4 +9,5 @@ package org.oszz.ox.core;
  */
 public interface IPlayer {
 
+	public void setHttpSession(HttpSession httpSession);
 }

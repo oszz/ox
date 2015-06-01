@@ -21,6 +21,7 @@ public enum DefaultConfig {
 	 * POST请求
 	 */
 	HTTP_POST_REQUEST("POST"),
+	
 	;
 
 	private String value = "";

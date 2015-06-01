@@ -8,14 +8,8 @@ import org.oszz.ox.common.utils.ClassUtils;
  */
 public class JettyServerConfig {
 
-	private boolean isOpen;
 	private int port;
-	public boolean isOpen() {
-		return isOpen;
-	}
-	public void setOpen(boolean isOpen) {
-		this.isOpen = isOpen;
-	}
+	
 	public int getPort() {
 		return port;
 	}

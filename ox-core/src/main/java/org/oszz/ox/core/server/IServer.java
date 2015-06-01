@@ -11,11 +11,9 @@ import org.oszz.ox.core.filter.IFilter;
  */
 public interface IServer {
 
-	public void setPort(int port);
-	
 	public void setHandler(IHandler handler);
 	
-	public void start() throws Exception;
+	public void start() throws Exception ;
 	
 	public void stop()  throws Exception;
 	
@@ -24,4 +22,6 @@ public interface IServer {
 	public void addFilterAtLast(IFilter filter);
 	
 	public List<IFilter> getFilterChain();
+	
+	public void addContext(int port, String... contextPaths);
 }

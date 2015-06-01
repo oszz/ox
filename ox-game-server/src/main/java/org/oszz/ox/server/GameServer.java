@@ -3,9 +3,7 @@ package org.oszz.ox.server;
 import org.oszz.ox.core.server.IServer;
 import org.oszz.ox.core.server.JettyServer;
 import org.oszz.ox.server.base.Globals;
-import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
-import org.oszz.ox.server.base.conf.MinaServerConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.handler.OXServerHandler;
 
@@ -30,13 +28,15 @@ public class GameServer {
 	
 	private static void start() throws Exception {
 		JettyServerConfig jsConfig = Globals.getCofing(JettyServerConfig.class);
-		if(jsConfig.isOpen()){
-			int port = jsConfig.getPort();
-			IServer jsServer = new JettyServer();
-			jsServer.setPort(port);
-			OXServerHandler oxsHandler = new OXServerHandler();
-			jsServer.setHandler(oxsHandler);
-			jsServer.start();
-		}
+		ServerConfig serverCongfig = Globals.getCofing(ServerConfig.class);
+		
+		int port = jsConfig.getPort();
+		IServer jsServer = new JettyServer(serverCongfig.isDebug());
+		
+		jsServer.addContext(port, new String[]{"/game", "/login"});
+		
+		OXServerHandler oxsHandler = new OXServerHandler();
+		jsServer.setHandler(oxsHandler);
+		jsServer.start();
 	}
 }
