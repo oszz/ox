@@ -33,7 +33,7 @@ public class GameServer {
 		int port = jsConfig.getPort();
 		IServer jsServer = new JettyServer(serverCongfig.isDebug());
 		
-		jsServer.addContext(port, new String[]{"/game", "/login"});
+		jsServer.addContext(port, new String[]{"/game", "/login", "/gg"});
 		
 		OXServerHandler oxsHandler = new OXServerHandler();
 		jsServer.setHandler(oxsHandler);

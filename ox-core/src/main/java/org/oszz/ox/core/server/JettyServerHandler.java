@@ -52,6 +52,7 @@ public class JettyServerHandler extends AbstractHandler{
 		
 		
 		HttpSession httpSession = request.getSession(true);
+		System.out.println(httpSession.getId());
 		String playerKey = HttpSessionKey.PLAYER.getValue();
 		IPlayer player = (IPlayer)httpSession.getAttribute(playerKey);
 		if(player == null){//说明是初始
@@ -59,6 +60,8 @@ public class JettyServerHandler extends AbstractHandler{
 			player.setHttpSession(httpSession);
 			httpSession.setAttribute(playerKey, player);
 		}
+		
+		System.out.println(player);
 		
 		
 //		final Continuation continuation = ContinuationSupport.getContinuation(request); 
