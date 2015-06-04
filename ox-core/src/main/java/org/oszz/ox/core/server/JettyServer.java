@@ -1,7 +1,5 @@
 package org.oszz.ox.core.server;
 
-import java.util.List;
-
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.SessionIdManager;
@@ -11,7 +9,8 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.session.HashSessionIdManager;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
-import org.oszz.ox.core.filter.IFilter;
+import org.oszz.ox.core.filter.DefaultFilterChain;
+import org.oszz.ox.core.filter.IFilterChain;
 
 public class JettyServer implements IServer{
 	
@@ -26,6 +25,8 @@ public class JettyServer implements IServer{
 	private SessionManager sessionManager;
 	
 	private SessionHandler sessions;
+	
+	private IFilterChain filterChain;
 	
 	
 	public JettyServer(){
@@ -43,6 +44,8 @@ public class JettyServer implements IServer{
 		// Create the SessionHandler (wrapper) to handle the sessions
         sessionManager = new HashSessionManager();
         sessions = new SessionHandler(sessionManager);
+        
+        filterChain = new DefaultFilterChain();
 	}
 
 	@Override
@@ -70,16 +73,10 @@ public class JettyServer implements IServer{
 		start();
 	}
 
-	@Override
-	public void addFilterAtLast(IFilter filter) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public List<IFilter> getFilterChain() {
-		// TODO Auto-generated method stub
-		return null;
+	public IFilterChain getFilterChain() {
+		return this.filterChain;
 	}
 
 

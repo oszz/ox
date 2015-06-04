@@ -32,10 +32,4 @@ public class DefaultFilterChain implements IFilterChain{
 	public void addFilterAtLast(IFilter filter) {
 		filters.add(filter);
 	}
-
-	@Override
-	public boolean isFinishedFilter() {
-		return index >= filters.size();
-	}
-
 }

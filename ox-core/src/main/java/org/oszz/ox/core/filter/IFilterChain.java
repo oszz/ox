@@ -8,6 +8,4 @@ package org.oszz.ox.core.filter;
 public interface IFilterChain extends IFilter{
 
 	public void addFilterAtLast(IFilter filter);
-	
-	public boolean isFinishedFilter();
 }
