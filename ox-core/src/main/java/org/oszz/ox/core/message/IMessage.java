@@ -1,5 +1,7 @@
 package org.oszz.ox.core.message;
 
+import com.google.protobuf.GeneratedMessage;
+
 /**
  * 消息接口
  * @author ZZ
@@ -17,4 +19,6 @@ public interface IMessage {
 	public short getCode();
 	
 	public int getLength();
+	
+	public GeneratedMessage getGeneratedMessage();
 }

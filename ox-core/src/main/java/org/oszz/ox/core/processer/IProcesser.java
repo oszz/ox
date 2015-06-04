@@ -10,5 +10,5 @@ import org.oszz.ox.core.message.IMessage;
  */
 public interface IProcesser {
 
-	public void handle(IPlayer iPlayer, IMessage message);
+	public void handle(IPlayer player, IMessage message);
 }

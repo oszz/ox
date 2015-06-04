@@ -51,6 +51,7 @@ public class JettyServerHandler extends AbstractHandler{
 		String methodName = request.getMethod();
 		
 		
+//		HttpSession httpSession = request.getSession(true);
 		HttpSession httpSession = request.getSession(true);
 		System.out.println(httpSession.getId());
 		String playerKey = HttpSessionKey.PLAYER.getValue();
@@ -60,8 +61,16 @@ public class JettyServerHandler extends AbstractHandler{
 			player.setHttpSession(httpSession);
 			httpSession.setAttribute(playerKey, player);
 		}
-		
 		System.out.println(player);
+		response.getWriter().write(httpSession.getId());
+		response.getWriter().flush();
+		
+		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			
+		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			
+		}
+		
 		
 		
 //		final Continuation continuation = ContinuationSupport.getContinuation(request); 

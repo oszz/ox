@@ -1,6 +1,5 @@
 package org.oszz.ox.server.base.conf;
 
-import org.oszz.ox.common.utils.ClassUtils;
 
 
 
@@ -9,7 +8,7 @@ import org.oszz.ox.common.utils.ClassUtils;
  * @author ZZ
  *
  */
-public class ServerConfig {
+public class ServerConfig extends BaseConfig {
 	
 	private int serverType;//服务类型
 	private boolean isDebug;//是否是debug 0-false,1-true
@@ -67,10 +66,5 @@ public class ServerConfig {
 
 	public void setCharset(String charset) {
 		this.charset = charset;
-	}
-
-	@Override
-	public String toString() {
-		return ClassUtils.toString(this);
 	}
 }
