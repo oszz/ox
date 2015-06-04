@@ -11,9 +11,16 @@ public class ProtocolCodecFilter implements IFilter {
 	}
 
 	@Override
-	public void doFilter() {
+	public void doIuputFilter() {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	@Override
+	public void doOutputFilter() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -13,6 +13,7 @@ import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.Player;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.conf.HttpSessionKey;
+import org.oszz.ox.core.filter.IFilterChain;
 
 /**
  * jetty's server的请求处理者
@@ -22,6 +23,10 @@ import org.oszz.ox.core.conf.HttpSessionKey;
 public class JettyServerHandler extends AbstractHandler{
 	
 	private String charset = null;
+	
+	private IFilterChain filterChain;
+	
+	private boolean isDebug;
 	
 	
 	protected JettyServerHandler(){
@@ -37,6 +42,16 @@ public class JettyServerHandler extends AbstractHandler{
 	protected void setCharset(String charset) {
 		this.charset = charset;
 	}
+	
+	protected void setFilterChain(IFilterChain filterChain) {
+		this.filterChain = filterChain;
+	}
+	
+	protected void setDebug(boolean isDebug) {
+		this.isDebug = isDebug;
+	}
+	
+	
 	@Override
 	public void handle(String target, Request baseRequest, 
 			HttpServletRequest request, HttpServletResponse response) 

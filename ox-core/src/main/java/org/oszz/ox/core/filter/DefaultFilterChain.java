@@ -1,7 +1,7 @@
 package org.oszz.ox.core.filter;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 /**
  * 默认的过滤链
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class DefaultFilterChain implements IFilterChain{
 	
-	private List<IFilter> filters;
+	private Queue<IFilter> filters;
 	
 	private int index;
 	
@@ -20,16 +20,19 @@ public class DefaultFilterChain implements IFilterChain{
 	}
 
 	@Override
-	public void doFilter() {
-		IFilter filter = filters.get(index);
-		if(filter != null){
-			filter.doFilter();
-			index++;
-		}
+	public void addFilterAtLast(IFilter filter) {
+		filters.offer(filter);
 	}
 
 	@Override
-	public void addFilterAtLast(IFilter filter) {
-		filters.add(filter);
+	public void doIuputFilter() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void doOutputFilter() {
+		// TODO Auto-generated method stub
+		
 	}
 }
