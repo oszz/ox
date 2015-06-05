@@ -14,7 +14,7 @@ public abstract class AbstractJettyHandler implements IHandler {
 	
 	private String charsetName;
 	
-	private boolean isDebug = false;
+//	private boolean isDebug = false;
 	
 	public AbstractJettyHandler(){
 		this(DefaultConfig.CHARSET.getValue());
@@ -38,7 +38,7 @@ public abstract class AbstractJettyHandler implements IHandler {
 	
 	@Override
 	public void setDebug(boolean isDebug) {
-		this.isDebug = isDebug;
+//		this.isDebug = isDebug;
 		jettyServerHandler.setDebug(isDebug);
 	}
 	

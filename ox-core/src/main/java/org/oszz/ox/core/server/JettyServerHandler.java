@@ -81,9 +81,11 @@ public class JettyServerHandler extends AbstractHandler{
 		response.getWriter().flush();
 		
 		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			
+			if(isDebug){//是debug状态，才接受get请求
+				
+			}
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			
+			filterChain.doIuputFilter();
 		}
 		
 		
