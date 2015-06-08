@@ -12,13 +12,11 @@ import org.slf4j.LoggerFactory;
  */
 public class GameLogger {
 
-//	private static final Logger logger = LoggerFactory.getLogger("game ");
-	
-	private static final String PREFIX = "game";
+	private static final String PREFIX = "OX-GameServer";
 	
 	/**
 	 * 系统日志
 	 */
-	public static final Logger SYSTEM = LoggerFactory.getLogger(PREFIX + " system");
+	public static final Logger SYSTEM = LoggerFactory.getLogger(PREFIX + " System:");
 
 }

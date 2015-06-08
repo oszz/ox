@@ -10,6 +10,7 @@ import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
+import org.oszz.ox.server.base.log.GameLogger;
 
 /**
  * 这里的方法都是静态的
@@ -47,18 +48,18 @@ public class Globals {
 	 * @param configFilePath 配置文件的路径
 	 */
 	private static void initConfig(String configFilePath){
-//		LoggerWritor.info(GameLogger.SYSTEM, "init config starting.");
+		GameLogger.SYSTEM.info("init config starting.");
 		configs = new HashMap<Class<?>, Object>();
 		ILoadPropertiesFile lpf = new LoadProperties();
 		Properties confProps = lpf.load(configFilePath);
-//		LoggerWritor.info(GameLogger.SYSTEM, "read config file:" + configFilePath);
+		GameLogger.SYSTEM.info("read config file:{}", configFilePath);
 		
 		for(Class<?> clazz : configClasses){
 			Object configObj = lpf.load(confProps, clazz);
 			configs.put(clazz, configObj);
-//			LoggerWritor.info(GameLogger.SYSTEM, "load config:" + configObj);
+			GameLogger.SYSTEM.info("load config:{}", configObj);
 		}
-//		LoggerWritor.info(GameLogger.SYSTEM, "init config end.");
+		GameLogger.SYSTEM.info("init config end.");
 	}
 	
 

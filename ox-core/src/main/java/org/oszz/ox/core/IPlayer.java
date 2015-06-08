@@ -10,4 +10,6 @@ import javax.servlet.http.HttpSession;
 public interface IPlayer {
 
 	public void setHttpSession(HttpSession httpSession);
+	
+
 }

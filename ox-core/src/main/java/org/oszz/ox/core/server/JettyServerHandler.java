@@ -65,6 +65,12 @@ public class JettyServerHandler extends AbstractHandler{
 		response.setCharacterEncoding(charset);
 		String methodName = request.getMethod();
 		
+		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			
+		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			filterChain.doIuputFilter();
+		}
+		
 		
 //		HttpSession httpSession = request.getSession(true);
 		HttpSession httpSession = request.getSession(true);
@@ -76,6 +82,7 @@ public class JettyServerHandler extends AbstractHandler{
 			player.setHttpSession(httpSession);
 			httpSession.setAttribute(playerKey, player);
 		}
+		
 		System.out.println(player);
 		response.getWriter().write(httpSession.getId());
 		response.getWriter().flush();
