@@ -9,12 +9,9 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.session.HashSessionIdManager;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
+import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.filter.DefaultFilterChain;
 import org.oszz.ox.core.filter.IFilterChain;
-import org.oszz.ox.core.filter.ProtocolCodecFilter;
-import org.oszz.ox.core.filter.codec.protobuf.ProtobufCodecFactory;
-import org.oszz.ox.core.filter.codec.request.doGet.DoGetCodecFactory;
-import org.oszz.ox.core.filter.codec.request.doPost.DoPostCodecFactory;
 
 public class JettyServer implements IServer{
 	
@@ -34,11 +31,11 @@ public class JettyServer implements IServer{
 	
 	
 	public JettyServer(){
-		this(Boolean.FALSE);
+		this(Boolean.FALSE, DefaultConfig.CHARSET.getValue());
 	}
 	
 	
-	public JettyServer(boolean isDebug){
+	public JettyServer(boolean isDebug, String charsetName){
 		server = new Server();
 		this.isDebug = isDebug;
 		
@@ -49,19 +46,13 @@ public class JettyServer implements IServer{
         sessionManager = new HashSessionManager();
         sessions = new SessionHandler(sessionManager);
         
-        filterChain = new DefaultFilterChain();
+        filterChain = new DefaultFilterChain(isDebug, charsetName);
         
         initFilterChain();
 	}
 	
 	private void initFilterChain(){
-		ProtocolCodecFilter doGetCodecFilter = new ProtocolCodecFilter(new DoGetCodecFactory(""));
-		ProtocolCodecFilter doPostCodecFilter = new ProtocolCodecFilter(new DoPostCodecFactory(""));
-		ProtocolCodecFilter protobufCodecFilter = new ProtocolCodecFilter(new ProtobufCodecFactory(""));
 		
-		filterChain.addFilterAtLast(doGetCodecFilter);
-		filterChain.addFilterAtLast(doPostCodecFilter);
-		filterChain.addFilterAtLast(protobufCodecFilter);
 	}
 
 	@Override

@@ -8,7 +8,8 @@ package org.oszz.ox.core.conf;
 public enum DefaultConfig {
 	
 	/**
-	 * 默认字符集
+	 * 默认字符集<br>
+	 * UTF-8
 	 */
 	CHARSET("UTF-8"),
 	

@@ -12,6 +12,10 @@ public enum HttpSessionKey {
 	 */
 	PLAYER("palyer"),
 	
+	/**
+	 * Game Server’session key
+	 */
+	GS_SESSION("gsSession"),
 	;
 	
 	

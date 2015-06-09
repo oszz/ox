@@ -31,7 +31,7 @@ public class GameServer {
 		ServerConfig serverCongfig = Globals.getCofing(ServerConfig.class);
 		
 		int port = jsConfig.getPort();
-		IServer jsServer = new JettyServer(serverCongfig.isDebug());
+		IServer jsServer = new JettyServer(serverCongfig.isDebug(), serverCongfig.getCharset());
 		
 //		jsServer.addContext(port, new String[]{"/game", "/login", "/gg"});
 		jsServer.addContext(port, new String[]{"/ox"});

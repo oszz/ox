@@ -14,6 +14,7 @@ import org.oszz.ox.core.Player;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.conf.HttpSessionKey;
 import org.oszz.ox.core.filter.IFilterChain;
+import org.oszz.ox.core.session.GSSession;
 
 /**
  * jetty's server的请求处理者
@@ -65,34 +66,31 @@ public class JettyServerHandler extends AbstractHandler{
 		response.setCharacterEncoding(charset);
 		String methodName = request.getMethod();
 		
-		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			
-		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			filterChain.doIuputFilter();
-		}
-		
-		
 //		HttpSession httpSession = request.getSession(true);
 		HttpSession httpSession = request.getSession(true);
 		System.out.println(httpSession.getId());
-		String playerKey = HttpSessionKey.PLAYER.getValue();
-		IPlayer player = (IPlayer)httpSession.getAttribute(playerKey);
-		if(player == null){//说明是初始
-			player = new Player();
-			player.setHttpSession(httpSession);
-			httpSession.setAttribute(playerKey, player);
+//		String playerKey = HttpSessionKey.PLAYER.getValue();
+//		IPlayer player = (IPlayer)httpSession.getAttribute(playerKey);
+//		if(player == null){//说明是初始
+//			player = new Player();
+//			player.setHttpSession(httpSession);
+//			httpSession.setAttribute(playerKey, player);
+//		}
+		String gsSessionKey = HttpSessionKey.GS_SESSION.getValue();
+		GSSession gsSession = (GSSession)httpSession.getAttribute(gsSessionKey);
+		if(gsSession == null){
+			gsSession = new GSSession();
+			gsSession.setHttpSession(httpSession);
+			httpSession.setAttribute(gsSessionKey, gsSession);
 		}
 		
-		System.out.println(player);
-		response.getWriter().write(httpSession.getId());
-		response.getWriter().flush();
 		
 		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
 			if(isDebug){//是debug状态，才接受get请求
-				
+				filterChain.doInputFilter(gsSession, request, response);
 			}
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			filterChain.doIuputFilter();
+			filterChain.doInputFilter(gsSession, request, response);
 		}
 		
 		
