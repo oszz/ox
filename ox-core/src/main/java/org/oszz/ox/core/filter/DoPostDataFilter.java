@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.oszz.ox.core.message.MessageCodeMapping;
 import org.oszz.ox.core.session.GSSession;
 
-import com.google.protobuf.MessageLite;
+import com.google.protobuf.GeneratedMessage;
 
 public class DoPostDataFilter implements IFilter {
 
@@ -27,10 +27,10 @@ public class DoPostDataFilter implements IFilter {
 			byte[] bytes = new byte[length];
 			dis.read(bytes);
 			
-			Class<MessageLite> msgLiteClass = MessageCodeMapping.getInstance().getMessageLite(code);
-			if(msgLiteClass != null){
-				MessageLite msgLite = msgLiteClass.newInstance();
-			}
+//			Class<GeneratedMessage> msgLiteClass = MessageCodeMapping.getInstance().getGeneratedMessage(code);
+//			if(msgLiteClass != null){
+//				MessageLite msgLite = msgLiteClass.newInstance();
+//			}
 			
 			filterChain.doInputFilter(gsSession, request, response);
 		}catch (Exception e){

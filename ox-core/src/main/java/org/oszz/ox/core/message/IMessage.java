@@ -1,6 +1,6 @@
 package org.oszz.ox.core.message;
 
-import com.google.protobuf.MessageLite;
+import com.google.protobuf.GeneratedMessage;
 
 /**
  * 消息接口
@@ -17,5 +17,5 @@ public interface IMessage {
 	
 	public short getCode();
 	
-	public MessageLite getProtobufMessage();
+	public GeneratedMessage getProtobufMessage();
 }

@@ -1,0 +1,15 @@
+package org.oszz.ox.server.base.message;
+
+public final class MessageCode {
+
+	private static short CODE_START = 1000;
+	
+	#foreach ($constName in ${constNames})
+/**
+	 * TEST 注释
+	 */
+	public static final short ${constName} = CODE_START++;
+		
+	#end
+	
+}

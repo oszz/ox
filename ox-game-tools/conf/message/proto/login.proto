@@ -1,0 +1,6 @@
+option java_package = "org.oszz.ox.server.module.login.msg";   
+option java_outer_classname = "LoginProto";   
+
+message CGLogin{
+	required string openId = 1; 
+}

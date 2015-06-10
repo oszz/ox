@@ -10,6 +10,7 @@ public class MessageConfig {
 	private String protocPath;
 	private String inputPath;
 	private String javaOutputPath;
+	private String charsetName;
 	
 	
 	public String getProtocPath() {
@@ -29,6 +30,12 @@ public class MessageConfig {
 	}
 	public void setJavaOutputPath(String javaOutputPath) {
 		this.javaOutputPath = javaOutputPath;
+	}
+	public String getCharsetName() {
+		return charsetName;
+	}
+	public void setCharsetName(String charsetName) {
+		this.charsetName = charsetName;
 	}
 	
 	

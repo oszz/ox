@@ -19,12 +19,13 @@ public class NameUtils {
 			char c = str.charAt(i);
 			
 			if (Character.isUpperCase(c)){//如果是大写
+				String underLineChar = SystemProperty.UNDERLINE_CHAR.getValue();
 				if(i != 0){//第一个字符，不加下划线
-					String underLineChar = SystemProperty.UNDERLINE_CHAR.getValue();
 					strBuilder.append(underLineChar);
 				}
-				
-				strBuilder.append(c);
+				if(c != underLineChar.charAt(0)){//不是下划线
+					strBuilder.append(c);
+				}
 			}else{
 				strBuilder.append(upper(c+""));
 			}

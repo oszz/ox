@@ -1,0 +1,17 @@
+package ${packageName};
+
+import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.message.IMessage;
+
+public interface ${className} {
+
+	#foreach ($methodName in ${methodNames})
+	
+		/**
+		 * TEST 注释
+		 */
+		public void ${methodName}(IPlayer player, IMessage message);
+		
+	#end
+	
+}

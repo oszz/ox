@@ -3,25 +3,25 @@ package org.oszz.ox.core.message;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.protobuf.MessageLite;
+import com.google.protobuf.MessageOrBuilder;
 
 public class MessageCodeMapping {
 
-	public Map<Short, Class<MessageLite>> msgCodeMappings;
+	public Map<Short, Class<MessageOrBuilder>> msgCodeMappings;
 
 	private MessageCodeMapping(){
-		msgCodeMappings = new ConcurrentHashMap<Short, Class<MessageLite>>();
+		msgCodeMappings = new ConcurrentHashMap<Short, Class<MessageOrBuilder>>();
 	}
 	
 	public static MessageCodeMapping getInstance(){
 		return InnerClass.instance;
 	}
 	
-	public void register(Short msgCode, Class<MessageLite> msgLiteClass){
-		msgCodeMappings.put(msgCode, msgLiteClass);
+	public void register(Short msgCode, Class<MessageOrBuilder> generatedMessageClass){
+		msgCodeMappings.put(msgCode, generatedMessageClass);
 	}
 	
-	public Class<MessageLite> getMessageLite(Short msgCode){
+	public Class<MessageOrBuilder> getGeneratedMessage(Short msgCode){
 		return msgCodeMappings.get(msgCode);
 	}
 	
