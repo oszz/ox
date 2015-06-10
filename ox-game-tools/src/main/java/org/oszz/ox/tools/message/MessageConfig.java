@@ -9,7 +9,7 @@ public class MessageConfig {
 
 	private String protocPath;
 	private String inputPath;
-	private String outputPath;
+	private String javaOutputPath;
 	
 	
 	public String getProtocPath() {
@@ -24,11 +24,11 @@ public class MessageConfig {
 	public void setInputPath(String inputPath) {
 		this.inputPath = inputPath;
 	}
-	public String getOutputPath() {
-		return outputPath;
+	public String getJavaOutputPath() {
+		return javaOutputPath;
 	}
-	public void setOutputPath(String outputPath) {
-		this.outputPath = outputPath;
+	public void setJavaOutputPath(String javaOutputPath) {
+		this.javaOutputPath = javaOutputPath;
 	}
 	
 	

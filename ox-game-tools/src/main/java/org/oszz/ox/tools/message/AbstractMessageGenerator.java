@@ -1,7 +1,8 @@
 package org.oszz.ox.tools.message;
 
 import java.io.File;
-import java.util.List;
+
+import org.oszz.ox.common.utils.FilePathUtils;
 
 public abstract class AbstractMessageGenerator implements IMessageGenerator {
 	
@@ -13,16 +14,24 @@ public abstract class AbstractMessageGenerator implements IMessageGenerator {
 
 	@Override
 	public String getAbsoluteInputPath() {
-		return null;
+		return FilePathUtils.getAbsolutePathForRead(msgConfig.getInputPath());
 	}
 	
 	@Override
-	public String getAbsoluteOutputPath() {
-		return null;
+	public String getAbsoluteJavaOutputPath() {
+		return FilePathUtils.getAbsolutePathForWrite(msgConfig.getJavaOutputPath());
 	}
 	
 	@Override
-	public List<File> getProtoFiles() {
-		return null;
+	public File[] getProtoFiles() {
+		String protoFileDirStr = getAbsoluteInputPath();
+		File protoFileDir = new File(protoFileDirStr);
+		File[] protoFiles = null;
+		if(protoFileDir.isDirectory()){
+			protoFiles = protoFileDir.listFiles();
+		}
+		return protoFiles;
 	}
+	
+	
 }
