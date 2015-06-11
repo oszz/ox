@@ -1,5 +1,3 @@
-##需要协议号的协议，往后追加，尽量不要中间插入
-CGLogin_LoginProto
-dd
-dscd
-csde
+##按顺序生成协议号，往后追加，尽量不要中间插入
+## 协议名：包路径:注释(可以没有注释)
+LoginProto.CGLogin:org.oszz.ox.server.module.login.msg:玩家登陆

@@ -4,6 +4,11 @@ import java.io.File;
 
 import org.oszz.ox.common.utils.FilePathUtils;
 
+/**
+ * Proto类文件的生成器
+ * @author ZZ
+ *
+ */
 public abstract class AbstractMessageGenerator implements IMessageGenerator {
 	
 	protected MessageConfig msgConfig;

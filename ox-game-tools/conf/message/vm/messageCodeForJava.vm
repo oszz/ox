@@ -1,0 +1,13 @@
+package org.oszz.ox.server.base.message;
+
+public final class MessageCode {
+	
+	#foreach ($msgCodeConf in ${msgCodeConfs})
+/**
+	 * ${msgCodeConf.comments}
+	 */
+	public static final short ${msgCodeConf.constName} = ${msgCodeConf.codeHex};
+		
+	#end
+	
+}

@@ -5,9 +5,9 @@ import java.util.Properties;
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.tools.message.IMessageGenerator;
-import org.oszz.ox.tools.message.JavaMsgCodeGenerator;
-import org.oszz.ox.tools.message.JavaMsgGenerator;
 import org.oszz.ox.tools.message.MessageConfig;
+import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
+import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
 
 public class MessageGenerator {
 	/**
@@ -17,7 +17,7 @@ public class MessageGenerator {
 	/**
 	 * 生成MessageCode.java的模板类
 	 */
-	private static final String MSG_CODE_VM_FILE = "message/vm/messageCode.vm";
+	private static final String MSG_CODE_FOR_JAVA_VM_FILE = "message/vm/messageCodeForJava.vm";
 	/**
 	 * 需要协议号的消息列表
 	 */
@@ -29,10 +29,10 @@ public class MessageGenerator {
 		
 		MessageConfig msgConfig = lpf.load(confProps, MessageConfig.class);
 		
-		IMessageGenerator javaMsgGenerator = new JavaMsgGenerator(msgConfig);
-		javaMsgGenerator.generate();
+		IMessageGenerator javaMsgProtoGenerator = new JavaMsgProtoGenerator(msgConfig);
+		javaMsgProtoGenerator.generate();
 		
-		IMessageGenerator javaMsgCodeGenerator = new JavaMsgCodeGenerator(msgConfig, MSG_CODE_VM_FILE, MESSAGE_CODE_LIST_PATH);
+		IMessageGenerator javaMsgCodeGenerator = new JavaMsgCodeGenerator(msgConfig, MESSAGE_CODE_LIST_PATH, MSG_CODE_FOR_JAVA_VM_FILE);
 		javaMsgCodeGenerator.generate();
 	}
 }

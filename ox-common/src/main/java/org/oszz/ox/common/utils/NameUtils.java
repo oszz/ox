@@ -19,15 +19,16 @@ public class NameUtils {
 			char c = str.charAt(i);
 			
 			if (Character.isUpperCase(c)){//如果是大写
-				String underLineChar = SystemProperty.UNDERLINE_CHAR.getValue();
 				if(i != 0){//第一个字符，不加下划线
+					String underLineChar = SystemProperty.UNDERLINE_CHAR.getValue();
 					strBuilder.append(underLineChar);
 				}
-				if(c != underLineChar.charAt(0)){//不是下划线
-					strBuilder.append(c);
-				}
+				strBuilder.append(c);
 			}else{
-				strBuilder.append(upper(c+""));
+				if(c != SystemProperty.PACKAGE_SEPARATOR.getValue().charAt(0)){
+					strBuilder.append(upper(c+""));
+				}
+				
 			}
 		}
 		return strBuilder.toString();

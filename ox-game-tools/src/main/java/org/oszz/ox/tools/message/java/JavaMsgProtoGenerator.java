@@ -1,12 +1,28 @@
-package org.oszz.ox.tools.message;
+package org.oszz.ox.tools.message.java;
 
 import java.io.File;
 import java.io.IOException;
 
+import org.oszz.ox.tools.message.AbstractMessageGenerator;
+import org.oszz.ox.tools.message.MessageConfig;
+import org.oszz.ox.tools.message.ProtocCommandConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class JavaMsgGenerator extends AbstractMessageGenerator {
+/**
+ * 消息的Proto类生成
+ * @author ZZ
+ *
+ */
+public class JavaMsgProtoGenerator extends AbstractMessageGenerator {
+	
+	private static final Logger log = LoggerFactory.getLogger("JavaMsgGenerator");
 
-	public JavaMsgGenerator(MessageConfig msgConfig) {
+	/**
+	 * 消息的Proto类生成器
+	 * @param msgConfig 消息配置
+	 */
+	public JavaMsgProtoGenerator(MessageConfig msgConfig) {
 		super(msgConfig);
 	}
 
@@ -17,9 +33,9 @@ public class JavaMsgGenerator extends AbstractMessageGenerator {
 		String inputPath = getAbsoluteInputPath();
 		String outPath = getAbsoluteJavaOutputPath();
 		
-		System.out.println("protoc路径: " + protocPath);
-		System.out.println("proto文件目录: " + inputPath);
-		System.out.println("生成的java类输出目录: " + outPath);
+		log.info("protoc路径: " + protocPath);
+		log.info("proto文件目录: " + inputPath);
+		log.info("生成的java类输出目录: " + outPath);
 		
 		File[] protoFiles = getProtoFiles();
 		
@@ -27,7 +43,7 @@ public class JavaMsgGenerator extends AbstractMessageGenerator {
 		
 		for(File protoFile : protoFiles){
 			String protoFilePath = protoFile.getAbsolutePath();
-			System.out.println("处理: " + protoFile.getName());
+			log.info("处理: " + protoFile.getName());
 			String javaProtocCommond = ProtocCommandConstants.JAVA_PROTOC_COMMOND;
 			javaProtocCommond = javaProtocCommond.replace(ProtocCommandConstants.PROTOC_EXE_REPLACE, protocPath);
 			javaProtocCommond = javaProtocCommond.replace(ProtocCommandConstants.INPUT_PATH_REPLACE, inputPath);
@@ -35,10 +51,11 @@ public class JavaMsgGenerator extends AbstractMessageGenerator {
 			javaProtocCommond = javaProtocCommond.replace(ProtocCommandConstants.PROTO_FILE_REPLACE, protoFilePath);
 			
 			try {
-				System.out.println("执行: " + javaProtocCommond);
 				runtime.exec(javaProtocCommond);
+				log.info("成功执行: " + javaProtocCommond);
 			} catch (IOException e) {
 				e.printStackTrace();
+				log.debug("执行: {} 出错,错误信息：{}" , javaProtocCommond, e);
 			}
 		}
 	}
