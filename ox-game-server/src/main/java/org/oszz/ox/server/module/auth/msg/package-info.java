@@ -5,4 +5,4 @@
  * @author ZZ
  *
  */
-package org.oszz.ox.server.module.login.msg;
+package org.oszz.ox.server.module.auth.msg;

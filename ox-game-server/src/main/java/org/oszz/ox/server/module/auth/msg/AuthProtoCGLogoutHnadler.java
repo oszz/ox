@@ -1,14 +1,14 @@
-package ${packageName};
+package org.oszz.ox.server.module.auth.msg;
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
 
 /**
- * ${comments} <br>
+ * 玩家主动退出 <br>
  * Handler Auto Generator
  */
-public class ${handlerClassName} implements IMessageHandler{
+public class AuthProtoCGLogoutHnadler implements IMessageHandler{
 
 	@Override
 	public void handle(IPlayer player, IMessage message){

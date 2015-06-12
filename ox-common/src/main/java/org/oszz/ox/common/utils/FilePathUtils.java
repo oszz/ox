@@ -48,4 +48,18 @@ public class FilePathUtils {
 		return outPath;
 	}
 	
+	/**
+	 * 如果绝对路径存在就返回，如果不存在，就创建，保证该路径可用
+	 * @author ZZ
+	 * @param path 绝对路径
+	 * @return 返回绝对路径
+	 */
+	public static String getDirIfExists(String path){
+		File outDir = new File(path);
+		if(!outDir.exists()){
+			outDir.mkdirs();
+		}
+		return outDir.getAbsolutePath();
+	}
+	
 }

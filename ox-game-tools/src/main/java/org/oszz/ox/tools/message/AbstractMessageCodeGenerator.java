@@ -7,13 +7,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.oszz.ox.common.utils.NameUtils;
 import org.oszz.ox.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractMessageCodeGenerator extends AbstractMessageGenerator implements IMessageCodeGenerator {
-	protected static final Logger log = LoggerFactory.getLogger("JavaMsgCodeGenerator");
+	protected static final Logger log = LoggerFactory.getLogger("JavaGenerator");
 	private static int CODE_START = 0x0001;
 	protected static final String JAVA_MESSAGE_CODE_FILE_NAME = "MessageCode.java";
 	
@@ -64,7 +63,6 @@ public abstract class AbstractMessageCodeGenerator extends AbstractMessageGenera
 	private MessageCodeConf getMsgCodeConf(String lineContent, String codeHex, int lineNum){
 		String[] lineStrs = lineContent.trim().split(":");
 		String name = lineStrs[0];
-		String constName = NameUtils.getConstName(lineStrs[0]);//常量名
 		String packageName = "";
 		if(lineStrs.length > 1){
 			packageName = lineStrs[1].trim();//包名
@@ -76,9 +74,10 @@ public abstract class AbstractMessageCodeGenerator extends AbstractMessageGenera
 		if(lineStrs.length > 2){
 			comments = lineStrs[2];//注释
 		}else{
-			comments = constName;
+			comments = name;
 		}
-		return new MessageCodeConf(name, constName, packageName, comments, codeHex);
+		
+		return new MessageCodeConf(name, packageName, comments, codeHex);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.tools.message.IMessageGenerator;
 import org.oszz.ox.tools.message.MessageConfig;
 import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
+import org.oszz.ox.tools.message.java.JavaMsgHandlerGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
 
 public class MessageGenerator {
@@ -18,6 +19,11 @@ public class MessageGenerator {
 	 * 生成MessageCode.java的模板类
 	 */
 	private static final String MSG_CODE_FOR_JAVA_VM_FILE = "message/vm/messageCodeForJava.vm";
+	/**
+	 * 生成消息Handler.java的模板类
+	 */
+	private static final String MSG_HANDLER_VM_FILE = "message/vm/messageHandler.vm";
+	
 	/**
 	 * 需要协议号的消息列表
 	 */
@@ -34,5 +40,8 @@ public class MessageGenerator {
 		
 		IMessageGenerator javaMsgCodeGenerator = new JavaMsgCodeGenerator(msgConfig, MESSAGE_CODE_LIST_PATH, MSG_CODE_FOR_JAVA_VM_FILE);
 		javaMsgCodeGenerator.generate();
+		
+		IMessageGenerator javaMsgHandlerGenerator = new JavaMsgHandlerGenerator(msgConfig, MESSAGE_CODE_LIST_PATH, MSG_HANDLER_VM_FILE);
+		javaMsgHandlerGenerator.generate();
 	}
 }

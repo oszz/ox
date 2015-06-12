@@ -1,0 +1,11 @@
+option java_package = "org.oszz.ox.server.module.auth.msg";   
+option java_outer_classname = "AuthProto";   
+
+//玩家登陆
+message CGLogin{
+	required string openId = 1; 
+}
+//玩家主动退出
+message CGLogout{
+	required string openId = 1; 
+}

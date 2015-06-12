@@ -1,3 +1,4 @@
 ##按顺序生成协议号，往后追加，尽量不要中间插入
 ## 协议名：包路径:注释(可以没有注释)
-LoginProto.CGLogin:org.oszz.ox.server.module.login.msg:玩家登陆
+AuthProto.CGLogin:org.oszz.ox.server.module.auth.msg:玩家登陆
+AuthProto.CGLogout:org.oszz.ox.server.module.auth.msg:玩家主动退出
