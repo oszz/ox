@@ -1,4 +1,4 @@
-package ${packageName};
+package ${handlerClassPackageName};
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;

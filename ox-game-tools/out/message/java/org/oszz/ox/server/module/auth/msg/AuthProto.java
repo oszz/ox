@@ -495,6 +495,323 @@ public final class AuthProto {
     // @@protoc_insertion_point(class_scope:CGLogin)
   }
 
+  public interface GCLoginInfoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code GCLoginInfo}
+   *
+   * <pre>
+   *玩家登陆后返回的消息
+   * </pre>
+   */
+  public static final class GCLoginInfo extends
+      com.google.protobuf.GeneratedMessage
+      implements GCLoginInfoOrBuilder {
+    // Use GCLoginInfo.newBuilder() to construct.
+    private GCLoginInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private GCLoginInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final GCLoginInfo defaultInstance;
+    public static GCLoginInfo getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public GCLoginInfo getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GCLoginInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.oszz.ox.server.module.auth.msg.AuthProto.internal_static_GCLoginInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.oszz.ox.server.module.auth.msg.AuthProto.internal_static_GCLoginInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.class, org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<GCLoginInfo> PARSER =
+        new com.google.protobuf.AbstractParser<GCLoginInfo>() {
+      public GCLoginInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GCLoginInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GCLoginInfo> getParserForType() {
+      return PARSER;
+    }
+
+    private void initFields() {
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code GCLoginInfo}
+     *
+     * <pre>
+     *玩家登陆后返回的消息
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.oszz.ox.server.module.auth.msg.AuthProto.internal_static_GCLoginInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.oszz.ox.server.module.auth.msg.AuthProto.internal_static_GCLoginInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.class, org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.Builder.class);
+      }
+
+      // Construct using org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.oszz.ox.server.module.auth.msg.AuthProto.internal_static_GCLoginInfo_descriptor;
+      }
+
+      public org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo getDefaultInstanceForType() {
+        return org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.getDefaultInstance();
+      }
+
+      public org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo build() {
+        org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo buildPartial() {
+        org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo result = new org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo) {
+          return mergeFrom((org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo other) {
+        if (other == org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.oszz.ox.server.module.auth.msg.AuthProto.GCLoginInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:GCLoginInfo)
+    }
+
+    static {
+      defaultInstance = new GCLoginInfo(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:GCLoginInfo)
+  }
+
   public interface CGLogoutOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -988,6 +1305,11 @@ public final class AuthProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_CGLogin_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_GCLoginInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_GCLoginInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_CGLogout_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1002,8 +1324,9 @@ public final class AuthProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nauth.proto\"\031\n\007CGLogin\022\016\n\006openId\030\001 \002(\t\"" +
-      "\032\n\010CGLogout\022\016\n\006openId\030\001 \002(\tB/\n\"org.oszz." +
-      "ox.server.module.auth.msgB\tAuthProto"
+      "\r\n\013GCLoginInfo\"\032\n\010CGLogout\022\016\n\006openId\030\001 \002" +
+      "(\tB/\n\"org.oszz.ox.server.module.auth.msg" +
+      "B\tAuthProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1016,8 +1339,14 @@ public final class AuthProto {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CGLogin_descriptor,
               new java.lang.String[] { "OpenId", });
-          internal_static_CGLogout_descriptor =
+          internal_static_GCLoginInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
+          internal_static_GCLoginInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_GCLoginInfo_descriptor,
+              new java.lang.String[] { });
+          internal_static_CGLogout_descriptor =
+            getDescriptor().getMessageTypes().get(2);
           internal_static_CGLogout_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_CGLogout_descriptor,

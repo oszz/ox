@@ -1,6 +1,5 @@
 package org.oszz.ox.tools.message.java;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
@@ -34,24 +33,25 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 		
 		List<MessageCodeConf> msgCodeConfs = this.getMsgCodeConfs();
 		for(MessageCodeConf msgCodeConf : msgCodeConfs){
-			VelocityContext ctx = new VelocityContext();
-			String packageName = msgCodeConf.getPackageName();
-			String comments = msgCodeConf.getComments();
-			String handlerClassName = msgCodeConf.getHandlerClassName();
-			
-			ctx.put("packageName", packageName);
-			ctx.put("comments", comments);
-			ctx.put("handlerClassName", handlerClassName);
-			
-			String outPath = this.getAbsoluteJavaOutputPath();
-			String fileName = handlerClassName + javaClassSuffix;
-			String packagePath = ClassUtils.packageName2Path(packageName);
-			
-			outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-			outPath = FilePathUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
-			VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath + fileName, msgConfig.getCharsetName());
-			log.info("成功生成 {} . 字符集：{}", fileName, msgConfig.getCharsetName());
-		
+			String handlerClassPackageName = msgCodeConf.getHandlerClassPackageName().trim();
+			if(!"".equalsIgnoreCase(handlerClassPackageName)){//不为空，说明需要生产handler类
+				VelocityContext ctx = new VelocityContext();
+				String comments = msgCodeConf.getComments();
+				String handlerClassName = msgCodeConf.getHandlerClassName();
+				
+				ctx.put("handlerClassPackageName", handlerClassPackageName);
+				ctx.put("comments", comments);
+				ctx.put("handlerClassName", handlerClassName);
+				
+				String outPath = this.getAbsoluteJavaOutputPath();
+				String fileName = handlerClassName + javaClassSuffix;
+				String packagePath = ClassUtils.packageName2Path(handlerClassPackageName);
+				
+				outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
+				outPath = FilePathUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+				VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath + fileName, msgConfig.getCharsetName());
+				log.info("成功生成 {} . 字符集：{}", fileName, msgConfig.getCharsetName());
+			}
 		}
 
 	}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns= "http://www.ox.oszz.org/schema" 
+	xmlns:xsd= "http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.ox.oszz.org/schema" 
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+ 
+ 	<!-- 字符串 -->
+    <xsd:simpleType name="str">
+	  <xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	
+	<!-- Boolean型 -->
+	<xsd:simpleType name="bool">
+	  <xsd:restriction base="xsd:boolean" />
+	</xsd:simpleType>
+    
+    <!-- message元素的定义 -->
+    <xsd:complexType name="messageComplexType">
+      	<xsd:sequence>
+      		<!-- 注释，必须有注释，最少最多只能有一个注释 -->
+      		<xsd:element name="comments" type="str" maxOccurs="1" minOccurs="1"/>
+      		<!-- 消息的Handler处理类，只针对CG类型（客户端到服务端的消息）,最少0个，最多1个 -->
+        	<xsd:element name="handler" type="handlerComplexType" minOccurs="0" maxOccurs="1"/>
+      	</xsd:sequence>
+      	<!-- 消息的名称，唯一 -->
+    	<xsd:attribute name="name" type="xsd:ID" use="required"/>
+    	<!-- 生成消息的包名 -->
+    	<xsd:attribute name="paceageName" type="str" use="required"/>
+    	<!-- 消息类型：GC或CG -->
+        <xsd:attribute name="type" type="messageType" use="optional" default="GC"/>
+        <!-- 是否生成消息类和处理类，如果已经生成过，则不必重复生成 -->
+        <xsd:attribute name="isGenerator" type="bool" use="optional" default="true"/>
+     
+	</xsd:complexType>
+	 
+	<!-- 消息类型的枚举： GC或CG -->
+	<xsd:simpleType name="messageType">
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="GC"/>
+	    <xsd:enumeration value="CG"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- 处理类的配置 -->
+	<xsd:complexType name="handlerComplexType">
+		<!-- 生成处理的包名 -->
+    	<xsd:attribute name="paceageName" type="str"/>
+	</xsd:complexType>
+
+	<!-- 整个消息的XML配置 -->	
+	<xsd:element name="messages">  
+       <xsd:complexType>  
+         <xsd:sequence>  
+         	<!-- 可以有无限多个Message -->
+            <xsd:element name="message" type="messageComplexType" maxOccurs="unbounded" />
+         </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>  
+</xsd:schema> 

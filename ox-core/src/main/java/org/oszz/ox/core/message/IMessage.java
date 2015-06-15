@@ -9,13 +9,10 @@ import com.google.protobuf.MessageLite;
  */
 public interface IMessage {
 
-	/**
-	 * 执行
-	 * @author ZZ
-	 */
-	public void execute();
-	
 	public short getCode();
 	
-	public MessageLite getProtobufMessage();
+	public MessageLite toProtobufMessage(byte[] bytes, Class<? extends MessageLite> clazz);
+	
+	public byte[] toBytes();
+
 }

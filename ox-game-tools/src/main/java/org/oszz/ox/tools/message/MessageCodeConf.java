@@ -7,36 +7,48 @@ public class MessageCodeConf {
 	 * 消息处理类的名字后缀
 	 */
 	private static final String HANDLER_CLASS_NAME_SUFFIX = "Hnadler";
+	private static final String MESSAGE_CLASS_NAME_SUFFIX = "Message";
 	
-	private String name;//协议的原名 LoginProto.CGLogin
+//	private String nameAndPackage;//协议的原名 org.oszz.ox.server.module.auth.msg.AuthProto.CGLogin
 	private String constName;//常量名
-	private String packageName;//包名
+	private String handlerClassPackageName;//消息处理类的包名
 	private String comments;//注释
 	private String codeHex;//16进制的code
 	
 	private String handlerClassName;//生成Handler时的类名
+	private String msgPackageName;//message的包名
+	private String msgClassNameAndParent;//message的包名
 
-	public MessageCodeConf(String name, String packageName, 
+	public MessageCodeConf(String nameAndPackage, String handlerClassPackageName, 
 			String comments, String codeHex){
-		this.name = name;
-		this.packageName = packageName;
+//		String nameAndPackage = nameAndPackage;//协议的原名 org.oszz.ox.server.module.auth.msg.AuthProto.CGLogin
+		
+		this.handlerClassPackageName = handlerClassPackageName;
 		this.comments = comments;
 		this.codeHex = codeHex;
 		
-		String nameStr = name.replace(".", "");//去掉名字里的点
-		this.constName = NameUtils.getConstName(nameStr);//常量名
-		this.handlerClassName = NameUtils.getClassName(nameStr) + HANDLER_CLASS_NAME_SUFFIX;//消息处理类的名字
+		int lastPointIndex = nameAndPackage.lastIndexOf(".");
+		String msgClassName = nameAndPackage.substring(lastPointIndex + 1 );
+		nameAndPackage = nameAndPackage.substring(0, lastPointIndex);
+		lastPointIndex = nameAndPackage.lastIndexOf(".");//这个时候，其实是倒数第二点
+		String msgParentClassName = nameAndPackage.substring(lastPointIndex  + 1);
+		this.msgPackageName = nameAndPackage.substring(0, lastPointIndex);
+		
+		String constNameStr = msgParentClassName +  msgClassName;
+		this.msgClassNameAndParent = NameUtils.getClassName(constNameStr) + MESSAGE_CLASS_NAME_SUFFIX;
+		this.constName = NameUtils.getConstName(constNameStr);//常量名
+		this.handlerClassName = NameUtils.getClassName(constNameStr) + HANDLER_CLASS_NAME_SUFFIX;//消息处理类的名字
 	}
 	
-	public String getName() {
-		return name;
+	public String getMsgClassName() {
+		return msgClassNameAndParent;
 	}
 
 	public String getConstName() {
 		return constName;
 	}
-	public String getPackageName() {
-		return packageName;
+	public String getHandlerClassPackageName() {
+		return handlerClassPackageName;
 	}
 	public String getComments() {
 		return comments;
@@ -48,5 +60,8 @@ public class MessageCodeConf {
 	public String getHandlerClassName() {
 		return handlerClassName;
 	}
-	
+
+	public String getMsgPackageName() {
+		return msgPackageName;
+	}
 }

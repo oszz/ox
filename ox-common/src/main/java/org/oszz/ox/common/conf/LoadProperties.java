@@ -29,15 +29,8 @@ public class LoadProperties implements ILoadPropertiesFile {
 
 	@Override
 	public <T> T load(Properties properties, Class<T> clazz) {
-//		Class<?>[] innerClasses = ClassUtils.getInnerClasses(clazz);
 		T instance = ClassUtils.newInstance(clazz);
 		setValue(instance, properties);
-//		if(innerClasses != null && innerClasses.length != 0 ){
-//			for(Class<?> innerClass : innerClasses){
-//				Object innerClassInstance = ClassUtils.newInstanceForInnerClass(innerClass, instance);
-//				setValue(innerClassInstance, true, properties);
-//			}
-//		}
 		return instance;
 	}
 	
@@ -55,14 +48,6 @@ public class LoadProperties implements ILoadPropertiesFile {
 	}
 	
 	private String getKey(Class<?> clazz, Field field){
-//		String key = "";
-//		if(isInnerClass){
-//			key = CONFIG_PREFIX + SystemProperty.PACKAGE_SEPARATOR.getValue() +
-//					clazz.getSimpleName() + SystemProperty.PACKAGE_SEPARATOR.getValue() + 
-//					field.getName();
-//		}else{
-//			key = CONFIG_PREFIX + SystemProperty.PACKAGE_SEPARATOR.getValue() + field.getName();
-//		}
 		String key = clazz.getSimpleName() + SystemProperty.PACKAGE_SEPARATOR.getValue() + field.getName();
 		return key;
 	}

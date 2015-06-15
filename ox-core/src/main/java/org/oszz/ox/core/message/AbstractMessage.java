@@ -1,16 +1,11 @@
 package org.oszz.ox.core.message;
 
-import com.google.protobuf.GeneratedMessage;
+import com.google.protobuf.MessageLite;
 
 public abstract class AbstractMessage implements IMessage{
 
 	private short code;
-	private GeneratedMessage generatedMessage;
-	
-	public AbstractMessage(short code, GeneratedMessage generatedMessage){
-		this.code = code;
-		this.generatedMessage = generatedMessage;
-	}
+	private MessageLite messageLite;
 	
 	@Override
 	public short getCode() {
@@ -18,7 +13,8 @@ public abstract class AbstractMessage implements IMessage{
 	}
 	
 	@Override
-	public GeneratedMessage getProtobufMessage() {
-		return this.generatedMessage;
+	public MessageLite toProtobufMessage(byte[] bytes, Class<? extends MessageLite> clazz) {
+		
+		return this.messageLite;
 	}
 }
