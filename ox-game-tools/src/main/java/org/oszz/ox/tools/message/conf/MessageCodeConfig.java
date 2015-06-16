@@ -16,8 +16,11 @@ public class MessageCodeConfig {
 	
 	private String constName;
 	
+	private String messageProcesserType;
+	
 	public MessageCodeConfig(String hexCode, String msgName, String msgType, String msgPackageName,
-			boolean isGenerator, String comments, String handlerClassPackageName){
+			boolean isGenerator, String comments, String handlerClassPackageName, 
+			String messageProcesserType){
 		this.hexCode = hexCode;
 		this.msgName = msgName;
 		this.msgType = msgType;
@@ -25,8 +28,11 @@ public class MessageCodeConfig {
 		this.isGenerator = isGenerator;
 		this.comments = comments;
 		this.handlerClassPackageName = handlerClassPackageName;
+		this.messageProcesserType = messageProcesserType;
+		
 		
 		this.constName = NameUtils.getConstName(msgName);//常量名;
+		
 	}
 	
 
@@ -58,6 +64,11 @@ public class MessageCodeConfig {
 		return handlerClassPackageName;
 	}
 	
+	public String getMessageProcesserType() {
+		return messageProcesserType;
+	}
+
+
 	/**
 	 * 返回消息code的常量名
 	 * @author ZZ

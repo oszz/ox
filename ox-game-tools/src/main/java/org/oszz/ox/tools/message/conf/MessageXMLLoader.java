@@ -37,8 +37,9 @@ public class MessageXMLLoader implements IXMLLoader<MessageCodeConfig> {
         	String msgType = msgNode.attribute(MessageConstant.XML_ATTRIBUTE_TYPE).getStringValue();
         	String msgPackageName = msgNode.attribute(MessageConstant.XML_ATTRIBUTE_PACEAGE_NAME).getStringValue();
         	boolean isGenerator = Boolean.parseBoolean(msgNode.attribute(MessageConstant.XML_ATTRIBUTE_IS_GENERATOR).getStringValue());
-          	 
-          	Element commentsNode = msgNode.element(MessageConstant.XML_NODE_COMMENTS);//注释的节点
+        	String messageProcesserType = msgNode.attribute(MessageConstant.XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE).getStringValue();
+          
+        	Element commentsNode = msgNode.element(MessageConstant.XML_NODE_COMMENTS);//注释的节点
           	String comments = commentsNode.getText();//注释的内容
           	String handlerClassPackageName = "";
           	if(msgType.equalsIgnoreCase(MessageConstant.MESSAGE_CG_TYPE)){//如果是CG类型的消息，需要读取handler节点
@@ -51,7 +52,7 @@ public class MessageXMLLoader implements IXMLLoader<MessageCodeConfig> {
           		}
           	}
           	String hexCode = StringUtils.toHex(CODE_START++);
-          	MessageCodeConfig msgCodeConfig = new MessageCodeConfig(hexCode, msgName, msgType, msgPackageName, isGenerator, comments, handlerClassPackageName);
+          	MessageCodeConfig msgCodeConfig = new MessageCodeConfig(hexCode, msgName, msgType, msgPackageName, isGenerator, comments, handlerClassPackageName, messageProcesserType);
           	msgCodeConfigs.add(msgCodeConfig);
         }
         return msgCodeConfigs;

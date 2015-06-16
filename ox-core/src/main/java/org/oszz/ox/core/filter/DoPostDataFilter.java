@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
 import org.oszz.ox.core.message.MessageCodeMapping;
 import org.oszz.ox.core.message.OXMessage;
@@ -35,7 +36,7 @@ public class DoPostDataFilter implements IFilter {
 			IMessageHandler msgHandler = MessageCodeMapping.getInstance().getMessageHandler(code);
 			
 			IPlayer player = gsSession.getPlayer();
-			OXMessage oxMessage = new OXMessage(code);
+			IMessage oxMessage = new OXMessage(code);
 			oxMessage.toProtobufMessage(bytes, msgClass);
 			
 			msgHandler.handle(player, oxMessage);

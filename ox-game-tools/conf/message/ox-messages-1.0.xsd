@@ -27,9 +27,11 @@
     	<!-- 生成消息的包名 -->
     	<xsd:attribute name="paceageName" type="str" use="required"/>
     	<!-- 消息类型：GC或CG -->
-        <xsd:attribute name="type" type="messageType" use="optional" default="GC"/>
+        <xsd:attribute name="type" type="messageType" use="required"/>
         <!-- 是否生成消息类和处理类，如果已经生成过，则不必重复生成 -->
-        <xsd:attribute name="isGenerator" type="bool" use="optional" default="true"/>
+        <xsd:attribute name="isGenerator" type="bool" use="required"/>
+        <!-- 消息在哪个线程执行的枚举： ASYN或SCENE或WORLD -->
+        <xsd:attribute name="messageProcesserType" type="messageProcesserType" use="required"/>
      
 	</xsd:complexType>
 	 
@@ -38,6 +40,15 @@
 	  <xsd:restriction base="xsd:string">
 	    <xsd:enumeration value="GC"/>
 	    <xsd:enumeration value="CG"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- 消息在哪个线程执行的枚举： ASYN或SCENE或WORLD -->
+	<xsd:simpleType name="messageProcesserType">
+	  <xsd:restriction base="xsd:string">
+	  	<xsd:enumeration value="ASYN"/>
+	    <xsd:enumeration value="SCENE"/>
+	    <xsd:enumeration value="WORLD"/>
 	  </xsd:restriction>
 	</xsd:simpleType>
 	

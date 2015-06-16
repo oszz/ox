@@ -2,6 +2,11 @@ package org.oszz.ox.server.client;
 
 import java.io.IOException;
 
+import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.message.OXMessage;
+import org.oszz.ox.server.base.message.MessageCode;
+import org.oszz.ox.server.module.auth.msg.AuthProto;
+
 public class HttpRequest {
 	
 	/**
@@ -29,11 +34,11 @@ public class HttpRequest {
 	 * @throws IOException
 	 */
 	public void auth(String openId) throws IOException{
-//		AuthProto.CGLogin.Builder cgLoginBuilder = AuthProto.CGLogin.newBuilder();
-//		cgLoginBuilder.setOpenId(openId);
-//		AuthProto.CGLogin cgLogin = cgLoginBuilder.build();
-//		IMessage cgLoginMessage = new OXMessage((short)1, cgLogin);
-//		HttpUtils.read(URL, HttpUtils.POST_REQ, cgLoginMessage);
+		AuthProto.CGLogin.Builder cgLoginBuilder = AuthProto.CGLogin.newBuilder();
+		cgLoginBuilder.setOpenId(openId);
+		AuthProto.CGLogin cgLogin = cgLoginBuilder.build();
+		IMessage cgLoginMessage = new OXMessage(MessageCode.AUTH_PROTO_C_G_LOGIN, cgLogin);
+		HttpUtils.read(URL, HttpUtils.POST_REQ, cgLoginMessage);
 	}
 	
 }

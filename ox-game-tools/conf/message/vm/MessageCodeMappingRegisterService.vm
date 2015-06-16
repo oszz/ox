@@ -1,6 +1,7 @@
 package org.oszz.ox.server.base.message;
 
 import org.oszz.ox.core.message.MessageCodeMapping;
+import org.oszz.ox.core.message.MessageProcesserType;
 
 /**
  * 消息编码与消息类、消息处理类的对应关系<br>
@@ -11,7 +12,9 @@ import org.oszz.ox.core.message.MessageCodeMapping;
 public class MessageCodeMappingRegisterService {
 
 	public void init(){
-		MessageCodeMapping.getInstance().register(MessageCode.AUTH_PROTO_C_G_LOGIN, org.oszz.ox.server.module.auth.msg.AuthProto.CGLogin.class, new org.oszz.ox.server.module.auth.handler.AuthProtoCGLoginHnadler());
-		
-	}
+		#foreach ($mcmrsc in ${mcmrscs})
+//${mcmrsc.comments}
+		MessageCodeMapping.getInstance().register(MessageCode.${mcmrsc.constName}, ${mcmrsc.msgClass}, new ${mcmrsc.handlerClass}(), ${mcmrsc.messageProcesserType});
+		#end
+}
 }

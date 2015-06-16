@@ -1,4 +1,4 @@
-package org.oszz.ox.server.module.auth.msg;
+package org.oszz.ox.server.module.auth.handler;
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;

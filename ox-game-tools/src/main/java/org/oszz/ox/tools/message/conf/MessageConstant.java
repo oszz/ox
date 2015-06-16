@@ -57,4 +57,9 @@ public interface MessageConstant {
 	 * 消息类型：CG 客户端到服务端的消息
 	 */
 	public static final String MESSAGE_CG_TYPE = "CG";
+	
+	/**
+	 * XML的messageProcesserType属性名称
+	 */
+	public static final String XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE = "messageProcesserType";
 }

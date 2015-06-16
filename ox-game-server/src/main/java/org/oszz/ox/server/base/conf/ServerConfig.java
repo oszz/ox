@@ -16,9 +16,11 @@ public class ServerConfig extends BaseConfig {
 	private String serverId;//服务器ID
 	
 	private String language;//语言版本：中文、英文
-	private String charset;
+	private String charset;//字符集
 	
-
+	private int asynThreadSize;//异步服务的线程池大小
+	private int sceneNum;//场景线程的数量
+	
 	public int getServerType() {
 		return serverType;
 	}
@@ -66,5 +68,21 @@ public class ServerConfig extends BaseConfig {
 
 	public void setCharset(String charset) {
 		this.charset = charset;
+	}
+
+	public int getAsynThreadSize() {
+		return asynThreadSize;
+	}
+
+	public void setAsynThreadSize(int asynThreadSize) {
+		this.asynThreadSize = asynThreadSize;
+	}
+
+	public int getSceneNum() {
+		return sceneNum;
+	}
+
+	public void setSceneNum(int sceneNum) {
+		this.sceneNum = sceneNum;
 	}
 }
