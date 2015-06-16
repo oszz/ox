@@ -97,7 +97,7 @@ public class Globals {
 		ProcesserService processerService = new ProcesserService(serverConfig.getAsynThreadSize(), serverConfig.getSceneNum());
 		services.put(ProcesserService.class, processerService);
 		
-//		startService();
+		startService();
 	}
 	
 	private static void startService(){
