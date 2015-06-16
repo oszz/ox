@@ -10,5 +10,4 @@ public interface IFilter {
 
 	public void doInputFilter(GSSession gsSession, HttpServletRequest request, 
 			HttpServletResponse response);
-	
 }

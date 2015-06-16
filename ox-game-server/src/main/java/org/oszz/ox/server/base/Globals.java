@@ -11,7 +11,6 @@ import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.log.GameLogger;
-import org.oszz.ox.server.base.message.MessageCodeMappingRegisterService;
 
 /**
  * 这里的方法都是静态的
@@ -81,8 +80,8 @@ public class Globals {
 	 * @author ZZ
 	 */
 	public static void initService(){
-		MessageCodeMappingRegisterService mcmService = new MessageCodeMappingRegisterService();
-		mcmService.init();
+//		MessageCodeMappingRegisterService mcmService = new MessageCodeMappingRegisterService();
+//		mcmService.init();
 	}
 
 }

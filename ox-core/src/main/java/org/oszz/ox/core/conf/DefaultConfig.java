@@ -27,8 +27,6 @@ public enum DefaultConfig {
 	 * ProtoBuf类的newBuilder方法名
 	 */
 	PROTO_BUF_NEW_BUILDER_METHOD_NAME("newBuilder"),
-	
-	
 	;
 
 	private String value = "";

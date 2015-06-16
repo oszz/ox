@@ -280,6 +280,4 @@ public class ClassUtils {
 	    Method method = clazz.getMethod(staticMethodName);  
 		return method.invoke(null, paras);
 	}
-	
-	  
 }

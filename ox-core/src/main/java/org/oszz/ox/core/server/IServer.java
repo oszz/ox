@@ -1,9 +1,5 @@
 package org.oszz.ox.core.server;
 
-import java.util.List;
-
-import org.oszz.ox.core.filter.IFilter;
-import org.oszz.ox.core.filter.IFilterChain;
 
 /**
  * 服务器的接口（JETTY、 MINA等）
@@ -19,8 +15,6 @@ public interface IServer {
 	public void stop()  throws Exception;
 	
 	public void restart()  throws Exception;
-	
-	public IFilterChain getFilterChain();
 	
 	public void addContext(int port, String... contextPaths);
 }

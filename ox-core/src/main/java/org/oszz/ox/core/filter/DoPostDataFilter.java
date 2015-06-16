@@ -20,6 +20,7 @@ public class DoPostDataFilter implements IFilter {
 	@Override
 	public void doInputFilter(GSSession gsSession, HttpServletRequest request,
 			HttpServletResponse response) {
+
 		InputStream is = null;
 		DataInputStream dis = null;
 		try{
@@ -38,6 +39,7 @@ public class DoPostDataFilter implements IFilter {
 			oxMessage.toProtobufMessage(bytes, msgClass);
 			
 			msgHandler.handle(player, oxMessage);
+			
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
