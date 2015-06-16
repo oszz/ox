@@ -5,12 +5,16 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.eclipse.jetty.continuation.Continuation;
-import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.conf.HttpSessionKey;
+import org.oszz.ox.core.filter.DoGetDataFilter;
+import org.oszz.ox.core.filter.DoPostDataFilter;
+import org.oszz.ox.core.filter.IFilter;
+import org.oszz.ox.core.session.GSSession;
 
 /**
  * jetty's server的请求处理者
@@ -21,13 +25,25 @@ public class JettyServerHandler extends AbstractHandler{
 	
 	private String charset = null;
 	
+//	private IFilterChain filterChain;
+	
+	private boolean isDebug;
+	
+	private IFilter doGetDataFilter; 
+	private IFilter doPostDataFilter; 
+	
 	
 	protected JettyServerHandler(){
 		this(DefaultConfig.CHARSET.getValue());
+		
 	}
 
 	protected JettyServerHandler(String charset){
 		this.charset = charset;
+//		filterChain = new DefaultFilterChain(isDebug, charset);
+		
+		doGetDataFilter = new DoGetDataFilter(isDebug);
+		doPostDataFilter = new DoPostDataFilter();
 	}
 	protected String getCharset() {
 		return charset;
@@ -35,28 +51,66 @@ public class JettyServerHandler extends AbstractHandler{
 	protected void setCharset(String charset) {
 		this.charset = charset;
 	}
-
-
+	
+	protected void setDebug(boolean isDebug) {
+		this.isDebug = isDebug;
+	}
+	
+	
 	@Override
 	public void handle(String target, Request baseRequest, 
 			HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
+		
+		System.out.println(baseRequest);
+		
 		baseRequest.setHandled(true);
 		String charset = getCharset();
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
-
-		final Continuation continuation = ContinuationSupport.getContinuation(request);  
-		
 		String methodName = request.getMethod();
-		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			
-		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			
+		
+//		HttpSession httpSession = request.getSession(true);
+		HttpSession httpSession = request.getSession(true);
+		System.out.println(httpSession.getId());
+//		String playerKey = HttpSessionKey.PLAYER.getValue();
+//		IPlayer player = (IPlayer)httpSession.getAttribute(playerKey);
+//		if(player == null){//说明是初始
+//			player = new Player();
+//			player.setHttpSession(httpSession);
+//			httpSession.setAttribute(playerKey, player);
+//		}
+		String gsSessionKey = HttpSessionKey.GS_SESSION.getValue();
+		GSSession gsSession = (GSSession)httpSession.getAttribute(gsSessionKey);
+		if(gsSession == null){
+			gsSession = new GSSession();
+			gsSession.setHttpSession(httpSession);
+			httpSession.setAttribute(gsSessionKey, gsSession);
 		}
 		
-		response.getWriter().write("ssssssss");
-		response.getWriter().flush();
+		
+		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			if(isDebug){//是debug状态，才接受get请求
+				doGetDataFilter.doInputFilter(gsSession, request, response);
+			}
+		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
+			doPostDataFilter.doInputFilter(gsSession, request, response);
+		}
+		
+		
+		
+//		final Continuation continuation = ContinuationSupport.getContinuation(request); 
+//		if (continuation.isInitial()) {  
+//			continuation.suspend();
+//			if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
+//				
+//			}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
+//				
+//			}
+//			continuation.resume();
+//			 
+//			return; // or continuation.undispatch();  
+//		}
 	}
 
 }

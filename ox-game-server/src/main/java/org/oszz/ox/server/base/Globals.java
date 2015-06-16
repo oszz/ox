@@ -6,12 +6,12 @@ import java.util.Properties;
 
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
-import org.oszz.ox.common.log.LoggerWritor;
 import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
-import org.oszz.ox.server.base.conf.MinaServerConfig;
+import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.log.GameLogger;
+import org.oszz.ox.server.base.message.MessageCodeMappingRegisterService;
 
 /**
  * 这里的方法都是静态的
@@ -31,8 +31,9 @@ public class Globals {
 	private static Class<?>[] configClasses = new Class<?>[]{
 			ServerConfig.class, 
 			JettyServerConfig.class,
-			MinaServerConfig.class, 
-			DBConfig.class}; 
+			DBConfig.class,
+			RedisConfig.class
+			}; 
 	
 	/**
 	 * 初始化
@@ -40,6 +41,7 @@ public class Globals {
 	 */
 	public static void init(String configFilePath){
 		initConfig(configFilePath);
+		initService();
 	}
 	
 	/**
@@ -48,18 +50,18 @@ public class Globals {
 	 * @param configFilePath 配置文件的路径
 	 */
 	private static void initConfig(String configFilePath){
-		LoggerWritor.info(GameLogger.SYSTEM, "init config starting.");
+		GameLogger.SYSTEM.info("init config starting.");
 		configs = new HashMap<Class<?>, Object>();
 		ILoadPropertiesFile lpf = new LoadProperties();
 		Properties confProps = lpf.load(configFilePath);
-		LoggerWritor.info(GameLogger.SYSTEM, "read config file:" + configFilePath);
+		GameLogger.SYSTEM.info("read config file:{}", configFilePath);
 		
 		for(Class<?> clazz : configClasses){
 			Object configObj = lpf.load(confProps, clazz);
 			configs.put(clazz, configObj);
-			LoggerWritor.info(GameLogger.SYSTEM, "load config:" + configObj);
+			GameLogger.SYSTEM.info("load config:{}", configObj);
 		}
-		LoggerWritor.info(GameLogger.SYSTEM, "init config end.");
+		GameLogger.SYSTEM.info("init config end.");
 	}
 	
 
@@ -72,6 +74,15 @@ public class Globals {
 	@SuppressWarnings("unchecked")
 	public static <T> T getCofing(Class<T> clazz) {
 		return (T)configs.get(clazz);
+	}
+	
+	/**
+	 * 初始化服务
+	 * @author ZZ
+	 */
+	public static void initService(){
+		MessageCodeMappingRegisterService mcmService = new MessageCodeMappingRegisterService();
+		mcmService.init();
 	}
 
 }

@@ -23,10 +23,12 @@ public class NameUtils {
 					String underLineChar = SystemProperty.UNDERLINE_CHAR.getValue();
 					strBuilder.append(underLineChar);
 				}
-				
 				strBuilder.append(c);
 			}else{
-				strBuilder.append(upper(c+""));
+				if(c != SystemProperty.PACKAGE_SEPARATOR.getValue().charAt(0)){
+					strBuilder.append(upper(c+""));
+				}
+				
 			}
 		}
 		return strBuilder.toString();

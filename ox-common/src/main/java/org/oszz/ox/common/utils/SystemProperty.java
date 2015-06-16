@@ -75,7 +75,7 @@ public enum SystemProperty {
 	},
 	
 	/**
-	 * 类文件的后缀
+	 * 类文件的后缀 .class
 	 */
 	CLASS_SUFFIX(".class") {
 		@Override
@@ -126,6 +126,16 @@ public enum SystemProperty {
 	 * 空字符串：""
 	 */
 	EMPTY_STRING(""){
+		@Override
+		public String getValue() {
+			return this.getKey();
+		}
+	},
+	
+	/**
+	 * java类文件的后缀 .java
+	 */
+	JAVA_CLASS_SUFFIX(".java") {
 		@Override
 		public String getValue() {
 			return this.getKey();

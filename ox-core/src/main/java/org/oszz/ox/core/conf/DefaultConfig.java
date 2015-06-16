@@ -8,7 +8,8 @@ package org.oszz.ox.core.conf;
 public enum DefaultConfig {
 	
 	/**
-	 * 默认字符集
+	 * 默认字符集<br>
+	 * UTF-8
 	 */
 	CHARSET("UTF-8"),
 	
@@ -21,6 +22,13 @@ public enum DefaultConfig {
 	 * POST请求
 	 */
 	HTTP_POST_REQUEST("POST"),
+	
+	/**
+	 * ProtoBuf类的newBuilder方法名
+	 */
+	PROTO_BUF_NEW_BUILDER_METHOD_NAME("newBuilder"),
+	
+	
 	;
 
 	private String value = "";

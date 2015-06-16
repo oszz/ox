@@ -14,4 +14,6 @@ public interface IHandler {
 	public <T> T getServerHandler();
 	
 	public <T> void handle(IPlayer palyer, T para);
+	
+	public void setDebug(boolean isDebug);
 }

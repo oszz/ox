@@ -3,6 +3,7 @@ package org.oszz.ox.core.server;
 import java.util.List;
 
 import org.oszz.ox.core.filter.IFilter;
+import org.oszz.ox.core.filter.IFilterChain;
 
 /**
  * 服务器的接口（JETTY、 MINA等）
@@ -11,17 +12,15 @@ import org.oszz.ox.core.filter.IFilter;
  */
 public interface IServer {
 
-	public void setPort(int port);
-	
 	public void setHandler(IHandler handler);
 	
-	public void start() throws Exception;
+	public void start() throws Exception ;
 	
 	public void stop()  throws Exception;
 	
 	public void restart()  throws Exception;
 	
-	public void addFilterAtLast(IFilter filter);
+	public IFilterChain getFilterChain();
 	
-	public List<IFilter> getFilterChain();
+	public void addContext(int port, String... contextPaths);
 }

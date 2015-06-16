@@ -1,6 +1,7 @@
 package org.oszz.ox.core.server;
 
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.filter.IFilterChain;
 
 /**
  * 抽象的处理类
@@ -12,6 +13,8 @@ public abstract class AbstractJettyHandler implements IHandler {
 	private JettyServerHandler jettyServerHandler;
 	
 	private String charsetName;
+	
+//	private boolean isDebug = false;
 	
 	public AbstractJettyHandler(){
 		this(DefaultConfig.CHARSET.getValue());
@@ -31,6 +34,12 @@ public abstract class AbstractJettyHandler implements IHandler {
 	@Override
 	public JettyServerHandler getServerHandler() {
 		return jettyServerHandler;
+	}
+	
+	@Override
+	public void setDebug(boolean isDebug) {
+//		this.isDebug = isDebug;
+		jettyServerHandler.setDebug(isDebug);
 	}
 	
 }

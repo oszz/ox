@@ -257,4 +257,29 @@ public class ClassUtils {
 		return content.toString();
 	}
 	
+	/**
+	 * 将包名转成路径名
+	 * @author ZZ
+	 * @param packageName 包名
+	 * @return 返回路径名
+	 */
+	public static String packageName2Path(String packageName){
+		return packageName.replace(SystemProperty.PACKAGE_SEPARATOR.getValue(), SystemProperty.FILE_SEPARATOR.getValue());
+	}
+	
+	/**
+	 * 调用某个类的静态方法
+	 * @author ZZ
+	 * @param clazz 类
+	 * @param staticMethodName 静态方法名
+	 * @param paras 参数
+	 * @return
+	 * @throws Exception
+	 */
+	public static Object invokeStaticMethod(Class<?> clazz, String staticMethodName, Object... paras) throws Exception {
+	    Method method = clazz.getMethod(staticMethodName);  
+		return method.invoke(null, paras);
+	}
+	
+	  
 }

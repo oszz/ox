@@ -1,13 +1,12 @@
 package org.oszz.ox.server.base.conf;
 
-import org.oszz.ox.common.utils.ClassUtils;
 
 /**
  * 数据库配置
  * @author ZZ
  *
  */
-public class DBConfig {
+public class DBConfig extends BaseConfig {
 	private String driver;
 	private String url;
 	private String username;
@@ -35,9 +34,5 @@ public class DBConfig {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	@Override
-	public String toString() {
-		return ClassUtils.toString(this);
 	}
 }
