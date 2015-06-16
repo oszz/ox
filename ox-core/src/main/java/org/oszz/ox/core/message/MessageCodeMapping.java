@@ -6,11 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.oszz.ox.common.tuple.TwoTuple;
 
 import com.google.protobuf.GeneratedMessage;
-import com.google.protobuf.MessageLite;
 
 public class MessageCodeMapping {
 
-//	public Map<Short, Class<? extends MessageLite>> msgCodeMappings;
 	
 	public Map<Short, TwoTuple<Class<? extends GeneratedMessage>, IMessageHandler>> msgCodeMappings;
 

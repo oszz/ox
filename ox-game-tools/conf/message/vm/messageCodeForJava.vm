@@ -7,7 +7,6 @@ public final class MessageCode {
 	 * ${msgCodeConf.comments}
 	 */
 	public static final short ${msgCodeConf.constName} = ${msgCodeConf.hexCode};
-		
 	#end
 	
 }

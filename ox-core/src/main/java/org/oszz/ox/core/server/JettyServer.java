@@ -10,7 +10,6 @@ import org.eclipse.jetty.server.session.HashSessionIdManager;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.oszz.ox.core.conf.DefaultConfig;
-import org.oszz.ox.core.filter.IFilterChain;
 
 public class JettyServer implements IServer{
 	
@@ -25,9 +24,6 @@ public class JettyServer implements IServer{
 	private SessionManager sessionManager;
 	
 	private SessionHandler sessions;
-	
-	private IFilterChain filterChain;
-	
 	
 	public JettyServer(){
 		this(Boolean.FALSE, DefaultConfig.CHARSET.getValue());
@@ -44,12 +40,6 @@ public class JettyServer implements IServer{
 		// Create the SessionHandler (wrapper) to handle the sessions
         sessionManager = new HashSessionManager();
         sessions = new SessionHandler(sessionManager);
-        
-        initFilterChain();
-	}
-	
-	private void initFilterChain(){
-		
 	}
 
 	@Override
@@ -75,12 +65,6 @@ public class JettyServer implements IServer{
 	public void restart() throws Exception {
 		stop();
 		start();
-	}
-
-
-	@Override
-	public IFilterChain getFilterChain() {
-		return this.filterChain;
 	}
 
 

@@ -25,8 +25,6 @@ public class JettyServerHandler extends AbstractHandler{
 	
 	private String charset = null;
 	
-//	private IFilterChain filterChain;
-	
 	private boolean isDebug;
 	
 	private IFilter doGetDataFilter; 

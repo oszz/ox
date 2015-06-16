@@ -1,7 +1,6 @@
 package org.oszz.ox.core.server;
 
 import org.oszz.ox.core.conf.DefaultConfig;
-import org.oszz.ox.core.filter.IFilterChain;
 
 /**
  * 抽象的处理类
