@@ -2,7 +2,7 @@ package org.oszz.ox.core.processer;
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.server.req.IAsynRequest;
 
 
 /**
@@ -16,5 +16,5 @@ public interface IProcesser {
 	
 	public void stop();
 	
-	public void putMessage(IMessageHandler msgHandler, IPlayer palyer, IMessage message);
+	public void putMessage(IPlayer player, IMessage message, IAsynRequest asynReq);
 }

@@ -1,5 +1,8 @@
 package org.oszz.ox.core.session;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +24,8 @@ public class GSSession implements ISession {
 	private IPlayer player;
 	
 	public GSSession(){
-		player = new Player();
+		this.player = new Player();
+		player.setSession(this);
 	}
 
 	@Override
@@ -53,6 +57,32 @@ public class GSSession implements ISession {
 	@Override
 	public IPlayer getPlayer() {
 		return this.player;
+	}
+
+	@Override
+	public void sendTest(String message) {
+		try {
+			this.response.getWriter().write(message);
+			this.response.getWriter().flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void send(byte[] bytes) {
+		OutputStream out = null;
+		try {
+			out = this.response.getOutputStream();
+			out.write(bytes);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(out != null){try {out.close();} catch (IOException e) {}}
+		}
 	}
 
 }

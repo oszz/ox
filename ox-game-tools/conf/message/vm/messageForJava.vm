@@ -1,0 +1,35 @@
+package ${msgPackageName};
+
+import org.oszz.ox.core.message.AbstractMessage;
+import org.oszz.ox.server.base.message.MessageCode;
+
+import com.google.protobuf.GeneratedMessage;
+import com.google.protobuf.Message;
+
+/**
+ * ${comments}<br>
+ * Auto Generator, Don't Modify .
+ * @author ZZ
+ *
+ */
+public class ${msgClassName} extends AbstractMessage {
+
+	public ${msgClassName}() {
+		
+	}
+
+	public ${msgClassName}(Message protoMsg) {
+		super(protoMsg);
+	}
+
+	@Override
+	public short getCode() {
+		return MessageCode.${msgCodeConstName};
+	}
+
+	@Override
+	public Class<? extends GeneratedMessage> getProtobufMessageClass() {
+		return ${protobufMessageClass};
+	}
+
+}

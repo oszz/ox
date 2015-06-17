@@ -19,4 +19,9 @@ public interface ISession {
 	
 	public IPlayer getPlayer();
 	
+	
+	public void sendTest(String message);
+	
+	public void send(byte[] bytes);
+	
 }

@@ -14,5 +14,9 @@ public final class MessageCode {
 	 * 玩家主动退出
 	 */
 	public static final short AUTH_PROTO_C_G_LOGOUT = 0x0003;
+	/**
+	 * 错误提示信息
+	 */
+	public static final short INFO_PROTO_G_C_ERROR_PROMPT = 0x0004;
 		
 }

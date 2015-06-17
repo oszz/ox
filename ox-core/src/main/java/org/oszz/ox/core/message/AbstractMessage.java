@@ -3,32 +3,27 @@ package org.oszz.ox.core.message;
 import java.nio.ByteBuffer;
 
 import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.server.req.IAsynRequest;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.Builder;
 import com.google.protobuf.Message;
 
-public class OXMessage implements IMessage{
+public abstract class AbstractMessage implements IMessage{
 
-	protected short code;
 	protected Message protoMsg;
 	
-	public OXMessage(){
+	private IMessageHandler msgHandler;
+	
+	private MessageProcesserType messageProcesserType;
+	
+	public AbstractMessage(){
 	}
 	
-	public OXMessage(Short code){
-		this.code = code;
-	}
-	
-	public OXMessage(Short code, Message protoMsg){
-		this.code = code;
+	public AbstractMessage(Message protoMsg){
 		this.protoMsg = protoMsg;
-	}
-	
-	@Override
-	public short getCode() {
-		return this.code;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -56,16 +51,37 @@ public class OXMessage implements IMessage{
 		
 		int capacity = protoMsgLength + 4 + 2;//4是length的字节数，2是code的字节数
 		ByteBuffer byteBuff = ByteBuffer.allocate(capacity);
-		byteBuff.putShort(this.code);
+		byteBuff.putShort(this.getCode());
 		byteBuff.putInt(protoMsgLength);
 		byteBuff.put(protoMsgBytes);
 		
 		return byteBuff.array();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getProtobufMessage(Class<T> calzz) {
-		return (T)getProtobufMessage();
+	public <T extends GeneratedMessage> T getProtobufMessage(Class<T> clazz) {
+		return (T)this.getProtobufMessage();
+	}
+	
+	@Override
+	public void setMsgHandler(IMessageHandler msgHandler) {
+		this.msgHandler = msgHandler;
+	}
+	
+	@Override
+	public void execute(IPlayer player) {
+		this.msgHandler.handle(player, this);
+	}
+	
+	@Override
+	public MessageProcesserType getMessageProcesserType() {
+		return this.messageProcesserType;
+	}
+	
+	@Override
+	public void setMessageProcesserType(
+			MessageProcesserType messageProcesserType) {
+		this.messageProcesserType = messageProcesserType;
 	}
 }

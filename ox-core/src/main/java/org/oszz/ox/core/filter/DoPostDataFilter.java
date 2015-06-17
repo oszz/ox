@@ -5,49 +5,51 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
 import org.oszz.ox.core.message.MessageCodeMapping;
-import org.oszz.ox.core.message.OXMessage;
-import org.oszz.ox.core.session.GSSession;
+import org.oszz.ox.core.message.MessageProcesserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.google.protobuf.GeneratedMessage;
-
+/**
+ * 过滤Post请求的数据
+ * @author ZZ
+ *
+ */
 public class DoPostDataFilter implements IFilter {
+	protected static final Logger log = LoggerFactory.getLogger("DoPostDataFilter");
 	
 	@Override
-	public void doInputFilter(GSSession gsSession, HttpServletRequest request,
-			HttpServletResponse response) {
-
+	public IMessage doInputFilter(HttpServletRequest request) {
+		IMessage message = null;
 		InputStream is = null;
 		DataInputStream dis = null;
 		try{
 			is = request.getInputStream();
 			dis = new DataInputStream(is);
-			short code = dis.readShort();
-			int length = dis.readInt();
-			byte[] bytes = new byte[length];
+			short code = dis.readShort();//消息编码
+			int length = dis.readInt();//消息长度
+			byte[] bytes = new byte[length];//存放消息的内容
 			dis.read(bytes);
 			
-			Class<? extends GeneratedMessage> msgClass = MessageCodeMapping.getInstance().getMessageClass(code);
+			Class<? extends IMessage> msgClass = MessageCodeMapping.getInstance().getMessageClass(code);
 			IMessageHandler msgHandler = MessageCodeMapping.getInstance().getMessageHandler(code);
+			MessageProcesserType messageProcesserType = MessageCodeMapping.getInstance().getMessageProcesserType(code);
 			
-			IPlayer player = gsSession.getPlayer();
-			IMessage oxMessage = new OXMessage(code);
-			oxMessage.toProtobufMessage(bytes, msgClass);
-			
-			msgHandler.handle(player, oxMessage);
-			
+			message = ClassUtils.newInstance(msgClass);
+			message.toProtobufMessage(bytes, message.getProtobufMessageClass());
+			message.setMsgHandler(msgHandler);
+			message.setMessageProcesserType(messageProcesserType);
 		}catch (Exception e){
-			e.printStackTrace();
+			log.error("从request中读取信息时出错.错误信息：{}", e);
 		}finally{
 			if(is != null){try {is.close();} catch (IOException e) {}}
 			if(dis != null){try {dis.close();} catch (IOException e) {}}
 		}
-		
+		return message;
 	}
 
 }

@@ -22,4 +22,9 @@
     	<comments>玩家主动退出</comments>
     	<handler paceageName="org.oszz.ox.server.module.auth.handler" />
     </message>
+    
+     <message name="InfoProto.GCErrorPrompt" type="GC" isGenerator="true" 
+    	paceageName="org.oszz.ox.server.module.info.msg" messageProcesserType="SCENE">
+    	<comments>错误提示信息</comments>
+    </message>
 </messages>

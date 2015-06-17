@@ -2,6 +2,7 @@ package org.oszz.ox.tools.message;
 
 import java.util.List;
 
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
 import org.oszz.ox.tools.message.conf.MessageConfig;
 import org.slf4j.Logger;
@@ -17,5 +18,15 @@ public abstract class AbstractMessageCodeGenerator extends AbstractMessageGenera
 	public AbstractMessageCodeGenerator(MessageConfig msgConfig, List<MessageCodeConfig> msgCodeConfigs) {
 		super(msgConfig);
 		this.msgCodeConfigs = msgCodeConfigs;
+	}
+	
+	@Override
+	public String getFullClassName(String packageName, String className) {
+		return getFullName(packageName, className)+ SystemProperty.CLASS_SUFFIX.getValue();
+	}
+	
+	@Override
+	public String getFullName(String packageName, String className) {
+		return packageName + "." + className;
 	}
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.server.req.IAsynRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,42 +21,45 @@ public abstract class AbstractProcesser implements IProcesser {
 	}
 	
 	@Override
-	public void putMessage(IMessageHandler msgHandler, IPlayer palyer,
-			IMessage message) {
-		ProcesserMessage pm = new ProcesserMessage(msgHandler, palyer, message);
+	public void putMessage(IPlayer player,IMessage message, IAsynRequest asynReq) {
+		ProcesserMessage pm = new ProcesserMessage(player, message, asynReq);
 		msgQueue.offer(pm);
 	}
 	
 	class ProcesserMessage{
-		private IMessageHandler msgHandler;
-		private IPlayer palyer;
+		private IPlayer player;
 		private IMessage message;
+		private IAsynRequest asynReq;
 		
-		public ProcesserMessage(IMessageHandler msgHandler, IPlayer palyer,
-				IMessage message){
-			this.msgHandler = msgHandler;
-			this.palyer = palyer;
+		public ProcesserMessage(IPlayer player,IMessage message, IAsynRequest asynReq){
+			this.player = player;
 			this.message =  message;
+			this.asynReq = asynReq;
 		}
 		
-		public IMessageHandler getMsgHandler() {
-			return msgHandler;
+		public IPlayer getPlayer() {
+			return player;
 		}
-		public void setMsgHandler(IMessageHandler msgHandler) {
-			this.msgHandler = msgHandler;
+
+		public void setPlayer(IPlayer player) {
+			this.player = player;
 		}
-		public IPlayer getPalyer() {
-			return palyer;
-		}
-		public void setPalyer(IPlayer palyer) {
-			this.palyer = palyer;
-		}
+
 		public IMessage getMessage() {
 			return message;
 		}
 		public void setMessage(IMessage message) {
 			this.message = message;
 		}
+
+		public IAsynRequest getAsynReq() {
+			return asynReq;
+		}
+
+		public void setAsynReq(IAsynRequest asynReq) {
+			this.asynReq = asynReq;
+		}
+		
 	}
 
 }

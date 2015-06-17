@@ -32,8 +32,6 @@ public class JavaMsgCodeMappingRegisterServiceGenerator extends AbstractMessageC
 
 	@Override
 	public void generate() {
-		String javaClassSuffix = SystemProperty.CLASS_SUFFIX.getValue();
-		
 		List<MsgCodeMappingRegisterServiceConfig> mcmrscs = new ArrayList<MsgCodeMappingRegisterServiceConfig>();
 		
 		for(MessageCodeConfig msgCodeConf : this.msgCodeConfigs){
@@ -41,9 +39,13 @@ public class JavaMsgCodeMappingRegisterServiceGenerator extends AbstractMessageC
 			if(!"".equalsIgnoreCase(handlerClassPackageName)){//不为空，说明需要生产handler类
 				String constName = msgCodeConf.getConstName();
 				String comments = msgCodeConf.getComments();
-				String msgClass = msgCodeConf.getMsgPackageName() + "." + msgCodeConf.getMsgName() + javaClassSuffix;
-				String handlerClass = handlerClassPackageName + "." + msgCodeConf.getMsgHandlerClassName();
+//				String protoMsgClass = this.getFullClassName(msgCodeConf.getMsgPackageName(), msgCodeConf.getMsgName());
+				String handlerClass = this.getFullName(handlerClassPackageName, msgCodeConf.getMsgHandlerClassName());
 				String messageProcesserType = msgCodeConf.getMessageProcesserType();
+				
+				String msgClassName = msgCodeConf.getMsgClassName();
+				String msgPackageName = msgCodeConf.getMsgPackageName();
+				String msgClass = this.getFullClassName(msgPackageName, msgClassName);
 				
 				if(messageProcesserType.equalsIgnoreCase(MessageProcesserType.ASYN.valueOf())){
 					messageProcesserType = ASYN;

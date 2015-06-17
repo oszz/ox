@@ -1,6 +1,7 @@
 package org.oszz.ox.core;
 
-import javax.servlet.http.HttpSession;
+import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.session.ISession;
 
 /**
  * 玩家
@@ -8,8 +9,12 @@ import javax.servlet.http.HttpSession;
  *
  */
 public interface IPlayer {
-
-	public void setHttpSession(HttpSession httpSession);
 	
+	public String getId();
 
+	public void setSession(ISession session);
+	
+	public boolean isOnLine();
+	
+	public void sendMessage(IMessage message);
 }

@@ -3,9 +3,10 @@ package org.oszz.ox.server.client;
 import java.io.IOException;
 
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.message.OXMessage;
+import org.oszz.ox.core.message.AbstractMessage;
 import org.oszz.ox.server.base.message.MessageCode;
 import org.oszz.ox.server.module.auth.msg.AuthProto;
+import org.oszz.ox.server.module.auth.msg.AuthProtoCGLoginMessage;
 
 public class HttpRequest {
 	
@@ -37,7 +38,7 @@ public class HttpRequest {
 		AuthProto.CGLogin.Builder cgLoginBuilder = AuthProto.CGLogin.newBuilder();
 		cgLoginBuilder.setOpenId(openId);
 		AuthProto.CGLogin cgLogin = cgLoginBuilder.build();
-		IMessage cgLoginMessage = new OXMessage(MessageCode.AUTH_PROTO_C_G_LOGIN, cgLogin);
+		IMessage cgLoginMessage = new AuthProtoCGLoginMessage(cgLogin);
 		HttpUtils.read(URL, HttpUtils.POST_REQ, cgLoginMessage);
 	}
 	

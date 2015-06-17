@@ -73,7 +73,7 @@ public class HttpUtils {
              String lines;  
              StringBuffer sb = new StringBuffer("");  
              while ((lines = reader.readLine()) != null) {  
-                 lines = new String(lines.getBytes(), "utf-8");  
+                 lines = new String(lines.getBytes(), "UTF-8");  
                  sb.append(lines);  
              }  
              System.out.println(sb);  

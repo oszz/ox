@@ -5,29 +5,27 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.oszz.ox.common.tuple.ThreeTuple;
 
-import com.google.protobuf.GeneratedMessage;
-
 public class MessageCodeMapping {
 
 	
-	public Map<Short, ThreeTuple<Class<? extends GeneratedMessage>, IMessageHandler, MessageProcesserType>> msgCodeMappings;
+	public Map<Short, ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType>> msgCodeMappings;
 
 	private MessageCodeMapping(){
-		msgCodeMappings = new ConcurrentHashMap<Short, ThreeTuple<Class<? extends GeneratedMessage>, IMessageHandler, MessageProcesserType>>();
+		msgCodeMappings = new ConcurrentHashMap<Short, ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType>>();
 	}
 	
 	public static MessageCodeMapping getInstance(){
 		return InnerClass.instance;
 	}
 	
-	public void register(Short msgCode, Class<? extends GeneratedMessage> generatedMessageClass, 
+	public void register(Short msgCode, Class<? extends IMessage> messageClass, 
 			IMessageHandler msgHandler, MessageProcesserType messageProcesserType){
-		ThreeTuple<Class<? extends GeneratedMessage>, IMessageHandler, MessageProcesserType> tt = 
-				new ThreeTuple<Class<? extends GeneratedMessage>, IMessageHandler, MessageProcesserType>(generatedMessageClass, msgHandler, messageProcesserType);
+		ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType> tt = 
+				new ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType>(messageClass, msgHandler, messageProcesserType);
 		msgCodeMappings.put(msgCode, tt);
 	}
 	
-	public Class<? extends GeneratedMessage> getMessageClass(Short msgCode){
+	public Class<? extends IMessage> getMessageClass(Short msgCode){
 		return msgCodeMappings.get(msgCode).getFirst();
 	}
 	

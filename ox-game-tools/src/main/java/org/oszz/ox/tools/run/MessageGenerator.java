@@ -11,6 +11,7 @@ import org.oszz.ox.tools.message.conf.MessageConfig;
 import org.oszz.ox.tools.message.conf.MessageXMLLoader;
 import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgCodeMappingRegisterServiceGenerator;
+import org.oszz.ox.tools.message.java.JavaMsgGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgHandlerGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
 
@@ -37,6 +38,12 @@ public class MessageGenerator {
 	 * 消息的配置文件
 	 */
 	private static final String MESSAGE_CODE_XML_PATH = "conf/message/messageCode.xml";
+	
+	/**
+	 * 生成消息MsgCodeMappingRegisterService的模板类
+	 */
+	private static final String  MSG_JAVA_VM_FILE = "message/vm/messageForJava.vm";
+	
 
 	public static void main(String[] args) throws Exception {
 		ILoadPropertiesFile lpf = new LoadProperties();
@@ -59,5 +66,8 @@ public class MessageGenerator {
 		
 		IMessageGenerator javaMsgCodeMappingRegisterServiceGenerator = new JavaMsgCodeMappingRegisterServiceGenerator(msgConfig, msgCodeConfigs, MSG_CODE_MAPPING_REGISTER_SERVICE_VM_FILE);
 		javaMsgCodeMappingRegisterServiceGenerator.generate();
+		
+		JavaMsgGenerator javaMsgGenerator = new JavaMsgGenerator(msgConfig, msgCodeConfigs, MSG_JAVA_VM_FILE);
+		javaMsgGenerator.generate();
 	}
 }

@@ -21,7 +21,7 @@ public abstract class AbstractJettyHandler implements IHandler {
 	
 	public AbstractJettyHandler(String charsetName){
 		this.charsetName = charsetName;
-		jettyServerHandler = new JettyServerHandler(charsetName);
+		jettyServerHandler = new JettyServerHandler(charsetName, this);
 	}
 	
 	@Override

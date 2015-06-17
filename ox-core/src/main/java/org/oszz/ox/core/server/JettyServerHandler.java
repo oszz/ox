@@ -9,11 +9,12 @@ import javax.servlet.http.HttpSession;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.conf.HttpSessionKey;
 import org.oszz.ox.core.filter.DoGetDataFilter;
 import org.oszz.ox.core.filter.DoPostDataFilter;
 import org.oszz.ox.core.filter.IFilter;
+import org.oszz.ox.core.server.req.AsynJettyContinuation;
+import org.oszz.ox.core.server.req.IAsynRequest;
 import org.oszz.ox.core.session.GSSession;
 
 /**
@@ -30,18 +31,15 @@ public class JettyServerHandler extends AbstractHandler{
 	private IFilter doGetDataFilter; 
 	private IFilter doPostDataFilter; 
 	
-	
-	protected JettyServerHandler(){
-		this(DefaultConfig.CHARSET.getValue());
-		
-	}
+	private IHandler handler;
 
-	protected JettyServerHandler(String charset){
+	protected JettyServerHandler(String charset, IHandler handler){
 		this.charset = charset;
 //		filterChain = new DefaultFilterChain(isDebug, charset);
 		
 		doGetDataFilter = new DoGetDataFilter(isDebug);
 		doPostDataFilter = new DoPostDataFilter();
+		this.handler = handler;
 	}
 	protected String getCharset() {
 		return charset;
@@ -66,7 +64,8 @@ public class JettyServerHandler extends AbstractHandler{
 		String charset = getCharset();
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
-		String methodName = request.getMethod();
+//		response.setContentType("text/html;charset=" + charset);
+//		String methodName = request.getMethod();
 		
 //		HttpSession httpSession = request.getSession(true);
 		HttpSession httpSession = request.getSession(true);
@@ -83,28 +82,26 @@ public class JettyServerHandler extends AbstractHandler{
 		if(gsSession == null){
 			gsSession = new GSSession();
 			gsSession.setHttpSession(httpSession);
+			gsSession.setResponse(response);
+			gsSession.setRequest(request);
+			
 			httpSession.setAttribute(gsSessionKey, gsSession);
 		}
-		
-		
-		if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			if(isDebug){//是debug状态，才接受get请求
-				doGetDataFilter.doInputFilter(gsSession, request, response);
-			}
-		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-			doPostDataFilter.doInputFilter(gsSession, request, response);
-		}
-		
-		
-		
+		IAsynRequest iar = new AsynJettyContinuation(gsSession,doGetDataFilter,doPostDataFilter,isDebug, handler);
+		iar.asynHandle();
 //		final Continuation continuation = ContinuationSupport.getContinuation(request); 
 //		if (continuation.isInitial()) {  
-//			continuation.suspend();
+//			continuation.suspend(response);
+//			IMessage message = null;
 //			if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-//				
+//				if(isDebug){//是debug状态，才接受get请求
+//					message = doGetDataFilter.doInputFilter(request);
+//				}
 //			}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-//				
+//				message = doPostDataFilter.doInputFilter(request);
 //			}
+//			this.handler.handle(gsSession, message);
+//			
 //			continuation.resume();
 //			 
 //			return; // or continuation.undispatch();  

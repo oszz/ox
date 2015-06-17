@@ -1,10 +1,14 @@
 package org.oszz.ox.core.filter;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.oszz.ox.core.session.GSSession;
+import org.oszz.ox.core.message.IMessage;
 
+/**
+ * 过滤Get请求的数据
+ * @author ZZ
+ *
+ */
 public class DoGetDataFilter implements IFilter {
 	
 	private boolean isDebug = false;
@@ -14,11 +18,11 @@ public class DoGetDataFilter implements IFilter {
 	}
 
 	@Override
-	public void doInputFilter(GSSession gsSession, HttpServletRequest request,
-			HttpServletResponse response) {
+	public IMessage doInputFilter( HttpServletRequest request) {
 		if(isDebug){
 			
 		}
+		return null;
 	}
 
 }

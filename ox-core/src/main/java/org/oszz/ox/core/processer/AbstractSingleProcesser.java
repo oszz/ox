@@ -3,6 +3,8 @@ package org.oszz.ox.core.processer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.oszz.ox.core.message.IMessage;
+
 /**
  * 单线程处理器
  * @author ZZ
@@ -26,12 +28,14 @@ public abstract class AbstractSingleProcesser extends AbstractProcesser{
 					try {
 						pm = msgQueue.take();
 						if(pm != null){
-							pm.getMsgHandler().handle(pm.getPalyer(), pm.getMessage());
+							IMessage message = pm.getMessage();
+							message.execute(pm.getPlayer());
+							pm.getAsynReq().callback();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						log.error("处理消息出错：玩家id-{},消息编码-{},错误信息-{}.", 
-								pm.getPalyer(), pm.getMessage().getCode(), e);
+								pm.getPlayer(), pm.getMessage().getCode(), e);
 					}
 				}
 			}

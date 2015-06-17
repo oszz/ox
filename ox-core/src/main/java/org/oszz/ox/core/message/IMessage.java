@@ -1,5 +1,7 @@
 package org.oszz.ox.core.message;
 
+import org.oszz.ox.core.IPlayer;
+
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
 
@@ -18,6 +20,16 @@ public interface IMessage {
 	
 	public Message getProtobufMessage();
 	
-	public <T> T getProtobufMessage(Class<T> calzz);
+	public <T extends GeneratedMessage> T getProtobufMessage(Class<T> clazz);
+	
+	public Class<? extends GeneratedMessage> getProtobufMessageClass();
+	
+	public void setMsgHandler(IMessageHandler msgHandler);
+	
+	public void execute(IPlayer player);
+	
+	public void setMessageProcesserType(MessageProcesserType messageProcesserType);
+
+	public MessageProcesserType getMessageProcesserType();
 
 }

@@ -1,0 +1,7 @@
+option java_package = "org.oszz.ox.server.module.info.msg";   
+option java_outer_classname = "InfoProto";   
+
+//错误提示信息
+message GCErrorPrompt{
+	required string contents = 1; 
+}
