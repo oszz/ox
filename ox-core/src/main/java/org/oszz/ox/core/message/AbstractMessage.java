@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.conf.DefaultConfig;
-import org.oszz.ox.core.server.req.IAsynRequest;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -30,7 +29,7 @@ public abstract class AbstractMessage implements IMessage{
 	@Override
 	public void toProtobufMessage(byte[] bytes, Class<? extends GeneratedMessage> clazz) {
 		try {
-			Builder builder = (Builder)ClassUtils.invokeStaticMethod(clazz, DefaultConfig.PROTO_BUF_NEW_BUILDER_METHOD_NAME.getValue(), null);
+			Builder builder = (Builder)ClassUtils.invokeStaticMethod(clazz, DefaultConfig.PROTO_BUF_NEW_BUILDER_METHOD_NAME.getValue());
 			this.protoMsg = builder.mergeFrom(bytes).build();
 		} catch (Exception e) {
 			e.printStackTrace();
