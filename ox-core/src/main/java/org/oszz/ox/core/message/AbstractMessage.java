@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.server.IAsynResponseProcesser;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -17,6 +18,8 @@ public abstract class AbstractMessage implements IMessage{
 	private IMessageHandler msgHandler;
 	
 	private MessageProcesserType messageProcesserType;
+	
+	private IAsynResponseProcesser asynRespPro;
 	
 	public AbstractMessage(){
 	}
@@ -82,5 +85,15 @@ public abstract class AbstractMessage implements IMessage{
 	public void setMessageProcesserType(
 			MessageProcesserType messageProcesserType) {
 		this.messageProcesserType = messageProcesserType;
+	}
+	
+	@Override
+	public IAsynResponseProcesser getAsynResponseProcesser() {
+		return asynRespPro;
+	}
+	
+	@Override
+	public void setAsynResponseProcesser(IAsynResponseProcesser asynRespPro) {
+		this.asynRespPro = asynRespPro;
 	}
 }

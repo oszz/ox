@@ -1,6 +1,7 @@
-package org.oszz.ox.core.server;
+package org.oszz.ox.core.server.jetty;
 
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.server.IHandler;
 
 /**
  * 抽象的处理类
@@ -8,20 +9,27 @@ import org.oszz.ox.core.conf.DefaultConfig;
  *
  */
 public abstract class AbstractJettyHandler implements IHandler {
+	
+	/**
+	 * 默认处理超时的秒数
+	 */
+	private static final int DEFAULT_TIMEOUT_SECONDS = 10;
 
 	private JettyServerHandler jettyServerHandler;
 	
 	private String charsetName;
 	
-//	private boolean isDebug = false;
-	
 	public AbstractJettyHandler(){
-		this(DefaultConfig.CHARSET.getValue());
+		this(DefaultConfig.CHARSET.getValue(), DEFAULT_TIMEOUT_SECONDS);
 	}
 	
-	public AbstractJettyHandler(String charsetName){
+	public AbstractJettyHandler(int timeoutSeconds){
+		this(DefaultConfig.CHARSET.getValue(), timeoutSeconds);
+	}
+	
+	public AbstractJettyHandler(String charsetName, int timeoutSeconds){
 		this.charsetName = charsetName;
-		jettyServerHandler = new JettyServerHandler(charsetName, this);
+		jettyServerHandler = new JettyServerHandler(charsetName, this, timeoutSeconds);
 	}
 	
 	@Override
@@ -37,8 +45,6 @@ public abstract class AbstractJettyHandler implements IHandler {
 	
 	@Override
 	public void setDebug(boolean isDebug) {
-//		this.isDebug = isDebug;
 		jettyServerHandler.setDebug(isDebug);
 	}
-	
 }

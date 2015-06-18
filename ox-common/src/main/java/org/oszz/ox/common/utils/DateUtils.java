@@ -59,4 +59,23 @@ public class DateUtils {
 		cal.set(Calendar.MILLISECOND, 0); 
 		return (int) (cal.getTimeInMillis()/1000); 
 	} 
+	
+	/**
+	 * 获得当前时间的秒数
+	 * @author ZZ
+	 * @return 获得当天24点时间 (秒)
+	 */
+	public static int getCurrentSeconds(){ 
+		return ms2seconds(System.currentTimeMillis()); 
+	}
+	
+	/**
+	 * 将毫秒数转成秒数并返回
+	 * @author ZZ
+	 * @param ms 毫秒数
+	 * @return
+	 */
+	private static int ms2seconds(long ms){
+		return Integer.parseInt(ms/1000L+"");
+	}
 }

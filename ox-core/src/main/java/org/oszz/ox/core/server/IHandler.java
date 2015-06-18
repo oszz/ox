@@ -1,7 +1,6 @@
 package org.oszz.ox.core.server;
 
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.server.req.IAsynRequest;
 import org.oszz.ox.core.session.ISession;
 
 /**
@@ -15,7 +14,7 @@ public interface IHandler {
 
 	public <T> T getServerHandler();
 	
-	public void handle(ISession session, IMessage message, IAsynRequest asynReq);
+	public void handle(ISession session, IMessage message);
 	
 	public void setDebug(boolean isDebug);
 }

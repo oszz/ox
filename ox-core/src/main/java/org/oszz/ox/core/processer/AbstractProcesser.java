@@ -4,7 +4,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.server.req.IAsynRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,20 +20,18 @@ public abstract class AbstractProcesser implements IProcesser {
 	}
 	
 	@Override
-	public void putMessage(IPlayer player,IMessage message, IAsynRequest asynReq) {
-		ProcesserMessage pm = new ProcesserMessage(player, message, asynReq);
+	public void putMessage(IPlayer player,IMessage message) {
+		ProcesserMessage pm = new ProcesserMessage(player, message);
 		msgQueue.offer(pm);
 	}
 	
 	class ProcesserMessage{
 		private IPlayer player;
 		private IMessage message;
-		private IAsynRequest asynReq;
 		
-		public ProcesserMessage(IPlayer player,IMessage message, IAsynRequest asynReq){
+		public ProcesserMessage(IPlayer player,IMessage message){
 			this.player = player;
 			this.message =  message;
-			this.asynReq = asynReq;
 		}
 		
 		public IPlayer getPlayer() {
@@ -51,15 +48,5 @@ public abstract class AbstractProcesser implements IProcesser {
 		public void setMessage(IMessage message) {
 			this.message = message;
 		}
-
-		public IAsynRequest getAsynReq() {
-			return asynReq;
-		}
-
-		public void setAsynReq(IAsynRequest asynReq) {
-			this.asynReq = asynReq;
-		}
-		
 	}
-
 }

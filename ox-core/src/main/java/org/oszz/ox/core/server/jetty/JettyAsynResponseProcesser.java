@@ -1,17 +1,28 @@
-package org.oszz.ox.core.server.req;
+package org.oszz.ox.core.server.jetty;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.continuation.Continuation;
+import org.eclipse.jetty.continuation.ContinuationListener;
 import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.filter.IFilter;
 import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.server.IAsynResponseProcesser;
 import org.oszz.ox.core.server.IHandler;
 import org.oszz.ox.core.session.GSSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class AsynJettyContinuation implements IAsynRequest{
+/**
+ * Jetty的异步处理
+ * @author ZZ
+ *
+ */
+public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
+	
+	private static final Logger log = LoggerFactory.getLogger("JettyAsynResponseProcesser");
 	
 	private final Continuation continuation;
 	
@@ -25,7 +36,9 @@ public class AsynJettyContinuation implements IAsynRequest{
 	
 	private final IHandler handler;
 	
-	public AsynJettyContinuation(GSSession gsSession, IFilter doGetDataFilter, 
+//	private int timeoutSeconds;//超时秒数
+	
+	public JettyAsynResponseProcesser(GSSession gsSession, IFilter doGetDataFilter, 
 			IFilter doPostDataFilter, boolean isDebug, IHandler handler){
 		this.gsSession = gsSession;
 		this.handler = handler;
@@ -33,7 +46,6 @@ public class AsynJettyContinuation implements IAsynRequest{
 		this.continuation = ContinuationSupport.getContinuation(request); 
 //		this.request = request;
 		this.response = gsSession.getResponse();
-		continuation.setTimeout(10);
 		continuation.suspend(response);
 		
 		String methodName = request.getMethod();
@@ -45,16 +57,43 @@ public class AsynJettyContinuation implements IAsynRequest{
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
 			message = doPostDataFilter.doInputFilter(request);
 		}
+		
+		message.setAsynResponseProcesser(this);
+		
+		initContinuationListener();
+	}
+	
+	private void initContinuationListener(){
+		continuation.addContinuationListener(new ContinuationListener() {
+			@Override
+			public void onTimeout(Continuation arg0) {
+				onTimeoutHandle();
+			}
+			@Override
+			public void onComplete(Continuation arg0) {
+				
+			}
+		});
 	}
 
 	@Override
 	public void asynHandle() {
-		this.handler.handle(gsSession, message, this);
+		this.handler.handle(gsSession, message);
 	}
 
 	@Override
-	public void callback() {
+	public void complete() {
 		continuation.complete();
+	}
+
+	@Override
+	public void onTimeoutHandle() {
+		log.error("异步处理消息-{}时，超时出错: {}", message, continuation);
+	}
+
+	@Override
+	public void setTimeout(int seconds) {
+		continuation.setTimeout(seconds * 1000L);//转成毫秒
 	}
 
 }

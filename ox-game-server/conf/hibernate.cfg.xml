@@ -43,6 +43,7 @@
         <mapping resource="com/ORM/Client.hbm.xml" />    
         <mapping resource="com/ORM/Province.hbm.xml" />    -->
 		
-		<mapping class="org.osz.gamez.server.db.entity.VersionEntity" />
+		<!-- <mapping class="org.osz.gamez.server.db.entity.VersionEntity" /> -->
+		<mapping class="org.oszz.ox.db.entity.AccountEntity" />
 	</session-factory>
 </hibernate-configuration>  

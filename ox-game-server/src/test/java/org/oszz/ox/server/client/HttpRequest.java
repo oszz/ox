@@ -25,7 +25,7 @@ public class HttpRequest {
 	 */
 	private static final int BIND_ACCOUNT = 2;
 
-	public static final String URL = "http://127.0.0.1:9973/ox"; 
+	public static final String URL = "http://127.0.0.1:9973"; 
 	
 	/**
 	 * 账号认证

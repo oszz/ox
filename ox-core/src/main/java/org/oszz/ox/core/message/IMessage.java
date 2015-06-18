@@ -1,6 +1,7 @@
 package org.oszz.ox.core.message;
 
 import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.server.IAsynResponseProcesser;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
@@ -32,4 +33,7 @@ public interface IMessage {
 
 	public MessageProcesserType getMessageProcesserType();
 
+	public void setAsynResponseProcesser(IAsynResponseProcesser asynRespPro);
+	
+	public IAsynResponseProcesser getAsynResponseProcesser();
 }

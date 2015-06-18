@@ -17,4 +17,6 @@ public interface IServer {
 	public void restart()  throws Exception;
 	
 	public void addContext(int port, String... contextPaths);
+	
+	public void setSessionFactory(ISessionFactory sessionFactory);
 }

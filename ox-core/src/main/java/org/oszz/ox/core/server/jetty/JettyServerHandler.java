@@ -1,4 +1,4 @@
-package org.oszz.ox.core.server;
+package org.oszz.ox.core.server.jetty;
 
 import java.io.IOException;
 
@@ -13,8 +13,8 @@ import org.oszz.ox.core.conf.HttpSessionKey;
 import org.oszz.ox.core.filter.DoGetDataFilter;
 import org.oszz.ox.core.filter.DoPostDataFilter;
 import org.oszz.ox.core.filter.IFilter;
-import org.oszz.ox.core.server.req.AsynJettyContinuation;
-import org.oszz.ox.core.server.req.IAsynRequest;
+import org.oszz.ox.core.server.IAsynResponseProcesser;
+import org.oszz.ox.core.server.IHandler;
 import org.oszz.ox.core.session.GSSession;
 
 /**
@@ -32,14 +32,16 @@ public class JettyServerHandler extends AbstractHandler{
 	private IFilter doPostDataFilter; 
 	
 	private IHandler handler;
+	
+	private int timeoutSeconds;//超时秒数
 
-	protected JettyServerHandler(String charset, IHandler handler){
+	protected JettyServerHandler(String charset, IHandler handler, int timeoutSeconds){
 		this.charset = charset;
-//		filterChain = new DefaultFilterChain(isDebug, charset);
 		
 		doGetDataFilter = new DoGetDataFilter(isDebug);
 		doPostDataFilter = new DoPostDataFilter();
 		this.handler = handler;
+		this.timeoutSeconds = timeoutSeconds;//超时秒数;
 	}
 	protected String getCharset() {
 		return charset;
@@ -57,26 +59,12 @@ public class JettyServerHandler extends AbstractHandler{
 	public void handle(String target, Request baseRequest, 
 			HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
-		
-		System.out.println(baseRequest);
-		
 		baseRequest.setHandled(true);
 		String charset = getCharset();
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
-//		response.setContentType("text/html;charset=" + charset);
-//		String methodName = request.getMethod();
 		
-//		HttpSession httpSession = request.getSession(true);
 		HttpSession httpSession = request.getSession(true);
-		System.out.println(httpSession.getId());
-//		String playerKey = HttpSessionKey.PLAYER.getValue();
-//		IPlayer player = (IPlayer)httpSession.getAttribute(playerKey);
-//		if(player == null){//说明是初始
-//			player = new Player();
-//			player.setHttpSession(httpSession);
-//			httpSession.setAttribute(playerKey, player);
-//		}
 		String gsSessionKey = HttpSessionKey.GS_SESSION.getValue();
 		GSSession gsSession = (GSSession)httpSession.getAttribute(gsSessionKey);
 		if(gsSession == null){
@@ -87,25 +75,9 @@ public class JettyServerHandler extends AbstractHandler{
 			
 			httpSession.setAttribute(gsSessionKey, gsSession);
 		}
-		IAsynRequest iar = new AsynJettyContinuation(gsSession,doGetDataFilter,doPostDataFilter,isDebug, handler);
+		IAsynResponseProcesser iar = new JettyAsynResponseProcesser(gsSession,doGetDataFilter,doPostDataFilter,isDebug, handler);
+		iar.setTimeout(timeoutSeconds);
 		iar.asynHandle();
-//		final Continuation continuation = ContinuationSupport.getContinuation(request); 
-//		if (continuation.isInitial()) {  
-//			continuation.suspend(response);
-//			IMessage message = null;
-//			if(DefaultConfig.HTTP_GET_REQUEST.getValue().equalsIgnoreCase(methodName)){
-//				if(isDebug){//是debug状态，才接受get请求
-//					message = doGetDataFilter.doInputFilter(request);
-//				}
-//			}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
-//				message = doPostDataFilter.doInputFilter(request);
-//			}
-//			this.handler.handle(gsSession, message);
-//			
-//			continuation.resume();
-//			 
-//			return; // or continuation.undispatch();  
-//		}
 	}
 
 }

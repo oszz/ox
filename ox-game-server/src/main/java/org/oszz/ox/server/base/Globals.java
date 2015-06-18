@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.core.service.IService;
+import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
@@ -96,6 +97,9 @@ public class Globals {
 		
 		ProcesserService processerService = new ProcesserService(serverConfig.getAsynThreadSize(), serverConfig.getSceneNum());
 		services.put(ProcesserService.class, processerService);
+		
+		IService cacheService = new CacheService();
+		services.put(CacheService.class, cacheService);
 		
 		startService();
 	}

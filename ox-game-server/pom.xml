@@ -88,5 +88,11 @@
 			<version>1.0.0</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.oszz.ox</groupId>
+			<artifactId>ox-db</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
 	</dependencies>
 </project>

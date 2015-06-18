@@ -30,7 +30,7 @@ public abstract class AbstractSingleProcesser extends AbstractProcesser{
 						if(pm != null){
 							IMessage message = pm.getMessage();
 							message.execute(pm.getPlayer());
-							pm.getAsynReq().callback();
+							message.getAsynResponseProcesser().complete();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
