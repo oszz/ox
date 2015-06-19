@@ -53,6 +53,8 @@ public class CacheService implements ICacheService {
 
 	@Override
 	public AccountEntity login(String openId) {
+		cache.get(CacheKey.AUTH_ACCOUNT_LIST);
+		
 		AccountDao accountDao = daoHolder.getDao(AccountDao.class);
 		AccountEntity accountEntity = accountDao.fiandByOpenId(openId);
 		if(accountEntity == null){
