@@ -8,7 +8,7 @@ import org.oszz.ox.core.message.MessageProcesserType;
  */
 public class MessageCodeMapping extends AbstractMessageCodeMapping {
 	
-	private MessageCodeMapping(){
+	public MessageCodeMapping(){
 		super();
 	}
 
@@ -19,6 +19,6 @@ public class MessageCodeMapping extends AbstractMessageCodeMapping {
 		this.put(MessageCode.AUTH_PROTO_C_G_LOGIN, org.oszz.ox.server.module.auth.msg.AuthProtoCGLoginMessage.class, new org.oszz.ox.server.module.auth.handler.AuthProtoCGLoginHnadler(), MessageProcesserType.ASYN);
 		//玩家主动退出
 		this.put(MessageCode.AUTH_PROTO_C_G_LOGOUT, org.oszz.ox.server.module.auth.msg.AuthProtoCGLogoutMessage.class, new org.oszz.ox.server.module.auth.handler.AuthProtoCGLogoutHnadler(), MessageProcesserType.SCENE);
-			}
+		}
 
 }

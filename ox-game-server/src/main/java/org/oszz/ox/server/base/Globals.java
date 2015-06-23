@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
+import org.oszz.ox.core.message.IMessageCodeMapping;
 import org.oszz.ox.core.service.IService;
 import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.base.conf.DBConfig;
@@ -13,7 +14,7 @@ import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.log.GameLogger;
-import org.oszz.ox.server.base.message.MessageCodeMappingRegisterService;
+import org.oszz.ox.server.base.message.MessageCodeMapping;
 import org.oszz.ox.server.base.processer.ProcesserService;
 
 /**
@@ -92,7 +93,7 @@ public class Globals {
 		services = new HashMap<Class<? extends IService>, IService>();
 		ServerConfig serverConfig = getCofing(ServerConfig.class);
 		
-		MessageCodeMappingRegisterService mcmService = new MessageCodeMappingRegisterService();
+		IMessageCodeMapping mcmService = new MessageCodeMapping();
 		mcmService.init();
 		
 		ProcesserService processerService = new ProcesserService(serverConfig.getAsynThreadSize(), serverConfig.getSceneNum());

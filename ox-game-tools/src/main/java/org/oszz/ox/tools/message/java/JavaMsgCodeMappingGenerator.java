@@ -14,9 +14,9 @@ import org.oszz.ox.tools.message.conf.MessageConfig;
 import org.oszz.ox.tools.message.conf.MsgCodeMappingRegisterServiceConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
-public class JavaMsgCodeMappingRegisterServiceGenerator extends AbstractMessageCodeGenerator{
+public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
 	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
-	private static final String CLASS_NAME = "MessageCodeMappingRegisterService.java";
+	private static final String CLASS_NAME = "MessageCodeMapping.java";
 	
 	private static final String ASYN = "MessageProcesserType.ASYN";
 	private static final String SCENE = "MessageProcesserType.SCENE";
@@ -24,7 +24,7 @@ public class JavaMsgCodeMappingRegisterServiceGenerator extends AbstractMessageC
 	
 	private String msgCodeMappingRegisterService_vmFile;
 	
-	public JavaMsgCodeMappingRegisterServiceGenerator(MessageConfig msgConfig,
+	public JavaMsgCodeMappingGenerator(MessageConfig msgConfig,
 			List<MessageCodeConfig> msgCodeConfigs, String msgCodeMappingRegisterService_vmFile) {
 		super(msgConfig, msgCodeConfigs);
 		this.msgCodeMappingRegisterService_vmFile = msgCodeMappingRegisterService_vmFile;
