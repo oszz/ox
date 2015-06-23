@@ -64,7 +64,7 @@ public class JavaMsgCodeMappingRegisterServiceGenerator extends AbstractMessageC
 		
 		ctx.put("mcmrscs", mcmrscs);
 		
-		String outPath = this.getAbsoluteJavaOutputPath();
+		String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 		String packagePath = ClassUtils.packageName2Path(PACKAGE_NAME);
 		
 		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;

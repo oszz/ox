@@ -2,7 +2,7 @@ package org.oszz.ox.tools.message;
 
 import java.io.File;
 
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.tools.generator.AbstractGenerator;
 import org.oszz.ox.tools.message.conf.MessageConfig;
 
 /**
@@ -10,7 +10,7 @@ import org.oszz.ox.tools.message.conf.MessageConfig;
  * @author ZZ
  *
  */
-public abstract class AbstractMessageGenerator implements IMessageGenerator {
+public abstract class AbstractMessageGenerator extends AbstractGenerator implements IMessageGenerator {
 	
 	protected MessageConfig msgConfig;
 	
@@ -19,18 +19,8 @@ public abstract class AbstractMessageGenerator implements IMessageGenerator {
 	}
 
 	@Override
-	public String getAbsoluteInputPath() {
-		return FilePathUtils.getAbsolutePathForRead(msgConfig.getInputPath());
-	}
-	
-	@Override
-	public String getAbsoluteJavaOutputPath() {
-		return FilePathUtils.getAbsolutePathForWrite(msgConfig.getJavaOutputPath());
-	}
-	
-	@Override
 	public File[] getProtoFiles() {
-		String protoFileDirStr = getAbsoluteInputPath();
+		String protoFileDirStr = this.getAbsoluteInputPath(msgConfig.getInputPath());
 		File protoFileDir = new File(protoFileDirStr);
 		File[] protoFiles = null;
 		if(protoFileDir.isDirectory()){

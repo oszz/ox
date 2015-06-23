@@ -1,0 +1,12 @@
+package ${packageName};
+
+import org.oszz.ox.core.template.AbstractTemplateData;
+
+/**
+ * ${comments}<br>
+ * Auto Generator, Don't Modify .
+ */
+public abstract class ${abstractClassName} extends AbstractTemplateData {
+
+
+}

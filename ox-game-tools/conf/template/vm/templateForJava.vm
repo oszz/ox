@@ -1,0 +1,25 @@
+package ${packageName};
+
+import org.oszz.ox.core.template.excel.ExcelName;
+
+/**
+ * ${comments}<br>
+ * Auto Generator.
+ *
+ */
+@ExcelName("${excelName}")
+public class ${className} extends ${abstractClassName} {
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void patchUp() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

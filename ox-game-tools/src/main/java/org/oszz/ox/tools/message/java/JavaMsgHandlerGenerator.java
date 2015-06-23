@@ -43,7 +43,7 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 					ctx.put("comments", comments);
 					ctx.put("handlerClassName", handlerClassName);
 					
-					String outPath = this.getAbsoluteJavaOutputPath();
+					String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 					String fileName = handlerClassName + javaClassSuffix;
 					String packagePath = ClassUtils.packageName2Path(handlerClassPackageName);
 					

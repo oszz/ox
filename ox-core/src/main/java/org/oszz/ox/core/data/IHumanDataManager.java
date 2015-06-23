@@ -5,6 +5,6 @@ package org.oszz.ox.core.data;
  * @author ZZ
  *
  */
-public interface IModuleDataManager {
+public interface IHumanDataManager {
 
 }

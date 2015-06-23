@@ -52,7 +52,7 @@ public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
 				ctx.put("protobufMessageClass", protobufMessageClass);
 				
 				String packagePath = ClassUtils.packageName2Path(msgPackageName);
-				String outPath = this.getAbsoluteJavaOutputPath();
+				String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 				outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
 				outPath = FilePathUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 				String fileName = msgClassName + javaClassSuffix;

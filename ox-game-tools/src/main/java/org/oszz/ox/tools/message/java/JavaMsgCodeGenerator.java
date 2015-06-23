@@ -35,7 +35,7 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 		VelocityContext ctx = new VelocityContext();
 		ctx.put("msgCodeConfigs", this.msgCodeConfigs);
 				 
-		String outPath = this.getAbsoluteJavaOutputPath();
+		String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 		VelocityUtils.write(this.msgCode_vmFile, ctx, outPath+"/"+JAVA_MESSAGE_CODE_FILE_NAME, msgConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", JAVA_MESSAGE_CODE_FILE_NAME, msgConfig.getCharsetName());
 	}

@@ -1,6 +1,7 @@
 package org.oszz.ox.tools.message.conf;
 
 import org.oszz.ox.common.utils.NameUtils;
+import org.oszz.ox.tools.constant.ToolsConstant;
 
 
 public class MessageCodeConfig {
@@ -85,7 +86,7 @@ public class MessageCodeConfig {
 	 */
 	public String getMsgClassName(){
 		//去掉点
-		return NameUtils.getClassName(msgName.replace(".", "")) + MessageConstant.MESSAGE_CLASS_NAME_SUFFIX;
+		return NameUtils.getClassName(msgName.replace(".", "")) + ToolsConstant.MESSAGE_CLASS_NAME_SUFFIX;
 	}
 	
 	/**
@@ -95,7 +96,7 @@ public class MessageCodeConfig {
 	 */
 	public String getMsgHandlerClassName(){
 		//去掉点
-		return NameUtils.getClassName(msgName.replace(".", "")) + MessageConstant.HANDLER_CLASS_NAME_SUFFIX;
+		return NameUtils.getClassName(msgName.replace(".", "")) + ToolsConstant.HANDLER_CLASS_NAME_SUFFIX;
 	}
 	
 	

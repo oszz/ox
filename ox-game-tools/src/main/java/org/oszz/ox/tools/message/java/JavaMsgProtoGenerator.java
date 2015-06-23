@@ -30,8 +30,8 @@ public class JavaMsgProtoGenerator extends AbstractMessageGenerator {
 	@Override
 	public void generate() {
 		String protocPath = this.msgConfig.getProtocPath();
-		String inputPath = getAbsoluteInputPath();
-		String outPath = getAbsoluteJavaOutputPath();
+		String inputPath = getAbsoluteInputPath(msgConfig.getInputPath());
+		String outPath = getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 		
 		log.info("protoc路径: " + protocPath);
 		log.info("proto文件目录: " + inputPath);

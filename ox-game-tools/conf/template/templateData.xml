@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xmlns= "http://www.ox.oszz.org/schema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.ox.oszz.org/schema ox-template-1.0.xsd">  
+    
+    <template name="BattleBuff.xlsx" class="org.test.BattleBuffTemplate" isGenerator="true">
+    	<comments>战斗Buff</comments>
+    	<fields>
+    		<field>buffName</field>
+    		<field>buffType</field>
+    		<field>continueType</field>
+    		<field>buffID</field>
+    	</fields>
+    </template>
+    
+</templates>

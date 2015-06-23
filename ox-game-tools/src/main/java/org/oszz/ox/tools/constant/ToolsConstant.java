@@ -1,6 +1,6 @@
-package org.oszz.ox.tools.message.conf;
+package org.oszz.ox.tools.constant;
 
-public interface MessageConstant {
+public interface ToolsConstant {
 
 	/**
 	 * 消息处理类的名字后缀
@@ -62,4 +62,30 @@ public interface MessageConstant {
 	 * XML的messageProcesserType属性名称
 	 */
 	public static final String XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE = "messageProcesserType";
+	
+	/**
+	 * XML的template节点名称
+	 */
+	public static final String XML_NODE_TEMPLATE = "template";
+	
+	/**
+	 * XML的class属性名称
+	 */
+	public static final String XML_ATTRIBUTE_CLASS = "class";
+	
+	/**
+	 * 抽象类名的前缀
+	 */
+	public static final String ABSTRACT_CLASS_NAME_PREFIX = "Abstract";
+	
+	/**
+	 * XML的fields节点名称
+	 */
+	public static final String XML_NODE_FIELDS = "fields";
+	
+	/**
+	 * XML的field节点名称
+	 */
+	public static final String XML_NODE_FIELD = "field";
+	
 }
