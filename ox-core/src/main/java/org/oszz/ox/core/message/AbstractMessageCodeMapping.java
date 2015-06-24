@@ -18,25 +18,6 @@ public abstract class AbstractMessageCodeMapping implements IMessageCodeMapping{
 	public void put(Short msgCode, Class<? extends IMessage> messageClass,
 			IMessageHandler msgHandler,
 			MessageProcesserType messageProcesserType) {
-		ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType> tt = 
-				new ThreeTuple<Class<? extends IMessage>, IMessageHandler, MessageProcesserType>(messageClass, msgHandler, messageProcesserType);
-		msgCodeMappings.put(msgCode, tt);
+		MessageCodeMappingHolder.getInstance().put(msgCode, messageClass, msgHandler, messageProcesserType);
 	}
-
-	@Override
-	public Class<? extends IMessage> getMessageClass(Short msgCode) {
-		return msgCodeMappings.get(msgCode).getFirst();
-	}
-
-	@Override
-	public IMessageHandler getMessageHandler(Short msgCode) {
-		return msgCodeMappings.get(msgCode).getSecond();
-	}
-
-	@Override
-	public MessageProcesserType getMessageProcesserType(Short msgCode) {
-		return msgCodeMappings.get(msgCode).getThird();
-	}
-
-	
 }

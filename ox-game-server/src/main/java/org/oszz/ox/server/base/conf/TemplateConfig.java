@@ -1,11 +1,16 @@
-package org.oszz.ox.core.template.excel;
+package org.oszz.ox.server.base.conf;
+
+import org.oszz.ox.core.template.ITemplateConfig;
+
 
 /**
  * excel的配置
  * @author ZZ
  *
  */
-public class ExcelCoifig {
+public class TemplateConfig implements ITemplateConfig{
+	
+	private String dirPath;//excel文件目录
 	
 	private int dataSheetIndex;//数据sheet的索引位置
 
@@ -14,7 +19,9 @@ public class ExcelCoifig {
 	private int descRowIndex;//描述所在的行索引
 	private int dataStartRowIndex;//数据开始 的行索引
 	
-	public ExcelCoifig(int dataSheetIndex, int typeRowIndex, int nameRowIndex,
+	public TemplateConfig () {
+	}
+	public TemplateConfig(int dataSheetIndex, int typeRowIndex, int nameRowIndex,
 			int descRowIndex, int dataStartRowIndex){
 		this.dataSheetIndex = dataSheetIndex;
 		this.typeRowIndex = typeRowIndex;
@@ -23,10 +30,10 @@ public class ExcelCoifig {
 		this.dataStartRowIndex = dataStartRowIndex;
 	}
 	
-	public static ExcelCoifig newDefault(){
-		return new ExcelCoifig(ExcelDefaultCoifig.DATA_SHEET.getIndex(), 
-				ExcelDefaultCoifig.TYPE_ROW.getIndex(), ExcelDefaultCoifig.NAME_ROW.getIndex(),
-				ExcelDefaultCoifig.DESC_ROW.getIndex(), ExcelDefaultCoifig.DATA_START_ROW.getIndex());
+	public static TemplateConfig newDefault(){
+		return new TemplateConfig(TemplateDefaultCoifig.DATA_SHEET.getIndex(), 
+				TemplateDefaultCoifig.TYPE_ROW.getIndex(), TemplateDefaultCoifig.NAME_ROW.getIndex(),
+				TemplateDefaultCoifig.DESC_ROW.getIndex(), TemplateDefaultCoifig.DATA_START_ROW.getIndex());
 	}
 	
 	public int getDataSheetIndex() {
@@ -58,5 +65,12 @@ public class ExcelCoifig {
 	}
 	public void setDataStartRowIndex(int dataStartRowIndex) {
 		this.dataStartRowIndex = dataStartRowIndex;
+	}
+
+	public String getDirPath() {
+		return dirPath;
+	}
+	public void setDirPath(String dirPath) {
+		this.dirPath = dirPath;
 	}
 }

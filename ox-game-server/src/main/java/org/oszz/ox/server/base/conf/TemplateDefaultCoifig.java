@@ -1,11 +1,11 @@
-package org.oszz.ox.core.template.excel;
+package org.oszz.ox.server.base.conf;
 
 /**
  * excel的默认配置
  * @author ZZ
  *
  */
-public enum ExcelDefaultCoifig {
+public enum TemplateDefaultCoifig {
 
 	/**
 	 * 数据sheet的索引位置
@@ -35,7 +35,7 @@ public enum ExcelDefaultCoifig {
 	
 	private int index;
 	
-	private ExcelDefaultCoifig(int index) {
+	private TemplateDefaultCoifig(int index) {
 		this.index = index;
 	}
 	

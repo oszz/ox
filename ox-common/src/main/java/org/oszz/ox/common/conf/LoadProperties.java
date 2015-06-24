@@ -41,7 +41,11 @@ public class LoadProperties implements ILoadPropertiesFile {
 				String key = getKey(instance.getClass(), field);
 				String valueStr = properties.getProperty(key);
 				if(valueStr != null){
-					ClassUtils.invokeSetterField(instance, field, valueStr.trim());
+					try {
+						ClassUtils.invokeSetterField(instance, field, valueStr.trim());
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 				}
 			}
 		}

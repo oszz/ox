@@ -9,7 +9,7 @@ import org.oszz.ox.common.utils.ClassUtils;
  */
 public abstract class AbstractTemplateData implements ITemplateData {
 	
-	private int id;
+	protected int id;
 	
 
 	@Override

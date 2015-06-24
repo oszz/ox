@@ -8,5 +8,23 @@ import org.oszz.ox.core.template.AbstractTemplateData;
  */
 public abstract class ${abstractClassName} extends AbstractTemplateData {
 
+	#foreach ($tempField in ${tempFields})
+private ${tempField.type} ${tempField.name};
+	#end
+	
+	#foreach ($tempField in ${tempFields})
+/**
+	 * 设置 ${tempField.desc}
+	 */
+	public void set${tempField.upperName}(${tempField.type} value){
+		this.${tempField.name} = value;
+	}
+	/**
+	 * 返回 ${tempField.desc}
+	 */
+	public ${tempField.type} get${tempField.upperName}(){
+		return this.${tempField.name};
+	}
+	#end
 
 }

@@ -7,6 +7,7 @@ public class TemplateField {
 	private String type;//字段类型
 	private String name;//字段名字
 	private String upperName;//首字母大写
+	private String desc;
 	
 	public TemplateField(String name){
 		this.name = name;
@@ -37,6 +38,13 @@ public class TemplateField {
 	public void setUpperName(String upperName) {
 		this.upperName = upperName;
 	}
-	
-	
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+//		System.out.println(SystemProperty.LINE_SEPARATOR.getValue());
+//		System.out.println(SystemProperty.LINE_SEPARATOR.getValue() + SystemProperty.TABLE_CHAR.getValue() + "*");
+//		System.out.println(desc.indexOf("\n"));
+		this.desc = desc.replace("\n", "<br>\n\t * ");;
+	}
 }

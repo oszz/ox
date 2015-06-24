@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.oszz.ox.common.tuple.TwoTuple;
 
@@ -14,12 +17,44 @@ import org.oszz.ox.common.tuple.TwoTuple;
  */
 public class ClassUtils {
 	
+	/**
+	 * 返回class的内部类
+	 * @author ZZ
+	 * @param clazz
+	 * @return 返回class的内部类
+	 */
 	public static Class<?>[] getInnerClasses(Class<?> clazz){
 		return clazz.getDeclaredClasses();
 	}
 	
+	/**
+	 * 返回当前class的所有字段属性
+	 * @author ZZ
+	 * @param clazz 当前class
+	 * @return 返回当前class的所有字段属性
+	 */
 	public static Field[] getFields(Class<?> clazz){
 		return clazz.getDeclaredFields();
+	}
+	
+	/**
+	 * 返回class所有父类的所有字段属性(不包含当前类的属性)
+	 * @author ZZ
+	 * @param currentClazz 当前类
+	 * @return 返回class所有父类的所有字段属性
+	 */
+	public static Field[] getParentFields(Class<?> currentClazz){
+		List<Field> totalfields = new ArrayList<Field>();
+		while(true){
+			currentClazz = currentClazz.getSuperclass();
+			if(currentClazz == Object.class){
+				break;
+			}
+			Field[] fields = getFields(currentClazz);
+//			totalfields.addAll(Arrays.asList(fields));
+			totalfields.addAll(0, Arrays.asList(fields));
+		}
+		return totalfields.toArray(new Field[0]);
 	}
 	
 	/**
@@ -28,8 +63,11 @@ public class ClassUtils {
 	 * @param instance
 	 * @param field
 	 * @param valueStr
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
 	 */
-	public static <T> void invokeSetterField(T instance, Field field, String valueStr){
+	public static <T> void invokeSetterField(T instance, Field field, String valueStr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		TwoTuple<String, Object> smnv = getSetterMethodNameAndValue(field, valueStr);
 		String setterMethodName = smnv.getFirst();
 		Object value = smnv.getSecond();
@@ -43,13 +81,12 @@ public class ClassUtils {
 	 * @param instance 实例对象
 	 * @param method set方法
 	 * @param para 需要set的值
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
 	 */
-	public static <T> void invokeSetter(T instance, Method setterMethod, Object para){
-		try {
-			setterMethod.invoke(instance, para);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} 
+	public static <T> void invokeSetter(T instance, Method setterMethod, Object para) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		setterMethod.invoke(instance, para);
 	}
 	
 	/**
@@ -66,16 +103,32 @@ public class ClassUtils {
 		Object value = null;
 		String methodName = MethodNameEnum.SETTER_PREFIX.getName() + fName;
 		if(typeClass == Integer.class || typeClass == int.class){
+			int pointIndex = valueStr.indexOf(".");
+			if(pointIndex > 0){//说明有小数点
+				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
+			}
 			value = Integer.parseInt(valueStr);
 		}else if(typeClass == Byte.class || typeClass == byte.class){
+			int pointIndex = valueStr.indexOf(".");
+			if(pointIndex > 0){//说明有小数点
+				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
+			}
 			value = Byte.parseByte(valueStr);
 		}else if(typeClass == Short.class || typeClass == short.class){
+			int pointIndex = valueStr.indexOf(".");
+			if(pointIndex > 0){//说明有小数点
+				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
+			}
 			value = Short.parseShort(valueStr);
 		}else if(typeClass == Float.class || typeClass == float.class){
 			value = Float.parseFloat(valueStr);
 		}else if(typeClass == Double.class || typeClass == double.class){
 			value = Double.parseDouble(valueStr);
 		}else if(typeClass == Long.class || typeClass == long.class){
+			int pointIndex = valueStr.indexOf(".");
+			if(pointIndex > 0){//说明有小数点
+				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
+			}
 			value = Long.parseLong(valueStr);
 		}else if(typeClass == Character.TYPE || typeClass == char.class){
 			value = (char)(Integer.parseInt(valueStr));
@@ -239,7 +292,8 @@ public class ClassUtils {
 		StringBuilder content = new StringBuilder();
 		content.append(obj.getClass().getSimpleName() + "( ");
 		
-		Field[] fields = obj.getClass().getDeclaredFields();
+//		Field[] fields = obj.getClass().getDeclaredFields();
+		Field[] fields = getParentFields(obj.getClass());
 		if(fields != null && fields.length != 0){
 			for(Field field : fields){
 				String fieldName = field.getName();
@@ -250,7 +304,7 @@ public class ClassUtils {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				content.append(fieldName + ":" + value + " ");
+				content.append(fieldName + ":" + value + " - ");
 			}
 		}
 		content.append(")");
@@ -280,4 +334,5 @@ public class ClassUtils {
 	    Method method = clazz.getMethod(staticMethodName);  
 		return method.invoke(null, paras);
 	}
+	
 }

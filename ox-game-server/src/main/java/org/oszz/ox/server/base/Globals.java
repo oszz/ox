@@ -6,16 +6,22 @@ import java.util.Properties;
 
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.message.IMessageCodeMapping;
 import org.oszz.ox.core.service.IService;
+import org.oszz.ox.core.template.ITemplateDataClassMapping;
+import org.oszz.ox.core.template.ITemplateService;
+import org.oszz.ox.core.template.TemplateService;
 import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.base.conf.DBConfig;
+import org.oszz.ox.server.base.conf.TemplateConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.log.GameLogger;
 import org.oszz.ox.server.base.message.MessageCodeMapping;
 import org.oszz.ox.server.base.processer.ProcesserService;
+import org.oszz.ox.server.base.template.TemplateDataClassMapping;
 
 /**
  * 这里的方法都是静态的
@@ -41,7 +47,8 @@ public class Globals {
 			ServerConfig.class, 
 			JettyServerConfig.class,
 			DBConfig.class,
-			RedisConfig.class
+			RedisConfig.class,
+			TemplateConfig.class
 			}; 
 	
 	/**
@@ -49,7 +56,9 @@ public class Globals {
 	 * @author ZZ
 	 */
 	public static void init(String configFilePath){
+		//保证顺序
 		initConfig(configFilePath);
+		initMapping();
 		initService();
 	}
 	
@@ -86,21 +95,41 @@ public class Globals {
 	}
 	
 	/**
+	 * 初始化映射关系<br>
+	 * 1.初始化消息code的映射关系<br>
+	 * 2.初始化模板数据的映射关系
+	 * @author ZZ
+	 */
+	private static void initMapping(){
+		IMessageCodeMapping msgCodeMapping = new MessageCodeMapping();
+		msgCodeMapping.init();//初始化消息code的映射关系
+		
+		ITemplateDataClassMapping tempDataMapping = new TemplateDataClassMapping();
+		tempDataMapping.init();//初始化模板数据的映射关系
+	}
+	
+	/**
 	 * 初始化服务
 	 * @author ZZ
 	 */
-	public static void initService(){
-		services = new HashMap<Class<? extends IService>, IService>();
+	private static void initService(){
 		ServerConfig serverConfig = getCofing(ServerConfig.class);
+		TemplateConfig templateConfig = getCofing(TemplateConfig.class);
 		
-		IMessageCodeMapping mcmService = new MessageCodeMapping();
-		mcmService.init();
+		services = new HashMap<Class<? extends IService>, IService>();
+		
 		
 		ProcesserService processerService = new ProcesserService(serverConfig.getAsynThreadSize(), serverConfig.getSceneNum());
 		services.put(ProcesserService.class, processerService);
 		
 		IService cacheService = new CacheService();
 		services.put(CacheService.class, cacheService);
+		
+		String language = serverConfig.getLanguage();
+		String dirPath = templateConfig.getDirPath();
+		dirPath = dirPath + SystemProperty.FILE_SEPARATOR.getValue() + language + SystemProperty.FILE_SEPARATOR.getValue();
+		ITemplateService tempService = new TemplateService(dirPath, templateConfig);
+		services.put(TemplateService.class, tempService);
 		
 		startService();
 	}

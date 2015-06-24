@@ -3,7 +3,7 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.ox.oszz.org/schema ox-template-1.0.xsd">  
     
-    <template name="BattleBuff.xlsx" class="org.test.BattleBuffTemplate" isGenerator="true">
+    <template name="BattleBuff.xlsx" class="org.oszz.ox.server.module.info.temp.BattleBuffTemplate" isGenerator="true">
     	<comments>战斗Buff</comments>
     	<fields>
     		<field>buffName</field>

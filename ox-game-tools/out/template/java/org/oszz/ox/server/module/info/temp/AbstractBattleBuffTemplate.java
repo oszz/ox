@@ -8,10 +8,10 @@ import org.oszz.ox.core.template.AbstractTemplateData;
  */
 public abstract class AbstractBattleBuffTemplate extends AbstractTemplateData {
 
-	protected String buffName;
-	protected int buffType;
-	protected int continueType;
-	protected int buffID;
+	private String buffName;
+	private int buffType;
+	private int continueType;
+	private int buffID;
 		
 	/**
 	 * 设置 效果名称（暂时只是注释）
