@@ -11,10 +11,11 @@ import java.net.URL;
 public class FilePathUtils {
 
 	/**
-	 * 获得绝对路径用于读取该路径下的文件
+	 * 获得绝对路径用于读取该路径下的文件.<br>
+	 * 如果路径是绝对路径，那么就直接返回，如果不是，就去ClassPath找该路径.
 	 * @author ZZ
-	 * @param inputPath 文件目录路径，如果路径是绝对路径，那么就直接返回，如果不是，就去ClassPath找该路径
-	 * @return
+	 * @param inputPath 文件目录路径
+	 * @return 返回绝对路径
 	 */
 	public static String getAbsolutePathForRead(String inputPath){
 		File inputDir = new File(inputPath);
@@ -27,11 +28,12 @@ public class FilePathUtils {
 	}
 	
 	/**
-	 * 获得绝对路径用于在该路径下的写文件
+	 * 获得绝对路径用于在该路径下的写文件<br>
+	 * 如果路径是绝对路径，判断是否存在，如果不存在，则创建该目录<br>
+	 * 如果不是绝对路径，就在项目路径下创建该目录
 	 * @author ZZ
-	 * @param outPath 文件目录路径，如果路径是绝对路径，判断是否存在，如果不存在，则创建该目录<br>
-	 * 					如果不是绝对路径，就在项目路径下创建该目录
-	 * @return
+	 * @param outPath 文件目录路径
+	 * @return 返回可用的绝对路径
 	 */
 	public static String getAbsolutePathForWrite(String outPath){
 		String userDir = SystemProperty.USRE_DIR.getValue();
@@ -39,7 +41,7 @@ public class FilePathUtils {
 		if(outDir.isAbsolute()){
 			outPath = outDir.getAbsolutePath();
 		}else{
-			outPath = userDir +"/" + outPath;
+			outPath = userDir + SystemProperty.FILE_SEPARATOR.getKey() + outPath;
 			outDir = new File(outPath);
 		}
 		if(!outDir.exists()){
@@ -49,7 +51,8 @@ public class FilePathUtils {
 	}
 	
 	/**
-	 * 如果绝对路径存在就返回，如果不存在，就创建，保证该路径可用
+	 * 如果绝对路径存在就返回.<br>
+	 * 如果不存在，就创建，保证该路径可用.
 	 * @author ZZ
 	 * @param path 绝对路径
 	 * @return 返回绝对路径

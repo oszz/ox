@@ -5,21 +5,36 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * LRU缓存
+ * @author ZZ
+ *
+ * @param <K> key
+ * @param <V> value
+ */
 public class LRUCache<K,V> {
 	
 	private static final float hashTableLoadFactor = 0.75f;  
 	  
-	private LinkedHashMap<K,V> map;  
-	private int cacheSize; 
+	private LinkedHashMap<K,V> map; //存放对象的map 
+	private int cacheSize; //缓存的大小
 	
+	/**
+	 * 构建一个LRU缓存
+	 * @param cacheSize 缓存的大小
+	 */
 	public LRUCache (int cacheSize) {  
 		this.cacheSize = cacheSize;  
         int hashTableCapacity = (int)Math.ceil(cacheSize / hashTableLoadFactor) + 1;  
         map = new LinkedHashMap<K,V>(hashTableCapacity, hashTableLoadFactor, true);
     }  
 	
-	
-	public LRUCache (int cacheSize, LRURemoveEldestListener listener) {  
+	/**
+	 * 构建一个LRU缓存
+	 * @param cacheSize 缓存的大小
+	 * @param lruRemoveEldestListener LRU缓存移除最老对象的监听类，当有数据被移除时会调用该类的  {@link ILRURemoveEldestListener#remove(java.util.Map.Entry)}
+	 */
+	public LRUCache (int cacheSize, ILRURemoveEldestListener lruRemoveEldestListener) {  
         this.cacheSize = cacheSize;  
         int hashTableCapacity = (int)Math.ceil(cacheSize / hashTableLoadFactor) + 1;  
         map = new LinkedHashMap<K,V>(hashTableCapacity, hashTableLoadFactor, true) {  
@@ -29,7 +44,7 @@ public class LRUCache<K,V> {
            protected boolean removeEldestEntry (Map.Entry<K,V> eldest) { 
                  boolean flag = size() > LRUCache.this.cacheSize;
                  if(flag){
-                     listener.remove(eldest);
+                	 lruRemoveEldestListener.remove(eldest);
                  }
                  return flag; 
               }
@@ -63,18 +78,4 @@ public class LRUCache<K,V> {
     public synchronized Collection<Map.Entry<K,V>> getAll() {  
        return new ArrayList<Map.Entry<K,V>>(map.entrySet()); 
     }  
-
-    /**
-     * 当移除最老时的监听接口
-     * @author ZZ
-     *
-     */
-    public static interface LRURemoveEldestListener {
-        /**
-         * 被移除的最老对象
-         * @param eldest 最老的对象
-         */
-    	@SuppressWarnings("rawtypes") 
-        public void remove(Map.Entry eldest);
-    }
 }

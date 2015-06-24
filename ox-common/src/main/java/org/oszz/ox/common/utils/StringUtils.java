@@ -32,7 +32,7 @@ public class StringUtils {
 	 * 将十进制转成十六进制
 	 * @author ZZ
 	 * @param code 十进制数
-	 * @return
+	 * @return 返回十进制数的十六进制字符串形式（如：0x0001）
 	 */
 	public static String toHex(int code){
 		return String.format("0x%04X", code);	

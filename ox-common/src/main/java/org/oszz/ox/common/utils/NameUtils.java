@@ -10,8 +10,8 @@ public class NameUtils {
 	/**
 	 * 获得常量名，例：CONST_NAME_EXAMPLE
 	 * @author ZZ
-	 * @param str
-	 * @return
+	 * @param str 字符串
+	 * @return 返回常量名
 	 */
 	public static String getConstName(String str){
 		StringBuilder strBuilder = new StringBuilder();
@@ -35,10 +35,10 @@ public class NameUtils {
 	}
 	
 	/**
-	 * 大写
+	 * 将字符串的所有字母大写
 	 * @author ZZ
-	 * @param str
-	 * @return
+	 * @param str 字符串
+	 * @return 返回字符串的大写形式
 	 */
 	public static String upper(String str){
 		return str.toUpperCase();
@@ -47,8 +47,8 @@ public class NameUtils {
 	/**
 	 * 返回方法名或参数名(首字母小写)
 	 * @author ZZ
-	 * @param str
-	 * @return
+	 * @param str 字符串
+	 * @return 返回方法名或参数名
 	 */
 	public static String getMethodOrParaName(String str){
 		str = str.substring(0, 1).toLowerCase() + str.substring(1); //首字母小写
@@ -56,20 +56,20 @@ public class NameUtils {
 	}
 	
 	/**
-	 * 驼峰式的类名
+	 * 返回驼峰式的类名
 	 * @author ZZ
-	 * @param words 单词数组
-	 * @return
+	 * @param word 单词
+	 * @return 返回驼峰式的类名
 	 */
 	public static String getClassName(String word){
 		return getClassName(new String[]{word});
 	}
 	
 	/**
-	 * 驼峰式的类名
+	 * 返回驼峰式的类名
 	 * @author ZZ
 	 * @param words 单词数组
-	 * @return
+	 * @return 返回驼峰式的类名
 	 */
 	public static String getClassName(String[] words){
 		String className = "";
@@ -82,10 +82,10 @@ public class NameUtils {
 	}
 	
 	/**
-	 * 返回首字母大写
+	 * 将字符串的首字母大写
 	 * @author ZZ
-	 * @param str
-	 * @return
+	 * @param str 字符串
+	 * @return 返回首字母大写的字符串
 	 */
 	public static String upperFirstChar(String str){
 		str = str.substring(0, 1).toUpperCase() + str.substring(1); //首字母大写

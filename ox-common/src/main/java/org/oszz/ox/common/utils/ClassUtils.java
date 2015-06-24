@@ -51,7 +51,6 @@ public class ClassUtils {
 				break;
 			}
 			Field[] fields = getFields(currentClazz);
-//			totalfields.addAll(Arrays.asList(fields));
 			totalfields.addAll(0, Arrays.asList(fields));
 		}
 		return totalfields.toArray(new Field[0]);
@@ -60,9 +59,9 @@ public class ClassUtils {
 	/**
 	 * 调用属性字段的set方法
 	 * @author ZZ
-	 * @param instance
-	 * @param field
-	 * @param valueStr
+	 * @param instance 实例对象
+	 * @param field 属性
+	 * @param valueStr 属性值
 	 * @throws InvocationTargetException 
 	 * @throws IllegalArgumentException 
 	 * @throws IllegalAccessException 
@@ -152,7 +151,7 @@ public class ClassUtils {
 	}
 	
 	/**
-	 * 返回T的一个实例对象
+	 * 新建并返回T的一个实例对象
 	 * @author ZZ
 	 * @param clazz 类
 	 * @return 返回T的一个实例对象
@@ -169,25 +168,28 @@ public class ClassUtils {
 		}
 	}
 	
+	/**
+	 * 创建并返回内部类对象
+	 * @author ZZ
+	 * @param outClazz 外层的类
+	 * @param innerClass 内部类
+	 * @return 创建并返回内部类对象
+	 */
 	@SuppressWarnings("unchecked")
-	public static <P, T> T newInstanceForInnerClass(Class<T> clazz, P p){
-		Constructor<?> constructor = clazz.getConstructors()[0];
+	public static <P, T> T newInstanceForInnerClass(Class<T> outClazz, P innerClass){
+		Constructor<?> constructor = outClazz.getConstructors()[0];
 		try {
-			return (T)constructor.newInstance(p);
+			return (T)constructor.newInstance(innerClass);
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
@@ -327,7 +329,7 @@ public class ClassUtils {
 	 * @param clazz 类
 	 * @param staticMethodName 静态方法名
 	 * @param paras 参数
-	 * @return
+	 * @return 该类静态方法返回的对象
 	 * @throws Exception
 	 */
 	public static Object invokeStaticMethod(Class<?> clazz, String staticMethodName, Object... paras) throws Exception {

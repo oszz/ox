@@ -38,11 +38,11 @@ public class RatioRandomUtils {
 	}
 	
 	/**
-	 * 随机一个
+	 * 随机一个对象
 	 * @author ZZ
 	 * @param ratioBoxes 随机的box
 	 * @param totalRatio 总概率
-	 * @return
+	 * @return 返回随机到的一个对象
 	 */
 	public static <T> ItemRatioBox<T> randomOne(List<ItemRatioBox<T>> ratioBoxes, Double totalRatio){
 		Double randomNum = Math.random()*totalRatio;
@@ -64,9 +64,9 @@ public class RatioRandomUtils {
 	/**
 	 * 是否命中
 	 * @author ZZ
-	 * @param ratio 一个概率
-	 * @param randomNum 随机数
-	 * @return
+	 * @param ratio 比率
+	 * @param totalRatio 总比率
+	 * @return 如果命中，则返回<tt>true<tt>,否则返回<tt>false<tt>
 	 */
 	public static boolean isHit(double ratio, double totalRatio){
 		Double randomNum = Math.random()*totalRatio;
@@ -78,7 +78,7 @@ public class RatioRandomUtils {
 	 * @author ZZ
 	 * @param ratio 一个概率
 	 * @param randomNum 随机数
-	 * @return
+	 * @return 如果在该区间内，则返回<tt>true<tt>,否则返回<tt>false<tt>
 	 */
 	private static boolean isInBlock(double ratio, double randomNum){
 		if(randomNum <= ratio){
@@ -92,7 +92,7 @@ public class RatioRandomUtils {
 	 * @author ZZ
 	 * @param ratioBoxes 随机的box
 	 * @param totalRatio 总概率
-	 * @param count 多少个
+	 * @param count 随机个数
 	 * @return 返回随机多个且不重复的
 	 */
 	public static <T> List<ItemRatioBox<T>> randomNonRepeatMultiple(List<ItemRatioBox<T>> ratioBoxes, Double totalRatio, int count){
@@ -117,7 +117,7 @@ public class RatioRandomUtils {
 	 * @author ZZ
 	 * @param ratioBoxes 随机的box
 	 * @param totalRatio 总概率
-	 * @param count 多少个
+	 * @param count 随机个数
 	 * @return 返回随机多个且可重复的
 	 */
 	public static <T> List<ItemRatioBox<T>> randomCanRepeatMultiple(List<ItemRatioBox<T>> ratioBoxes, Double totalRatio, int count){
@@ -130,11 +130,10 @@ public class RatioRandomUtils {
 	}
 	
 	/**
-	 * 
+	 * 将box列表装成box中的对象列表
 	 * @author ZZ
 	 * @param itemRatioBoxes 随机的包
-	 * @param clazz 泛型类
-	 * @return
+	 * @return 返回box中的对象列表
 	 */
 	protected static <T> List<T> itemRatioBox2Class(List<ItemRatioBox<T>> itemRatioBoxes){
 		List<T> list = null;
