@@ -55,12 +55,8 @@ public class ProcesserService implements IService{
 			SceneProcesser sceneProcesser = new SceneProcesser();
 			sceneProcessers.put(i+"", sceneProcesser);
 		}
-		return true;
-	}
-
-	@Override
-	public boolean start() {
-//		asynProcesser.start();
+		
+		asynProcesser.start();
 		worldProcesser.start();
 		for(Map.Entry<String, SceneProcesser> sceneProcesserEntry : sceneProcessers.entrySet()){
 			SceneProcesser sp = sceneProcesserEntry.getValue();
@@ -70,22 +66,8 @@ public class ProcesserService implements IService{
 	}
 
 	@Override
-	public boolean restart() {
-		stop();
-		init();
-		start();
-		return true;
+	public void onInitialized() {
+		// TODO 什么都不做
+		
 	}
-
-	@Override
-	public boolean stop() {
-		asynProcesser.stop();
-		worldProcesser.stop();
-		for(Map.Entry<String, SceneProcesser> sceneProcesserEntry : sceneProcessers.entrySet()){
-			SceneProcesser sp = sceneProcesserEntry.getValue();
-			sp.stop();
-		}
-		return true;
-	}
-	
 }

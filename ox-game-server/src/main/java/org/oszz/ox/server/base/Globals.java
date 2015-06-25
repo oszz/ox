@@ -8,20 +8,24 @@ import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.message.IMessageCodeMapping;
+import org.oszz.ox.core.service.AllModuleService;
+import org.oszz.ox.core.service.IAllModuleService;
+import org.oszz.ox.core.service.IModuleServiceClassMapping;
 import org.oszz.ox.core.service.IService;
 import org.oszz.ox.core.template.ITemplateDataClassMapping;
 import org.oszz.ox.core.template.ITemplateService;
 import org.oszz.ox.core.template.TemplateService;
 import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.base.conf.DBConfig;
-import org.oszz.ox.server.base.conf.TemplateConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
+import org.oszz.ox.server.base.conf.TemplateConfig;
 import org.oszz.ox.server.base.log.GameLogger;
+import org.oszz.ox.server.base.mapping.ModuleServiceClassMapping;
+import org.oszz.ox.server.base.mapping.TemplateDataClassMapping;
 import org.oszz.ox.server.base.message.MessageCodeMapping;
 import org.oszz.ox.server.base.processer.ProcesserService;
-import org.oszz.ox.server.base.template.TemplateDataClassMapping;
 
 /**
  * 这里的方法都是静态的
@@ -59,7 +63,11 @@ public class Globals {
 		//保证顺序
 		initConfig(configFilePath);
 		initMapping();
-		initService();
+		initSystemService();
+		initModuleService();
+		
+		//startService在最后
+		startService();
 	}
 	
 	/**
@@ -106,13 +114,16 @@ public class Globals {
 		
 		ITemplateDataClassMapping tempDataMapping = new TemplateDataClassMapping();
 		tempDataMapping.init();//初始化模板数据的映射关系
+		
+		IModuleServiceClassMapping moduleServiceClassMapping = new ModuleServiceClassMapping();
+		moduleServiceClassMapping.init();//初始化模块service的映射关系
 	}
 	
 	/**
-	 * 初始化服务
+	 * 初始化系统服务
 	 * @author ZZ
 	 */
-	private static void initService(){
+	private static void initSystemService(){
 		ServerConfig serverConfig = getCofing(ServerConfig.class);
 		TemplateConfig templateConfig = getCofing(TemplateConfig.class);
 		
@@ -130,19 +141,35 @@ public class Globals {
 		dirPath = dirPath + SystemProperty.FILE_SEPARATOR.getValue() + language + SystemProperty.FILE_SEPARATOR.getValue();
 		ITemplateService tempService = new TemplateService(dirPath, templateConfig);
 		services.put(TemplateService.class, tempService);
-		
-		startService();
+	}
+	
+	/**
+	 * 初始化模块的服务
+	 * @author ZZ
+	 */
+	private static void initModuleService(){
+		IAllModuleService allModuleService = new AllModuleService();
+		//create 、 init 必须保证顺序
+		allModuleService.create();
+		allModuleService.init();
+		Map<Class<? extends IService>, IService> allServices = allModuleService.getAllService();
+		services.putAll(allServices);
 	}
 	
 	private static void startService(){
 		for(Map.Entry<Class<? extends IService>, IService> serviceEntry : services.entrySet()){
 			IService service = serviceEntry.getValue();
-			if(service.create() && service.init()){
-				service.start();
+			if(service.create()){
+				 service.init();
 			}else{
 				GameLogger.SYSTEM.error("service初始化失败: {} ,", service);
 				throw new RuntimeException("service初始化失败: " + service);
 			}
+		}
+		
+		for(Map.Entry<Class<? extends IService>, IService> serviceEntry : services.entrySet()){
+			IService service = serviceEntry.getValue();
+			service.onInitialized();
 		}
 	}
 	

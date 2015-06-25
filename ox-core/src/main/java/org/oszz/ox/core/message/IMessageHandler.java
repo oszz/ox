@@ -1,6 +1,6 @@
 package org.oszz.ox.core.message;
 
-import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.player.IPlayer;
 
 /**
  * 消息处理类的接口

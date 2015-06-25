@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.player.IPlayer;
 
 public class Scene implements IScene {
 	

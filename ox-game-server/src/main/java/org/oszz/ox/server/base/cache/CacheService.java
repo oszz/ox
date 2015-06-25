@@ -32,21 +32,6 @@ public class CacheService implements ICacheService {
 	}
 
 	@Override
-	public boolean start() {
-		return true;
-	}
-
-	@Override
-	public boolean restart() {
-		return false;
-	}
-
-	@Override
-	public boolean stop() {
-		return false;
-	}
-
-	@Override
 	public void setCacheFactory(ICacheFactory cacheFactory) {
 		this.cache = cacheFactory.getCache();
 	}
@@ -66,6 +51,12 @@ public class CacheService implements ICacheService {
 			accountDao.saveOrUpdate(accountEntity);
 		}
 		return accountEntity;
+	}
+
+	@Override
+	public void onInitialized() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

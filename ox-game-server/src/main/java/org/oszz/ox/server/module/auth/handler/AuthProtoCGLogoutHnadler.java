@@ -1,8 +1,8 @@
 package org.oszz.ox.server.module.auth.handler;
 
-import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.player.IPlayer;
 
 /**
  * 玩家主动退出 <br>

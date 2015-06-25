@@ -1,8 +1,8 @@
 package org.oszz.ox.server.base.handler;
 
-import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.MessageProcesserType;
+import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.jetty.AbstractJettyHandler;
 import org.oszz.ox.core.session.ISession;
 import org.oszz.ox.server.base.Globals;

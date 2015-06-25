@@ -2,8 +2,8 @@ package org.oszz.ox.core.processer;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.player.IPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,7 @@
 package org.oszz.ox.server.module.info.temp;
 
 import org.oszz.ox.core.template.AbstractTemplateData;
+import org.oszz.ox.core.template.excel.ExcelField;
 
 /**
  * 战斗Buff<br>
@@ -8,9 +9,13 @@ import org.oszz.ox.core.template.AbstractTemplateData;
  */
 public abstract class AbstractBattleBuffTemplate extends AbstractTemplateData {
 
+	@ExcelField
 	private String buffName;
+	@ExcelField
 	private int buffType;
+	@ExcelField
 	private int continueType;
+	@ExcelField
 	private int buffID;
 		
 	/**

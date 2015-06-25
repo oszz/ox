@@ -59,8 +59,8 @@ public class JavaTemplateGenertor extends AbstractTemplateGenertor implements IT
 		String fileName = className + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		
-		outputPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		outputPath += "/" + packagePath ;
+		outputPath = FilePathUtils.getDirIfExists(outputPath) + "/";
 		
 		VelocityUtils.write(this.template_vmFile, ctx, outputPath + fileName, tempConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", fileName, tempConfig.getCharsetName());

@@ -41,7 +41,7 @@ public class FilePathUtils {
 		if(outDir.isAbsolute()){
 			outPath = outDir.getAbsolutePath();
 		}else{
-			outPath = userDir + SystemProperty.FILE_SEPARATOR.getKey() + outPath;
+			outPath = userDir + "/" + outPath;
 			outDir = new File(outPath);
 		}
 		if(!outDir.exists()){

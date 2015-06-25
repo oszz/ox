@@ -1,4 +1,4 @@
-package org.oszz.ox.core;
+package org.oszz.ox.core.player;
 
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.session.ISession;
@@ -6,6 +6,8 @@ import org.oszz.ox.core.session.ISession;
 public class Player implements IPlayer {
 	
 	protected ISession session;
+	
+	private IHuman human;
 
 	@Override
 	public String getId() {
@@ -28,4 +30,8 @@ public class Player implements IPlayer {
 //		session.sendTest("message");
 	}
 
+	@Override
+	public IHuman getHuman() {
+		return this.human;
+	}
 }

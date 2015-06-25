@@ -28,7 +28,8 @@ public interface ITemplateData {
 	public void check();
 	
 	/**
-	 * 读取完所有的模板数据后，再依次调用每个模板数据的该方法
+	 * 读取完所有的模板数据后，再依次调用每个模板数据的该方法<br>
+	 * 可用于检查外键关系等
 	 * @author ZZ
 	 */
 	public void patchUp();

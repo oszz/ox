@@ -12,11 +12,14 @@ public class BattleBuffTemplate extends AbstractBattleBuffTemplate {
 
 	@Override
 	public void check() {
-//		System.out.println(this);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void patchUp() {
-		
+		// TODO Auto-generated method stub
+
 	}
+
 }

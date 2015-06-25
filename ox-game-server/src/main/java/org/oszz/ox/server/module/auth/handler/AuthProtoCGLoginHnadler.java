@@ -1,8 +1,8 @@
 package org.oszz.ox.server.module.auth.handler;
 
-import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.server.base.Globals;
 import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.module.auth.msg.AuthProto;

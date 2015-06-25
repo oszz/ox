@@ -1,4 +1,4 @@
-package org.oszz.ox.server.base.template;
+package org.oszz.ox.server.base.mapping;
 
 import org.oszz.ox.core.template.AbstractTemplateDataClassMapping;
 
@@ -10,6 +10,7 @@ public class TemplateDataClassMapping extends AbstractTemplateDataClassMapping {
 
 	@Override
 	public void init() {
+		//战斗Buff
 		this.put(org.oszz.ox.server.module.info.temp.BattleBuffTemplate.class);
 	
 	}

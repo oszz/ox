@@ -1,9 +1,9 @@
-package org.oszz.ox.server.base.template;
+package org.oszz.ox.server.base.mapping;
 
 import org.oszz.ox.core.template.AbstractTemplateDataClassMapping;
 
 /**
- * 模板数据类的class持有者<br>
+ * 模板数据类的class映射类<br>
  * Auto Generator, Don't Modify .
  */
 public class TemplateDataClassMapping extends AbstractTemplateDataClassMapping {
@@ -11,9 +11,10 @@ public class TemplateDataClassMapping extends AbstractTemplateDataClassMapping {
 	@Override
 	public void init() {
 	#foreach ($dataClass in ${dataClasses})
-	this.put(${dataClass.name});
+	//${dataClass.comments}
+		this.put(${dataClass.name});
 	
 	#end
-	}
+}
 
 }

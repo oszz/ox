@@ -36,7 +36,7 @@ public class JavaTemplateDataClassHolderGenertor extends
 		for(TemplateDataConfig tempDataConf : tempDataConfigs){
 			String classAllName = tempDataConf.getClassAllName();
 			String clazzName = classAllName + SystemProperty.CLASS_SUFFIX.getValue();
-			dataClasses.add(new TemplateDataClassHolderConfig(clazzName));
+			dataClasses.add(new TemplateDataClassHolderConfig(clazzName, tempDataConf.getComments()));
 		}
 		writeFile(outputPath, dataClasses);
 	}
@@ -48,8 +48,8 @@ public class JavaTemplateDataClassHolderGenertor extends
 		
 		outputPath = FilePathUtils.getDirIfExists(outputPath) + SystemProperty.FILE_SEPARATOR.getValue();
 		
-		VelocityUtils.write(this.tempDataClassMapping_vmFile, ctx, outputPath + TEMPLATE_DATA_CLASS_HOLDER_FILE_NAME, tempConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", TEMPLATE_DATA_CLASS_HOLDER_FILE_NAME, tempConfig.getCharsetName());
+		VelocityUtils.write(this.tempDataClassMapping_vmFile, ctx, outputPath + TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME, tempConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME, tempConfig.getCharsetName());
 
 	}
 

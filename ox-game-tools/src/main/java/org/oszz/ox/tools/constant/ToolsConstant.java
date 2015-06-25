@@ -88,4 +88,18 @@ public interface ToolsConstant {
 	 */
 	public static final String XML_NODE_FIELD = "field";
 	
+	/**
+	 * 模块service类的名字后缀
+	 */
+	public static final String SERVICE_CLASS_NAME_SUFFIX = "Service";
+	
+	/**
+	 * 模块dataHandler类的名字前缀（Human）
+	 */
+	public static final String DATA_HANDLER_CLASS_NAME_PREFIX = "Human";
+	/**
+	 * 模块dataHandler类的名字后缀
+	 */
+	public static final String DATA_HANDLER_CLASS_NAME_SUFFIX = "DataManager";
+	
 }

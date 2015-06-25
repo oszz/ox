@@ -1,6 +1,7 @@
 package org.oszz.ox.core.template;
 
 
+
 public interface ITemplateDataClassMapping {
 	
 	public void init();

@@ -1,4 +1,4 @@
-package org.oszz.ox.core;
+package org.oszz.ox.core.player;
 
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.session.ISession;
@@ -32,4 +32,7 @@ public interface IPlayer {
 	public boolean isOnLine();
 	
 	public void sendMessage(IMessage message);
+	
+	public IHuman getHuman();
+	
 }

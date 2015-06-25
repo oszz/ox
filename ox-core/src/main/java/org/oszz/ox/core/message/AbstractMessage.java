@@ -3,8 +3,8 @@ package org.oszz.ox.core.message;
 import java.nio.ByteBuffer;
 
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.core.IPlayer;
 import org.oszz.ox.core.conf.DefaultConfig;
+import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 
 import com.google.protobuf.GeneratedMessage;

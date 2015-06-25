@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.oszz.ox.core.IPlayer;
-import org.oszz.ox.core.Player;
+import org.oszz.ox.core.player.IPlayer;
+import org.oszz.ox.core.player.Player;
 
 /**
  * Game Server's session

@@ -2,7 +2,7 @@ package org.oszz.ox.server.base.scene;
 
 import java.util.Set;
 
-import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.player.IPlayer;
 
 /**
  * 场景接口

@@ -1,6 +1,7 @@
 package ${packageName};
 
 import org.oszz.ox.core.template.AbstractTemplateData;
+import org.oszz.ox.core.template.excel.ExcelField;
 
 /**
  * ${comments}<br>
@@ -9,7 +10,8 @@ import org.oszz.ox.core.template.AbstractTemplateData;
 public abstract class ${abstractClassName} extends AbstractTemplateData {
 
 	#foreach ($tempField in ${tempFields})
-private ${tempField.type} ${tempField.name};
+@ExcelField
+	private ${tempField.type} ${tempField.name};
 	#end
 	
 	#foreach ($tempField in ${tempFields})

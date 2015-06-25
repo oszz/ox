@@ -55,12 +55,11 @@ public class TemplateService implements ITemplateService {
 				throw new RuntimeException("模板类："+ tempDataClazz +",没有 @ExcelName 注解.");
 			}
 		}
+		patchUp();//读取完所有的模板数据后，再依次调用每个模板数据的该方法
 		log.info("读取模板数据文件结束.");
 		return true;
 	}
-
-	@Override
-	public boolean start() {
+	private void patchUp(){
 		//所有数据加载完成后，调用patchUp
 		for(Map.Entry<Class<? extends ITemplateData>, Map<Integer, ITemplateData>> tempDataMapEntry : tempDataMaps.entrySet()){
 			Map<Integer, ITemplateData> datas = tempDataMapEntry.getValue();
@@ -69,17 +68,6 @@ public class TemplateService implements ITemplateService {
 				tempData.patchUp();
 			}
 		}
-		return true;
-	}
-
-	@Override
-	public boolean restart() {
-		return false;
-	}
-
-	@Override
-	public boolean stop() {
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -95,4 +83,8 @@ public class TemplateService implements ITemplateService {
 		return (Map<Integer, T>)tempDataMaps.get(clazz);
 	}
 
+	@Override
+	public void onInitialized() {
+		//什么都不做
+	}
 }

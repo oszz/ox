@@ -33,43 +33,25 @@ public class HeartbeatService implements IService {
 	@Override
 	public boolean init() {
 		scheduledExecutorService = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+		start();
 		return true;
 	}
-
-
-	@Override
-	public boolean start() {
+	private void start() {
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
 				
 			}
 		}, 0, period, TimeUnit.MILLISECONDS);
-		
-		return true;
 	}
-
-
-
-	@Override
-	public boolean stop() {
-		scheduledExecutorService.shutdown();
-		return true;
-	}
-
-
-	@Override
-	public boolean restart() {
-		stop();
-		init();
-		start();
-		return true;
-	}
-
 
 	@Override
 	public boolean create() {
-		return false;
+		return true;
+	}
+	@Override
+	public void onInitialized() {
+		//什么都不做
 	}
 	
 	

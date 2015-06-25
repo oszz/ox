@@ -21,24 +21,11 @@ public interface IService {
 	 */
 	public boolean init();
 	
-	/**
-	 * 启动服务
-	 * @author ZZ
-	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
-	 */
-	public boolean start();
 	
 	/**
-	 * 重启服务
+	 * 当所有服务都已经初始化完成后，调用该方法<br>
+	 * 如果服务直接相互依赖的话，确保依赖的服务可用
 	 * @author ZZ
-	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
 	 */
-	public boolean restart();
-	
-	/**
-	 * 停止并销毁服务
-	 * @author ZZ
-	 * @return 如果成功返回<tt>true<tt>,否则返回<tt>false<tt>
-	 */
-	public boolean stop();
+	public void onInitialized();
 }

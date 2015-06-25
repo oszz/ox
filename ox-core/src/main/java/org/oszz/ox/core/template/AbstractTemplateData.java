@@ -1,6 +1,7 @@
 package org.oszz.ox.core.template;
 
 import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.core.template.excel.ExcelField;
 
 /**
  * 抽象的模板数据类，所有的模板数据都应该继承该类
@@ -9,7 +10,8 @@ import org.oszz.ox.common.utils.ClassUtils;
  */
 public abstract class AbstractTemplateData implements ITemplateData {
 	
-	protected int id;
+	@ExcelField
+	private int id;
 	
 
 	@Override

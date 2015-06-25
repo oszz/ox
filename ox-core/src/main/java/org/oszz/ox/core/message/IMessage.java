@@ -1,6 +1,6 @@
 package org.oszz.ox.core.message;
 
-import org.oszz.ox.core.IPlayer;
+import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 
 import com.google.protobuf.GeneratedMessage;

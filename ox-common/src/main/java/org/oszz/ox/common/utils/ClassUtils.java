@@ -38,20 +38,53 @@ public class ClassUtils {
 	}
 	
 	/**
-	 * 返回class所有父类的所有字段属性(不包含当前类的属性)
+	 * 返回当前class及其所有父类的字段名称与fieldName相同的属性
+	 * @author ZZ
+	 * @param clazz 当前class
+	 * @param fieldName 字段名称
+	 * @return 返回当前class及其所有父类的字段名称与fieldName相同的属性,如果没有找到，则返回<tt>null<tt>
+	 */
+	public static Field getField(Class<?> clazz, String fieldName){
+		Field[] fields = getAllFields(clazz);
+		Field field = null;
+		for(Field f : fields){
+			if(fieldName.equals(f.getName())){
+				field = f;
+			}
+		}
+		return field;
+	}
+	
+	
+	
+	/**
+	 * 返回class所有父类机器自身的所有字段属性<br>
+	 * 父类会追溯到Object.class，但返回的属性中不包含Object.class的属性
 	 * @author ZZ
 	 * @param currentClazz 当前类
 	 * @return 返回class所有父类的所有字段属性
 	 */
-	public static Field[] getParentFields(Class<?> currentClazz){
+	public static Field[] getAllFields(Class<?> currentClazz){
+		return getAllFields(currentClazz, Object.class);
+	}
+	
+	/**
+	 * 返回class所有父类机器自身的所有字段属性(不包含顶级父类的属性)
+	 * @author ZZ
+	 * @param currentClazz 当前类
+	 * @param maxParentClazz 顶级的父类
+	 * @return 返回class所有父类机器自身的所有字段属性(不包含顶级父类的属性)
+	 */
+	public static Field[] getAllFields(Class<?> currentClazz, Class<?> maxParentClazz){
 		List<Field> totalfields = new ArrayList<Field>();
 		while(true){
+			Field[] fields = getFields(currentClazz);
+			totalfields.addAll(0, Arrays.asList(fields));//将父类的字段放在前面
+			
 			currentClazz = currentClazz.getSuperclass();
-			if(currentClazz == Object.class){
+			if(currentClazz == maxParentClazz){
 				break;
 			}
-			Field[] fields = getFields(currentClazz);
-			totalfields.addAll(0, Arrays.asList(fields));
 		}
 		return totalfields.toArray(new Field[0]);
 	}
@@ -295,7 +328,7 @@ public class ClassUtils {
 		content.append(obj.getClass().getSimpleName() + "( ");
 		
 //		Field[] fields = obj.getClass().getDeclaredFields();
-		Field[] fields = getParentFields(obj.getClass());
+		Field[] fields = getAllFields(obj.getClass());
 		if(fields != null && fields.length != 0){
 			for(Field field : fields){
 				String fieldName = field.getName();
