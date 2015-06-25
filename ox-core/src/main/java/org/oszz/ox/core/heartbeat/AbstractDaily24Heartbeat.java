@@ -4,10 +4,10 @@ import org.oszz.ox.common.utils.DateUtils;
 
 
 /**
- * 每日24点的心跳
+ * 抽象的每日24点的心跳
  * @author ZZ
  */
-public abstract class AbstractDailyHeartbeat implements IHeartbeat {
+public abstract class AbstractDaily24Heartbeat implements IDailyHeartbeat {
 	
 	/**
 	 * 下一次心跳的时间点（秒）
@@ -26,11 +26,5 @@ public abstract class AbstractDailyHeartbeat implements IHeartbeat {
 //			nextBeatTime = currentTime + 1;
 		}
 	}
-	
-	/**
-	 * 刷新数据
-	 * @author ZZ
-	 */
-	public abstract void refresh();
 
 }

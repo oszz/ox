@@ -23,7 +23,11 @@ public enum HttpSessionKey {
 	private HttpSessionKey(String value){
 		this.value = value;
 	}
-	
+	/**
+	 * 返回HttpSessionKey的值
+	 * @author ZZ
+	 * @return 返回HttpSessionKey的值
+	 */
 	public String getValue(){
 		return this.value;
 	}
