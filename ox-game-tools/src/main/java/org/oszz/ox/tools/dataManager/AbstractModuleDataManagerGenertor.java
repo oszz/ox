@@ -2,7 +2,7 @@ package org.oszz.ox.tools.dataManager;
 
 import org.oszz.ox.tools.dataManager.conf.DataManagerConfig;
 import org.oszz.ox.tools.generator.AbstractGenerator;
-import org.oszz.ox.tools.module.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

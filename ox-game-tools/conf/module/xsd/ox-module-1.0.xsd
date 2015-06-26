@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns= "http://www.ox.oszz.org/schema" 
+	xmlns:xsd= "http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.ox.oszz.org/schema" 
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    
+   <!--  xmlns:msgXSD= "http://www.ox.oszz.org/schema" 
+    xmlns:tempXSD= "http://www.ox.oszz.org/schema"  -->
+    
+    <xsd:include schemaLocation="ox-messages-1.0.xsd"/> 
+    <xsd:include schemaLocation="ox-template-1.0.xsd"/> 
+      
+ 
+ 	<!-- 字符串 -->
+    <xsd:simpleType name="str">
+	  <xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	
+	<!-- Boolean型 -->
+	<xsd:simpleType name="bool">
+	  <xsd:restriction base="xsd:boolean" />
+	</xsd:simpleType>
+    
+    <!-- 模块元素的定义 -->
+    <xsd:complexType name="moduleComplexType">
+      	<xsd:sequence>
+      		<xsd:element name="messages" type="messagesComplexType" maxOccurs="1" minOccurs="0"/>
+      		<xsd:element name="templates" type="templatesComplexType" maxOccurs="1" minOccurs="0"/>
+      	</xsd:sequence>
+      	<!-- 模块的名称，唯一 -->
+    	<xsd:attribute name="name" type="xsd:ID" use="required"/>
+    	<!-- 模块的包名 -->
+    	<xsd:attribute name="package" type="str" use="required"/>
+        <!-- 是否生成模块相关类，如果已经生成过，则不必重复生成 -->
+        <xsd:attribute name="isGenerator" type="bool" use="required"/>
+        <!-- 模块的描述 -->
+        <xsd:attribute name="desc" type="str" use="required"/>
+	</xsd:complexType>
+	 
+
+	<!-- 单个模块的XML配置 -->	
+	<xsd:element name="root">  
+       <xsd:complexType>  
+         <xsd:sequence>  
+         	<!-- 一个模块的XML配置 -->
+            <xsd:element name="module" type="moduleComplexType" maxOccurs="1" minOccurs="1" />
+         </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>  
+</xsd:schema> 

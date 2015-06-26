@@ -7,7 +7,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.POIUitls;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.template.AbstractTemplateGenertor;
@@ -65,7 +65,7 @@ public class JavaAbstractTemplateGenertor extends AbstractTemplateGenertor imple
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		
 		outputPath += "/" + packagePath ;
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + "/";
+		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
 		
 		VelocityUtils.write(this.abstractTemplate_vmFile, ctx, outputPath + fileName, tempConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", fileName, tempConfig.getCharsetName());

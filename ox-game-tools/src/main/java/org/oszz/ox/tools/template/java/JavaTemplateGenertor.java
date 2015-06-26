@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.template.AbstractTemplateGenertor;
 import org.oszz.ox.tools.template.ITemplateGenertor;
@@ -60,7 +60,7 @@ public class JavaTemplateGenertor extends AbstractTemplateGenertor implements IT
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		
 		outputPath += "/" + packagePath ;
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + "/";
+		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
 		
 		VelocityUtils.write(this.template_vmFile, ctx, outputPath + fileName, tempConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", fileName, tempConfig.getCharsetName());

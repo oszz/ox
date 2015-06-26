@@ -2,13 +2,17 @@ package org.oszz.ox.common.utils;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 文件路径工具
  * @author ZZ
  *
  */
-public class FilePathUtils {
+public class FileUtils {
 
 	/**
 	 * 获得绝对路径用于读取该路径下的文件.<br>
@@ -63,6 +67,52 @@ public class FilePathUtils {
 			outDir.mkdirs();
 		}
 		return outDir.getAbsolutePath();
+	}
+	
+	/**
+	 * 返回某个文件目录下的所有文件<br>
+	 * 1.不包含子文件目录<br>
+	 * 2.不包含子文件目录内的文件
+	 * @author ZZ
+	 * @param dirPath 文件目录
+	 * @return 返回某个文件目录下的所有文件
+	 */
+	public File[] getFiles(String dirPath){
+		File dirFile = new File(dirPath);
+		List<File> allFiles = new ArrayList<File>();
+		if(dirFile.exists()){
+			File[] files = dirFile.listFiles();
+			for(File file : files){
+				if(file.isFile()){
+					allFiles.add(file);
+				}
+			}
+		}
+		return allFiles.toArray(new File[0]);
+	}
+	
+	/**
+	 * 返回某个文件目录下的所有是suffixName后缀名的文件<br>
+	 * 1.不包含子文件目录<br>
+	 * 2.不包含子文件目录内的文件
+	 * @author ZZ
+	 * @param dirPath 文件目录
+	 * @param suffixName 文件的后缀名
+	 * @return 返回某个文件目录下的所有是suffixName后缀名的文件
+	 */
+	public File[] getFiles(String dirPath, String suffixName){
+		File dirFile = new File(dirPath);
+		List<File> allFiles = new ArrayList<File>();
+		if(dirFile.exists()){
+			File[] files = dirFile.listFiles();
+			for(File file : files){
+				if(file.isFile()){
+					allFiles.add(file);
+					//TODO 未完成
+				}
+			}
+		}
+		return allFiles.toArray(new File[0]);
 	}
 	
 }

@@ -8,7 +8,7 @@ import org.oszz.ox.tools.dataManager.IModuleDataManagerGenertor;
 import org.oszz.ox.tools.dataManager.conf.DataManagerConfig;
 import org.oszz.ox.tools.dataManager.java.JavaModuleDataManagerClassMappingGenertor;
 import org.oszz.ox.tools.dataManager.java.JavaModuleDataManagerGenertor;
-import org.oszz.ox.tools.module.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 
 public class DataManagerGenerator {
 
@@ -41,7 +41,7 @@ public class DataManagerGenerator {
 		
 		Properties moduleConfigProps = lpf.load(MODULE_CONFIG_FILE_PAHT);
 		ModuleCoifig moduleConfig = new ModuleCoifig();
-		moduleConfig.load(moduleConfigProps);
+//		moduleConfig.load(moduleConfigProps);
 		
 		generatorJava(dataManagerConfig, moduleConfig);
 	}

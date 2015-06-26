@@ -1,13 +1,10 @@
 package org.oszz.ox.tools.service.java;
 
-import java.util.List;
-
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
-import org.oszz.ox.tools.module.ModuleCoifig;
-import org.oszz.ox.tools.module.ModuleCoifig.Module;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 import org.oszz.ox.tools.service.AbstractServiceGenertor;
 import org.oszz.ox.tools.service.conf.ServiceConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
@@ -24,14 +21,14 @@ public class JavaModuleServiceGenertor extends AbstractServiceGenertor {
 
 	@Override
 	public void generate() {
-		String outputPath = this.getAbsoluteJavaOutputPath(serviceConfig.getJavaOutputPath());
-		 List<Module> modules = moduleConfig.getModules();
-		for(Module module : modules){
-			String className = module.getServiceClassName();
-			String packageName = module.getPackageName();
-			
-			writeFile(outputPath, packageName, className);
-		}
+//		String outputPath = this.getAbsoluteJavaOutputPath(serviceConfig.getJavaOutputPath());
+//		 List<Module> modules = moduleConfig.getModules();
+//		for(Module module : modules){
+//			String className = module.getServiceClassName();
+//			String packageName = module.getPackageName();
+//			
+//			writeFile(outputPath, packageName, className);
+//		}
 
 	}
 	
@@ -45,7 +42,7 @@ public class JavaModuleServiceGenertor extends AbstractServiceGenertor {
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		
 		outputPath += "/" + packagePath ;
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + "/";
+		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
 		
 		VelocityUtils.write(this.service_java_vm_file, ctx, outputPath + fileName, serviceConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", fileName, serviceConfig.getCharsetName());

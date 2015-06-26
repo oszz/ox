@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
@@ -54,7 +54,7 @@ public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
 				String packagePath = ClassUtils.packageName2Path(msgPackageName);
 				String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
 				outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-				outPath = FilePathUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+				outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 				String fileName = msgClassName + javaClassSuffix;
 				VelocityUtils.write(this.msg_vmFile, ctx, outPath+"/"+fileName, msgConfig.getCharsetName());
 				log.info("成功生成 {} . 字符集：{}", fileName, msgConfig.getCharsetName());

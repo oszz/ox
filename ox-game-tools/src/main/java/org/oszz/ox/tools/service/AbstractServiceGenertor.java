@@ -1,7 +1,7 @@
 package org.oszz.ox.tools.service;
 
 import org.oszz.ox.tools.generator.AbstractGenerator;
-import org.oszz.ox.tools.module.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 import org.oszz.ox.tools.service.conf.ServiceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

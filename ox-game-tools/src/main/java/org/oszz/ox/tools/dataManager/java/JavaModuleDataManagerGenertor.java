@@ -1,15 +1,12 @@
 package org.oszz.ox.tools.dataManager.java;
 
-import java.util.List;
-
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.dataManager.AbstractModuleDataManagerGenertor;
 import org.oszz.ox.tools.dataManager.conf.DataManagerConfig;
-import org.oszz.ox.tools.module.ModuleCoifig;
-import org.oszz.ox.tools.module.ModuleCoifig.Module;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 public class JavaModuleDataManagerGenertor extends AbstractModuleDataManagerGenertor {
@@ -24,14 +21,14 @@ public class JavaModuleDataManagerGenertor extends AbstractModuleDataManagerGene
 
 	@Override
 	public void generate() {
-		String outputPath = this.getAbsoluteJavaOutputPath(dataManagerConfig.getJavaOutputPath());
-		 List<Module> modules = moduleConfig.getModules();
-		for(Module module : modules){
-			String className = module.getDataManagerClassName();
-			String packageName = module.getPackageName();
-			
-			writeFile(outputPath, packageName, className);
-		}
+//		/*String outputPath = this.getAbsoluteJavaOutputPath(dataManagerConfig.getJavaOutputPath());
+//		 List<Module> modules = moduleConfig.getModules();
+//		for(Module module : modules){
+//			String className = module.getDataManagerClassName();
+//			String packageName = module.getPackageName();
+//			
+//			writeFile(outputPath, packageName, className);
+//		}*/
 
 	}
 	
@@ -45,7 +42,7 @@ public class JavaModuleDataManagerGenertor extends AbstractModuleDataManagerGene
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		
 		outputPath += "/" + packagePath ;
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + "/";
+		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
 		
 		VelocityUtils.write(this.vm_file, ctx, outputPath + fileName, dataManagerConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", fileName, dataManagerConfig.getCharsetName());

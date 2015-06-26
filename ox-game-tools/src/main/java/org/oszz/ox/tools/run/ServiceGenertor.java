@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
-import org.oszz.ox.tools.module.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleCoifig;
 import org.oszz.ox.tools.service.IServiceGenertor;
 import org.oszz.ox.tools.service.conf.ServiceConfig;
 import org.oszz.ox.tools.service.java.JavaModuleServiceClassMappingGenertor;
@@ -40,7 +40,7 @@ public class ServiceGenertor {
 		
 		Properties moduleConfigProps = lpf.load(MODULE_CONFIG_FILE_PAHT);
 		ModuleCoifig moduleConfig = new ModuleCoifig();
-		moduleConfig.load(moduleConfigProps);
+//		moduleConfig.load(moduleConfigProps);
 		
 		generatorJava(serviceConfig, moduleConfig);
 	}

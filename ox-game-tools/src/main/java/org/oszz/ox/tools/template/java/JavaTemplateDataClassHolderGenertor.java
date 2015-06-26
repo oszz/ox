@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.template.AbstractTemplateGenertor;
 import org.oszz.ox.tools.template.ITemplateGenertor;
@@ -46,7 +46,7 @@ public class JavaTemplateDataClassHolderGenertor extends
 		
 		ctx.put("dataClasses", dataClasses);
 		
-		outputPath = FilePathUtils.getDirIfExists(outputPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		outputPath = FileUtils.getDirIfExists(outputPath) + SystemProperty.FILE_SEPARATOR.getValue();
 		
 		VelocityUtils.write(this.tempDataClassMapping_vmFile, ctx, outputPath + TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME, tempConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME, tempConfig.getCharsetName());

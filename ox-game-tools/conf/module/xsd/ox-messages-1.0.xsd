@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns= "http://www.ox.oszz.org/schema" 
+	xmlns:xsd= "http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.ox.oszz.org/schema" 
+    elementFormDefault="qualified" attributeFormDefault="unqualified"
+    >
+ 
+ 	<!-- 字符串 -->
+    <xsd:simpleType name="str">
+	  <xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	
+	<!-- Boolean型 -->
+	<xsd:simpleType name="bool">
+	  <xsd:restriction base="xsd:boolean" />
+	</xsd:simpleType>
+    
+    <!-- message元素的定义 -->
+    <xsd:complexType name="messageComplexType">
+      	<!-- 消息的名称，唯一 -->
+    	<xsd:attribute name="name" type="xsd:ID" use="required"/>
+    	<!-- 消息类型：GC或CG -->
+        <xsd:attribute name="type" type="messageType" use="required"/>
+        <!-- 注释，必须有注释，最少最多只能有一个注释 -->
+        <xsd:attribute name="comments" type="str" use="required"/>
+        <!-- 消息在哪个线程执行的枚举： ASYN或SCENE或WORLD -->
+        <xsd:attribute name="messageProcesserType" type="messageProcesserType" use="required"/>
+     
+	</xsd:complexType>
+	 
+	<!-- 消息类型的枚举： GC或CG -->
+	<xsd:simpleType name="messageType">
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="GC"/>
+	    <xsd:enumeration value="CG"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- 消息在哪个线程执行的枚举： ASYN或SCENE或WORLD -->
+	<xsd:simpleType name="messageProcesserType">
+	  <xsd:restriction base="xsd:string">
+	  	<xsd:enumeration value="ASYN"/>
+	    <xsd:enumeration value="SCENE"/>
+	    <xsd:enumeration value="WORLD"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="messagesComplexType">
+      	<xsd:sequence>
+      		<!-- 可以有无限多个Message -->
+            <xsd:element name="message" type="messageComplexType" maxOccurs="unbounded" minOccurs="0"/>
+      	</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 整个消息的XML配置 -->	
+	<xsd:element name="messages">  
+       <xsd:complexType>  
+         <xsd:sequence>  
+         	<!-- 可以有无限多个Message -->
+            <xsd:element name="message" type="messageComplexType" maxOccurs="unbounded" />
+         </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>  
+</xsd:schema> 

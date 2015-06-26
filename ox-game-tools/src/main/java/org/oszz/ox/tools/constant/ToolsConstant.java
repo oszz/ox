@@ -102,4 +102,15 @@ public interface ToolsConstant {
 	 */
 	public static final String DATA_HANDLER_CLASS_NAME_SUFFIX = "DataManager";
 	
+	/**
+	 * message的包名
+	 */
+	public static final String MESSAGE_PACKAGE = "message";
+	
+	/**
+	 * template的包名
+	 */
+	public static final String TEMPLATE_PACKAGE = "template";
+	
+	
 }

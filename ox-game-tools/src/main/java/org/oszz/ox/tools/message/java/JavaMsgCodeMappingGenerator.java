@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FilePathUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.message.MessageProcesserType;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
@@ -68,7 +68,7 @@ public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
 		String packagePath = ClassUtils.packageName2Path(PACKAGE_NAME);
 		
 		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-		outPath = FilePathUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 		VelocityUtils.write(this.msgCodeMappingRegisterService_vmFile, ctx, outPath + CLASS_NAME, msgConfig.getCharsetName());
 		log.info("成功生成 {} . 字符集：{}", CLASS_NAME, msgConfig.getCharsetName());
 	}
