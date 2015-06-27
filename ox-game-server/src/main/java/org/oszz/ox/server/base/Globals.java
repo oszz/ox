@@ -22,9 +22,9 @@ import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.conf.TemplateConfig;
 import org.oszz.ox.server.base.log.GameLogger;
+import org.oszz.ox.server.base.mapping.MessageCodeMapping;
 import org.oszz.ox.server.base.mapping.ModuleServiceClassMapping;
 import org.oszz.ox.server.base.mapping.TemplateDataClassMapping;
-import org.oszz.ox.server.base.message.MessageCodeMapping;
 import org.oszz.ox.server.base.processer.ProcesserService;
 
 /**

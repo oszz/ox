@@ -1,13 +1,16 @@
 package org.oszz.ox.tools.module;
 
 import org.oszz.ox.tools.generator.AbstractGenerator;
-import org.oszz.ox.tools.module.conf.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
+import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 
 public abstract class AbstractModuleGenerator extends AbstractGenerator implements IModuleGenerator {
 
-	protected ModuleCoifig moduleCoifig;
+	protected ModuleConfig moduleConfig;
+	protected ModulesXMLConfig modulesXMLConfig;
 	
-	public AbstractModuleGenerator(ModuleCoifig moduleCoifig){
-		this.moduleCoifig = moduleCoifig;
+	public AbstractModuleGenerator(ModuleConfig moduleConfig, ModulesXMLConfig modulesXMLConfig){
+		this.moduleConfig = moduleConfig;
+		this.modulesXMLConfig = modulesXMLConfig;
 	}
 }

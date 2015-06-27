@@ -8,7 +8,7 @@ import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.message.conf.MessageConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 /**
@@ -27,8 +27,8 @@ public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
 	 * @param messageCodeListPath 消息码列表文件的路径
 	 * @param msgCode_vmFile 模板数据
 	 */
-	public JavaMsgGenerator(MessageConfig msgConfig, List<MessageCodeConfig> msgCodeConfigs, String msg_vmFile) {
-		super(msgConfig, msgCodeConfigs);
+	public JavaMsgGenerator(ModuleConfig moduleConfig, List<MessageCodeConfig> msgCodeConfigs, String msg_vmFile) {
+		super(moduleConfig, msgCodeConfigs);
 		this.msg_vmFile = msg_vmFile;
 		
 	}
@@ -52,12 +52,12 @@ public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
 				ctx.put("protobufMessageClass", protobufMessageClass);
 				
 				String packagePath = ClassUtils.packageName2Path(msgPackageName);
-				String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
+				String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
 				outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
 				outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 				String fileName = msgClassName + javaClassSuffix;
-				VelocityUtils.write(this.msg_vmFile, ctx, outPath+"/"+fileName, msgConfig.getCharsetName());
-				log.info("成功生成 {} . 字符集：{}", fileName, msgConfig.getCharsetName());
+				VelocityUtils.write(this.msg_vmFile, ctx, outPath+"/"+fileName, moduleConfig.getCharsetName());
+				log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
 			}
 		}
 	}

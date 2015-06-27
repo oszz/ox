@@ -1,34 +1,38 @@
 package org.oszz.ox.tools.dataManager.java;
 
+import java.util.List;
+
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.dataManager.AbstractModuleDataManagerGenertor;
-import org.oszz.ox.tools.dataManager.conf.DataManagerConfig;
-import org.oszz.ox.tools.module.conf.ModuleCoifig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
+import org.oszz.ox.tools.module.conf.ModuleXMLConfig;
+import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 public class JavaModuleDataManagerGenertor extends AbstractModuleDataManagerGenertor {
 	
 	private String vm_file;
 
-	public JavaModuleDataManagerGenertor(DataManagerConfig dataManagerConfig, ModuleCoifig moduleConfig, 
+	public JavaModuleDataManagerGenertor(ModuleConfig moduleConfig, ModulesXMLConfig modulesXMLConfig, 
 			String  vm_file) {
-		super(dataManagerConfig, moduleConfig);
+		super(moduleConfig, modulesXMLConfig);
 		this.vm_file = vm_file;
 	}
 
 	@Override
 	public void generate() {
-//		/*String outputPath = this.getAbsoluteJavaOutputPath(dataManagerConfig.getJavaOutputPath());
-//		 List<Module> modules = moduleConfig.getModules();
-//		for(Module module : modules){
-//			String className = module.getDataManagerClassName();
-//			String packageName = module.getPackageName();
-//			
-//			writeFile(outputPath, packageName, className);
-//		}*/
+		String outputPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
+		List<ModuleXMLConfig> modules = modulesXMLConfig.getModuleXMLCoifigs();
+		for(ModuleXMLConfig module : modules){
+			String className = module.getDataManagerClassName();
+			String packageName = module.getModulePackage();
+			if(module.isGenerator()){
+				writeFile(outputPath, packageName, className);
+			}
+		}
 
 	}
 	
@@ -44,8 +48,8 @@ public class JavaModuleDataManagerGenertor extends AbstractModuleDataManagerGene
 		outputPath += "/" + packagePath ;
 		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
 		
-		VelocityUtils.write(this.vm_file, ctx, outputPath + fileName, dataManagerConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", fileName, dataManagerConfig.getCharsetName());
+		VelocityUtils.write(this.vm_file, ctx, outputPath + fileName, moduleConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
 	}
 
 }

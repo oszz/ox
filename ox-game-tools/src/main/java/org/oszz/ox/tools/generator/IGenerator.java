@@ -15,6 +15,13 @@ public interface IGenerator {
 	 * @return
 	 */
 	public String getAbsoluteJavaOutputPath(String javaOutputPath);
+	
+	/**
+	 * 返回生成文件的绝对目录名
+	 * @author ZZ
+	 * @return
+	 */
+	public String getAbsoluteOutputPath(String outputPath, String packageName);
 
 	public void generate();
 }

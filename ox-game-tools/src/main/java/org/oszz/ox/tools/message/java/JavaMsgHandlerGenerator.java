@@ -6,9 +6,10 @@ import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
+import org.oszz.ox.tools.constant.ToolsConstant;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.message.conf.MessageConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 /**
@@ -21,9 +22,9 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 	private String msgHandler_vmFile;//模板文件
 	
 	
-	public JavaMsgHandlerGenerator(MessageConfig msgConfig,
+	public JavaMsgHandlerGenerator(ModuleConfig moduleConfig,
 			List<MessageCodeConfig> msgCodeConfigs, String msgHandler_vmFile) {
-		super(msgConfig, msgCodeConfigs);
+		super(moduleConfig, msgCodeConfigs);
 		this.msgHandler_vmFile = msgHandler_vmFile;
 	}
 
@@ -34,7 +35,7 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 		for(MessageCodeConfig msgCodeConf : this.msgCodeConfigs){
 			if(msgCodeConf.isGenerator()){//如果是生成
 				String handlerClassPackageName = msgCodeConf.getHandlerClassPackageName().trim();
-				if(!"".equalsIgnoreCase(handlerClassPackageName)){//不为空，说明需要生产handler类
+				if(msgCodeConf.getMsgType().equals(ToolsConstant.MESSAGE_CG_TYPE)){//如果CG类型的消息，需要生成handler类
 					VelocityContext ctx = new VelocityContext();
 					String comments = msgCodeConf.getComments();
 					String handlerClassName = msgCodeConf.getMsgHandlerClassName();
@@ -43,14 +44,14 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 					ctx.put("comments", comments);
 					ctx.put("handlerClassName", handlerClassName);
 					
-					String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
+					String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
 					String fileName = handlerClassName + javaClassSuffix;
 					String packagePath = ClassUtils.packageName2Path(handlerClassPackageName);
 					
 					outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
 					outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
-					VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath + fileName, msgConfig.getCharsetName());
-					log.info("成功生成 {} . 字符集：{}", fileName, msgConfig.getCharsetName());
+					VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath + fileName, moduleConfig.getCharsetName());
+					log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
 				}
 			}
 		}

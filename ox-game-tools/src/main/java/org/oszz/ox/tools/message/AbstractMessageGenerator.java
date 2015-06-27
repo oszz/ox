@@ -3,7 +3,7 @@ package org.oszz.ox.tools.message;
 import java.io.File;
 
 import org.oszz.ox.tools.generator.AbstractGenerator;
-import org.oszz.ox.tools.message.conf.MessageConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
 
 /**
  * Proto类文件的生成器
@@ -12,15 +12,15 @@ import org.oszz.ox.tools.message.conf.MessageConfig;
  */
 public abstract class AbstractMessageGenerator extends AbstractGenerator implements IMessageGenerator {
 	
-	protected MessageConfig msgConfig;
+	protected ModuleConfig moduleConfig;
 	
-	public AbstractMessageGenerator(MessageConfig msgConfig){
-		this.msgConfig = msgConfig;
+	public AbstractMessageGenerator(ModuleConfig moduleConfig){
+		this.moduleConfig = moduleConfig;
 	}
 
 	@Override
 	public File[] getProtoFiles() {
-		String protoFileDirStr = this.getAbsoluteInputPath(msgConfig.getInputPath());
+		String protoFileDirStr = this.getAbsoluteInputPath(moduleConfig.getProtoBufFilePath());
 		File protoFileDir = new File(protoFileDirStr);
 		File[] protoFiles = null;
 		if(protoFileDir.isDirectory()){

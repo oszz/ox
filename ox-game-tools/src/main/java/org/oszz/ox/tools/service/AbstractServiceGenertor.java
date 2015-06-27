@@ -1,8 +1,8 @@
 package org.oszz.ox.tools.service;
 
 import org.oszz.ox.tools.generator.AbstractGenerator;
-import org.oszz.ox.tools.module.conf.ModuleCoifig;
-import org.oszz.ox.tools.service.conf.ServiceConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
+import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,12 +13,12 @@ public abstract class AbstractServiceGenertor extends AbstractGenerator
 	protected static final String MODULE_SERVICE_CLASS_MAPPING_FILE_NAME = "ModuleServiceClassMapping.java";
 	
 
-	protected ServiceConfig serviceConfig;
-	protected ModuleCoifig moduleConfig;
+	protected ModuleConfig moduleConfig;
+	protected ModulesXMLConfig modulesXMLConfig;
 
-	public AbstractServiceGenertor(ServiceConfig serviceConfig, ModuleCoifig moduleConfig){
-		this.serviceConfig = serviceConfig;
+	public AbstractServiceGenertor(ModuleConfig moduleConfig, ModulesXMLConfig modulesXMLConfig){
 		this.moduleConfig = moduleConfig;
+		this.modulesXMLConfig = modulesXMLConfig;
 	}
 	
 }

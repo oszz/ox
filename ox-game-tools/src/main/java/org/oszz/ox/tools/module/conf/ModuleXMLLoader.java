@@ -1,14 +1,15 @@
 package org.oszz.ox.tools.module.conf;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
+import org.oszz.ox.common.utils.SystemProperty;
+import org.oszz.ox.common.utils.XMLUtils;
 import org.oszz.ox.tools.constant.ToolsConstant;
+import org.oszz.ox.tools.message.conf.MessageCodeConfig;
+import org.oszz.ox.tools.module.MessageCodeProducer;
 import org.oszz.ox.tools.template.conf.TemplateDataConfig;
 import org.oszz.ox.tools.template.conf.TemplateField;
 import org.slf4j.Logger;
@@ -18,44 +19,84 @@ public class ModuleXMLLoader {
 	
 	protected static final Logger log = LoggerFactory.getLogger("ModuleXMLLoader");
 
-	@SuppressWarnings("unchecked")
-	public List<TemplateDataConfig> load(String xmlPath)
+	public ModulesXMLConfig load(ModulesXMLConfig modulesXMLConfig)
 			throws DocumentException {
-		SAXReader reader = new SAXReader();  
-        File xmlFile = new File(xmlPath);
-         // 通过read方法读取一个文件 转换成Document对象  
-        Document document = reader.read(xmlFile);  
-        log.info("开始读取：" + xmlFile.getAbsolutePath());
-        //获取根节点元素对象  
-        Element rootNode = document.getRootElement();  
-		
-        List<TemplateDataConfig> configs = new ArrayList<TemplateDataConfig>();
-        
-		List<Element> nodes = rootNode.elements(ToolsConstant.XML_NODE_TEMPLATE);
-		
-		 for(Element node : nodes){
-	        	String excelName = node.attribute(ToolsConstant.XML_ATTRIBUTE_NAME).getStringValue();
-	        	String classAllName = node.attribute(ToolsConstant.XML_ATTRIBUTE_CLASS).getStringValue();
-	        	boolean isGenerator = Boolean.parseBoolean(node.attribute(ToolsConstant.XML_ATTRIBUTE_IS_GENERATOR).getStringValue());
-	        	Element commentsNode = node.element(ToolsConstant.XML_NODE_COMMENTS);//注释的节点
-	          	String comments = commentsNode.getText();//注释的内容
-	          	
-	          	Element fieldsNode = node.element(ToolsConstant.XML_NODE_FIELDS);//fields节点
-	          	List<TemplateField> tempFields = new ArrayList<TemplateField>();
-	          	if(fieldsNode != null){
-	          		List<Element> fieldNodes = fieldsNode.elements(ToolsConstant.XML_NODE_FIELD);//field节点
-	          		 for(Element fieldNode : fieldNodes){
-	          			String fieldName = fieldNode.getText();//字段名字
-	          			//暂时没有类型，需要从excel中读取字段类型
-	          			TemplateField tempField = new TemplateField(fieldName);
-	          			
-	          			tempFields.add(tempField);
-	          		 }
-	          	}
-	          	TemplateDataConfig config = new TemplateDataConfig(excelName, classAllName, isGenerator, comments);
-	          	config.setTempFields(tempFields);
-	          	configs.add(config);
-	        }
-		return configs;
+		String xmlDirPath = modulesXMLConfig.getXmlPath();
+		List<ModuleXMLConfig> moduleXMLConfigs = modulesXMLConfig.getModuleXMLCoifigs();
+		for(ModuleXMLConfig moduleXMLConfig : moduleXMLConfigs){
+			String xmlFileName = moduleXMLConfig.getXmlFileName();
+			String xmlFilePath = xmlDirPath + SystemProperty.FILE_SEPARATOR.getValue() + xmlFileName;
+			log.info("正在读取{} ...", xmlFileName);
+			Element rootNode = XMLUtils.getRootElement(xmlFilePath);
+			List<MessageCodeConfig> msgCodeConfigs = getMessageCodeConfigs(rootNode, moduleXMLConfig);
+			moduleXMLConfig.setMsgCodeConfigs(msgCodeConfigs);
+			
+			List<TemplateDataConfig> tempDataConfigs =  getTemplateDataConfigs(rootNode, moduleXMLConfig);
+			moduleXMLConfig.setTempDataConfigs(tempDataConfigs);
+		}
+		return modulesXMLConfig;
+	}
+	
+	private List<MessageCodeConfig> getMessageCodeConfigs(Element rootNode, ModuleXMLConfig moduleXMLConfig) throws DocumentException{
+		Element msgsNode = XMLUtils.getChildNode(rootNode, ToolsConstant.XML_NODE_MESSAGES);
+		List<MessageCodeConfig> msgCodeConfigs = null;
+		if(msgsNode != null){//messages 不是空
+			List<Element> msgNodes = XMLUtils.getChildNodes(msgsNode, ToolsConstant.XML_NODE_MESSAGE);
+			if(msgNodes != null && msgNodes.size() != 0){
+				msgCodeConfigs = new ArrayList<MessageCodeConfig>();
+				for(Element msgNode : msgNodes){
+					String msgName = XMLUtils.getAttrStringValue(msgNode, ToolsConstant.XML_ATTRIBUTE_NAME);
+					String msgType = XMLUtils.getAttrStringValue(msgNode, ToolsConstant.XML_ATTRIBUTE_TYPE);
+					String msgProcesserType = XMLUtils.getAttrStringValue(msgNode, ToolsConstant.XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE);
+					String comments = XMLUtils.getAttrStringValue(msgNode, ToolsConstant.XML_ATTRIBUTE_COMMENTS);
+					String msgPackageName = moduleXMLConfig.getMessagePackage();
+					boolean isGenerator = moduleXMLConfig.isGenerator();
+					String handlerClassPackageName = moduleXMLConfig.getMessageHandlerPackage();
+		          	String hexCode = MessageCodeProducer.next();
+		          	
+		          	MessageCodeConfig msgCodeConfig = new MessageCodeConfig(hexCode, msgName, 
+		          			msgType, msgPackageName, isGenerator, comments, 
+		          			handlerClassPackageName, msgProcesserType);
+		          	msgCodeConfigs.add(msgCodeConfig);
+				}
+			}
+		}
+		return msgCodeConfigs;
+	}
+	
+	private List<TemplateDataConfig> getTemplateDataConfigs(Element rootNode, ModuleXMLConfig moduleXMLConfig) throws DocumentException{
+		Element tempsNode = XMLUtils.getChildNode(rootNode, ToolsConstant.XML_NODE_TEMPLATES);
+		List<TemplateDataConfig> tempDataConfigs = null;
+		if(tempsNode != null){//templates 不是空
+			List<Element> tempNodes = XMLUtils.getChildNodes(tempsNode, ToolsConstant.XML_NODE_TEMPLATE);
+			
+			if(tempNodes != null && tempNodes.size() != 0){
+				tempDataConfigs = new ArrayList<TemplateDataConfig>();
+				for(Element tempNode : tempNodes){
+		          	String excelName = XMLUtils.getAttrStringValue(tempNode, ToolsConstant.XML_ATTRIBUTE_NAME);
+		        	boolean isGenerator = moduleXMLConfig.isGenerator();
+		        	String comments = XMLUtils.getAttrStringValue(tempNode, ToolsConstant.XML_ATTRIBUTE_COMMENTS);
+		          	
+		        	String tempPackageName = moduleXMLConfig.getTemplatePackage();
+		        	
+		          	Element fieldsNode = XMLUtils.getChildNode(tempNode, ToolsConstant.XML_NODE_FIELDS);//fields节点
+		          	List<TemplateField> tempFields = new ArrayList<TemplateField>();
+		          	if(fieldsNode != null){
+		          		List<Element> fieldNodes = XMLUtils.getChildNodes(fieldsNode, ToolsConstant.XML_NODE_FIELD);//field节点
+		          		 for(Element fieldNode : fieldNodes){
+		          			String fieldName = fieldNode.getText();//字段名字
+		          			//暂时没有类型，需要从excel中读取字段类型
+		          			TemplateField tempField = new TemplateField(fieldName);
+		          			
+		          			tempFields.add(tempField);
+		          		 }
+		          	}
+		          	TemplateDataConfig config = new TemplateDataConfig(excelName, tempPackageName, isGenerator, comments);
+		          	config.setTempFields(tempFields);
+		          	tempDataConfigs.add(config);
+				}
+			}
+		}
+		return tempDataConfigs;
 	}
 }

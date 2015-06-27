@@ -4,18 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
-import org.oszz.ox.common.utils.ClassUtils;
-import org.oszz.ox.common.utils.FileUtils;
-import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.message.MessageProcesserType;
+import org.oszz.ox.tools.constant.ToolsConstant;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.message.conf.MessageConfig;
 import org.oszz.ox.tools.message.conf.MsgCodeMappingRegisterServiceConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
-	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
 	private static final String CLASS_NAME = "MessageCodeMapping.java";
 	
 	private static final String ASYN = "MessageProcesserType.ASYN";
@@ -24,9 +21,9 @@ public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
 	
 	private String msgCodeMappingRegisterService_vmFile;
 	
-	public JavaMsgCodeMappingGenerator(MessageConfig msgConfig,
+	public JavaMsgCodeMappingGenerator(ModuleConfig moduleConfig,
 			List<MessageCodeConfig> msgCodeConfigs, String msgCodeMappingRegisterService_vmFile) {
-		super(msgConfig, msgCodeConfigs);
+		super(moduleConfig, msgCodeConfigs);
 		this.msgCodeMappingRegisterService_vmFile = msgCodeMappingRegisterService_vmFile;
 	}
 
@@ -36,7 +33,7 @@ public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
 		
 		for(MessageCodeConfig msgCodeConf : this.msgCodeConfigs){
 			String handlerClassPackageName = msgCodeConf.getHandlerClassPackageName().trim();
-			if(!"".equalsIgnoreCase(handlerClassPackageName)){//不为空，说明需要生产handler类
+			if(msgCodeConf.getMsgType().equals(ToolsConstant.MESSAGE_CG_TYPE)){//如果CG类型的消息，需要生成映射关系
 				String constName = msgCodeConf.getConstName();
 				String comments = msgCodeConf.getComments();
 //				String protoMsgClass = this.getFullClassName(msgCodeConf.getMsgPackageName(), msgCodeConf.getMsgName());
@@ -64,12 +61,9 @@ public class JavaMsgCodeMappingGenerator extends AbstractMessageCodeGenerator{
 		
 		ctx.put("mcmrscs", mcmrscs);
 		
-		String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
-		String packagePath = ClassUtils.packageName2Path(PACKAGE_NAME);
-		
-		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
-		VelocityUtils.write(this.msgCodeMappingRegisterService_vmFile, ctx, outPath + CLASS_NAME, msgConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", CLASS_NAME, msgConfig.getCharsetName());
+		String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
+		outPath = this.getAbsoluteOutputPath(outPath, ToolsConstant.MAPPING_PACKAGE_NAME);
+		VelocityUtils.write(this.msgCodeMappingRegisterService_vmFile, ctx, outPath + CLASS_NAME, moduleConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", CLASS_NAME, moduleConfig.getCharsetName());
 	}
 }

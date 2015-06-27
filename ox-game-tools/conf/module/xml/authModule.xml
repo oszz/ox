@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module xmlns= "http://www.ox.oszz.org/schema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.ox.oszz.org/schema xsd/ox-module-1.0.xsd">  
+    
+   	<!-- 模块关联的消息 -->
+   	<messages>
+   		 <message name="AuthProto.CGLogin" type="CG" messageProcesserType="ASYN"
+   		 	comments="玩家登陆" />
+	    <message name="AuthProto.GCLoginInfo" type="GC" messageProcesserType="SCENE" 
+	    	comments="玩家登陆后返回的消息" />
+	    <message name="AuthProto.CGLogout" type="CG" messageProcesserType="SCENE" 
+	    	comments="玩家主动退出"/>
+   	</messages>
+   	
+   	<!-- 模块关联的模板 -->
+   	<templates>
+    	 <template name="BattleBuff.xlsx" comments="战斗Buff">
+	    	<fields>
+	    		<field>buffName</field>
+	    		<field>buffType</field>
+	    		<field>continueType</field>
+	    		<field>buffID</field>
+	    	</fields>
+	    </template>
+   	</templates>	
+</module>

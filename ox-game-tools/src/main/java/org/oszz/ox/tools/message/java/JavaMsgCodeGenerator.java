@@ -3,9 +3,12 @@ package org.oszz.ox.tools.message.java;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
+import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.common.utils.FileUtils;
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.message.conf.MessageConfig;
+import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.utils.VelocityUtils;
 
 /**
@@ -14,6 +17,8 @@ import org.oszz.ox.tools.utils.VelocityUtils;
  *
  */
 public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
+	
+	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
 	
 
 	private String msgCode_vmFile;//模板文件
@@ -24,8 +29,8 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 	 * @param messageCodeListPath 消息码列表文件的路径
 	 * @param msgCode_vmFile 模板数据
 	 */
-	public JavaMsgCodeGenerator(MessageConfig msgConfig, List<MessageCodeConfig> msgCodeConfigs, String msgCode_vmFile) {
-		super(msgConfig, msgCodeConfigs);
+	public JavaMsgCodeGenerator(ModuleConfig moduleConfig, List<MessageCodeConfig> msgCodeConfigs, String msgCode_vmFile) {
+		super(moduleConfig, msgCodeConfigs);
 		this.msgCode_vmFile = msgCode_vmFile;
 		
 	}
@@ -35,8 +40,13 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 		VelocityContext ctx = new VelocityContext();
 		ctx.put("msgCodeConfigs", this.msgCodeConfigs);
 				 
-		String outPath = this.getAbsoluteJavaOutputPath(msgConfig.getJavaOutputPath());
-		VelocityUtils.write(this.msgCode_vmFile, ctx, outPath+"/"+JAVA_MESSAGE_CODE_FILE_NAME, msgConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", JAVA_MESSAGE_CODE_FILE_NAME, msgConfig.getCharsetName());
+		String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
+		
+		String packagePath = ClassUtils.packageName2Path(PACKAGE_NAME);
+		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
+		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		
+		VelocityUtils.write(this.msgCode_vmFile, ctx, outPath + JAVA_MESSAGE_CODE_FILE_NAME, moduleConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", JAVA_MESSAGE_CODE_FILE_NAME, moduleConfig.getCharsetName());
 	}
 }

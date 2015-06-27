@@ -1,10 +1,5 @@
 eclipse.preferences.version=1
-encoding//conf/message/message.properties=UTF-8
-encoding//conf/message/vm/messageCodeForJava.vm=UTF-8
-encoding//conf/module.properties=UTF-8
 encoding//conf/module/module.properties=UTF-8
-encoding//conf/service/service.properties=UTF-8
-encoding//conf/template/template.properties=UTF-8
 encoding//src/main/java=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

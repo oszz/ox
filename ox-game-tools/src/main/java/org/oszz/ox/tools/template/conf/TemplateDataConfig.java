@@ -2,6 +2,9 @@ package org.oszz.ox.tools.template.conf;
 
 import java.util.List;
 
+import org.oszz.ox.common.utils.FileUtils;
+import org.oszz.ox.common.utils.NameUtils;
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.constant.ToolsConstant;
 
 /**
@@ -21,16 +24,17 @@ public class TemplateDataConfig {
 	private String className;
 	private String abstractClassName;
 	
-	public TemplateDataConfig(String excelName, String classAllName, boolean isGenerator, String comments){
+	public TemplateDataConfig(String excelName, String packageName, boolean isGenerator, String comments){
 		this.excelName = excelName;
-		this.classAllName = classAllName;
+		this.packageName = packageName;
 		this.isGenerator = isGenerator;
 		this.comments = comments;
 		
-		int lastPointIndex = classAllName.lastIndexOf(".");
-		packageName = classAllName.substring(0, lastPointIndex);
-		className = classAllName.substring(lastPointIndex + 1);
-		abstractClassName = ToolsConstant.ABSTRACT_CLASS_NAME_PREFIX + className;
+		String eName = FileUtils.removeSuffixName(excelName);//去掉后缀名的excel名称
+		this.className = NameUtils.getClassName(eName) + ToolsConstant.TEMPLATE_CLASS_NAME_SUFFIX;
+		
+		this.classAllName = packageName + SystemProperty.PACKAGE_SEPARATOR.getValue() + className;
+		this.abstractClassName = ToolsConstant.ABSTRACT_CLASS_NAME_PREFIX + className;
 		
 		
 	}

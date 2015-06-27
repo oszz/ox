@@ -3,9 +3,7 @@ package org.oszz.ox.common.utils;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 文件路径工具
@@ -78,17 +76,7 @@ public class FileUtils {
 	 * @return 返回某个文件目录下的所有文件
 	 */
 	public File[] getFiles(String dirPath){
-		File dirFile = new File(dirPath);
-		List<File> allFiles = new ArrayList<File>();
-		if(dirFile.exists()){
-			File[] files = dirFile.listFiles();
-			for(File file : files){
-				if(file.isFile()){
-					allFiles.add(file);
-				}
-			}
-		}
-		return allFiles.toArray(new File[0]);
+		return getFiles(dirPath, "");
 	}
 	
 	/**
@@ -105,14 +93,47 @@ public class FileUtils {
 		List<File> allFiles = new ArrayList<File>();
 		if(dirFile.exists()){
 			File[] files = dirFile.listFiles();
+			
+			suffixName = suffixName.trim();
+			boolean suffixNameIsBlank = true;
+			if(suffixName != null && !"".equals(suffixName)){
+				suffixNameIsBlank = false;
+			}
 			for(File file : files){
 				if(file.isFile()){
-					allFiles.add(file);
-					//TODO 未完成
+					if(suffixNameIsBlank){//如果参数suffixName是空的
+						allFiles.add(file);
+					}else{//不是空白，则判断后缀是否一致
+						String fileName = file.getName();
+						int lastPointIndex = fileName.lastIndexOf(".");
+						if(lastPointIndex > 0){
+							//文件的后缀名
+							String fileSuffixName = fileName.substring(lastPointIndex);
+							if(fileSuffixName.equalsIgnoreCase(suffixName)){
+								allFiles.add(file);
+							}
+						}
+					}
 				}
 			}
 		}
 		return allFiles.toArray(new File[0]);
+	}
+	
+	/**
+	 * 返回去掉后缀名的文件名<br>
+	 * 如果没有后缀名直接返回
+	 * @author ZZ
+	 * @param fileSimpleName 带后缀名的文件名
+	 * @return 返回去掉后缀名的文件名
+	 */
+	public static String removeSuffixName(String fileSimpleName){
+		int lastPointIndex = fileSimpleName.lastIndexOf(".");
+		String name = fileSimpleName;
+		if(lastPointIndex > 0){
+			name = fileSimpleName.substring(0, lastPointIndex);
+		}
+		return name;
 	}
 	
 }

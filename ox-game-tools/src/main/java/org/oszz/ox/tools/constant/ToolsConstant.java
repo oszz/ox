@@ -108,9 +108,69 @@ public interface ToolsConstant {
 	public static final String MESSAGE_PACKAGE = "message";
 	
 	/**
+	 * message handler的包名
+	 */
+	public static final String MESSAGE_HANDLER_PACKAGE = "msgHandler";
+	
+	/**
 	 * template的包名
 	 */
 	public static final String TEMPLATE_PACKAGE = "template";
+	
+	/**
+	 * XML的module节点名称
+	 */
+	public static final String XML_NODE_MODULE = "module";
+	
+	/**
+	 * XML的xmlPath节点名称
+	 */
+	public static final String XML_NODE_XML_PATH = "xmlPath";
+	
+	/**
+	 * XML的package属性名称
+	 */
+	public static final String XML_ATTRIBUTE_PACKAGE = "package";
+	
+	/**
+	 * XML的xmlFileName属性名称
+	 */
+	public static final String XML_ATTRIBUTE_XML_FILE_NAME = "xmlFileName";
+	
+	/**
+	 * XML的desc属性名称
+	 */
+	public static final String XML_ATTRIBUTE_DESC = "desc";
+	
+	/**
+	 * XML的dirPath属性名称
+	 */
+	public static final String XML_ATTRIBUTE_DIR_PATH = "dirPath";
+	
+	/**
+	 * XML的messages节点名称
+	 */
+	public static final String XML_NODE_MESSAGES = "messages";
+	
+	/**
+	 * XML的comments属性名称
+	 */
+	public static final String XML_ATTRIBUTE_COMMENTS = "comments";
+	
+	/**
+	 * XML的templates节点名称
+	 */
+	public static final String XML_NODE_TEMPLATES = "templates";
+	
+	/**
+	 * 模板类的后缀名
+	 */
+	public static final String TEMPLATE_CLASS_NAME_SUFFIX = "Template";
+	
+	/**
+	 * 映射类的完整报名
+	 */
+	public static final String MAPPING_PACKAGE_NAME = "org.oszz.ox.server.base.mapping";
 	
 	
 }
