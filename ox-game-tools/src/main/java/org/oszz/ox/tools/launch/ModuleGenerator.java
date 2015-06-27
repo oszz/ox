@@ -11,11 +11,11 @@ import org.oszz.ox.tools.launch.java.JavaMessageGenerator;
 import org.oszz.ox.tools.launch.java.JavaServiceGenertor;
 import org.oszz.ox.tools.launch.java.JavaTemplateGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
+import org.oszz.ox.tools.module.ModuleXMLLoader;
+import org.oszz.ox.tools.module.ModulesXMLLoader;
 import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.module.conf.ModuleXMLConfig;
-import org.oszz.ox.tools.module.conf.ModuleXMLLoader;
 import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
-import org.oszz.ox.tools.module.conf.ModulesXMLLoader;
 import org.oszz.ox.tools.template.conf.TemplateDataConfig;
 
 public class ModuleGenerator {

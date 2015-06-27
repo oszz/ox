@@ -1,4 +1,4 @@
-package org.oszz.ox.tools.module.conf;
+package org.oszz.ox.tools.module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import org.dom4j.Element;
 import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.XMLUtils;
 import org.oszz.ox.tools.constant.ToolsConstant;
+import org.oszz.ox.tools.module.conf.ModuleXMLConfig;
+import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

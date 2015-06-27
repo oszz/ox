@@ -1,4 +1,4 @@
-package org.oszz.ox.tools.module.conf;
+package org.oszz.ox.tools.module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,8 @@ import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.common.utils.XMLUtils;
 import org.oszz.ox.tools.constant.ToolsConstant;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.module.MessageCodeProducer;
+import org.oszz.ox.tools.module.conf.ModuleXMLConfig;
+import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 import org.oszz.ox.tools.template.conf.TemplateDataConfig;
 import org.oszz.ox.tools.template.conf.TemplateField;
 import org.slf4j.Logger;
