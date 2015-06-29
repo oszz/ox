@@ -1,5 +1,6 @@
 package org.oszz.ox.tools.service.java;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
@@ -30,26 +31,29 @@ public class JavaModuleServiceGenertor extends AbstractServiceGenertor {
 			String className = module.getServiceClassName();
 			String packageName = module.getModulePackage();
 			if(module.isGenerator()){
-				writeFile(outputPath, packageName, className);
+				
+				String fileName = className + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
+				String packagePath = ClassUtils.packageName2Path(packageName);
+				
+				String fileOutputPath = outputPath + SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
+				fileOutputPath =  FileUtils.getDirIfExists(fileOutputPath) + SystemProperty.FILE_SEPARATOR.getValue();
+				File file = new File(fileOutputPath + fileName);
+				if(!file.exists()){//如果service的类存在，则不用再生成service
+					writeFile(packageName, className, file);
+				}
 			}
 		}
 
 	}
 	
-	private void writeFile(String outputPath, String packageName, String className){
+	private void writeFile(String packageName, String className, File file){
 		VelocityContext ctx = new VelocityContext();
 		
 		ctx.put("packageName", packageName);
 		ctx.put("className", className);
 		
-		String fileName = className + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
-		String packagePath = ClassUtils.packageName2Path(packageName);
-		
-		outputPath += "/" + packagePath ;
-		outputPath = FileUtils.getDirIfExists(outputPath) + "/";
-		
-		VelocityUtils.write(this.service_java_vm_file, ctx, outputPath + fileName, moduleConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
+		VelocityUtils.write(this.service_java_vm_file, ctx, file.getAbsolutePath(), moduleConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", file.getName(), moduleConfig.getCharsetName());
 	}
 
 }

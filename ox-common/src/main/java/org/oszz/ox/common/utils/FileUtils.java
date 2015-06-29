@@ -43,7 +43,7 @@ public class FileUtils {
 		if(outDir.isAbsolute()){
 			outPath = outDir.getAbsolutePath();
 		}else{
-			outPath = userDir + "/" + outPath;
+			outPath = userDir + SystemProperty.FILE_SEPARATOR.getValue() + outPath;
 			outDir = new File(outPath);
 		}
 		if(!outDir.exists()){
