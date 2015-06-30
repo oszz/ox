@@ -38,7 +38,7 @@ public class JettyServerHandler extends AbstractHandler{
 	protected JettyServerHandler(String charset, IHandler handler, int timeoutSeconds){
 		this.charset = charset;
 		
-		doGetDataFilter = new DoGetDataFilter(isDebug);
+		doGetDataFilter = new DoGetDataFilter();
 		doPostDataFilter = new DoPostDataFilter();
 		this.handler = handler;
 		this.timeoutSeconds = timeoutSeconds;//超时秒数;
@@ -52,6 +52,7 @@ public class JettyServerHandler extends AbstractHandler{
 	
 	protected void setDebug(boolean isDebug) {
 		this.isDebug = isDebug;
+		doGetDataFilter.setDebug(isDebug);
 	}
 	
 	

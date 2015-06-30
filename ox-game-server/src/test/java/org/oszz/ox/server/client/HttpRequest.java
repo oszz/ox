@@ -1,6 +1,8 @@
 package org.oszz.ox.server.client;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.oszz.ox.core.message.IMessage;
 
@@ -36,6 +38,14 @@ public class HttpRequest {
 //		AuthProto.CGLogin cgLogin = cgLoginBuilder.build();
 //		IMessage cgLoginMessage = new AuthProtoCGLoginMessage(cgLogin);
 //		HttpUtils.read(URL, HttpUtils.POST_REQ, cgLoginMessage);
+	}
+	
+	public void authGet(String openId) throws IOException{
+		Map<String, String> paraMaps = new HashMap<String, String>();
+		paraMaps.put("code", "1");
+		paraMaps.put("openId", openId);
+		
+		HttpUtils.readGet(URL, HttpUtils.GET_REQ, paraMaps);
 	}
 	
 }

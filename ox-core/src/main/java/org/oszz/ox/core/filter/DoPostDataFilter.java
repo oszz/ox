@@ -52,4 +52,9 @@ public class DoPostDataFilter implements IFilter {
 		return message;
 	}
 
+	@Override
+	public void setDebug(boolean isDebug) {
+		
+	}
+
 }

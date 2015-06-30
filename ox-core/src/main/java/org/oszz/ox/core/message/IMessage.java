@@ -1,5 +1,7 @@
 package org.oszz.ox.core.message;
 
+import net.sf.json.JSONObject;
+
 import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 
@@ -102,4 +104,9 @@ public interface IMessage {
 	 * @return 返回消息的异步响应处理器
 	 */
 	public IAsynResponseProcesser getAsynResponseProcesser();
+	
+//	public void toProtobufMessage(Map<String, String> paraMaps, Class<? extends GeneratedMessage> clazz) throws Exception;
+	
+	public void toProtobufMessage(JSONObject json, Class<? extends GeneratedMessage> clazz) throws Exception;
+	
 }

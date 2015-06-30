@@ -6,6 +6,7 @@ public class Client {
 	public static void main(String[] args) throws Exception {
 		HttpRequest httpReq = new HttpRequest();
 		
-		httpReq.auth("openIdTest");
+//		httpReq.auth("openIdTest");
+		httpReq.authGet("openIdTest");
 	}
 }
