@@ -57,9 +57,7 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
 			message = doPostDataFilter.doInputFilter(request);
 		}
-		
 		message.setAsynResponseProcesser(this);
-		
 		initContinuationListener();
 	}
 	

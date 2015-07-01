@@ -92,7 +92,7 @@ public class GSSession implements ISession {
 		PrintWriter pw = null;
 		try {
 			pw = this.response.getWriter();
-			pw.write(message.toString());
+			pw.print(message.toStringForBrowser());
 			pw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

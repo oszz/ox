@@ -77,10 +77,10 @@ public class HttpUtils {
              String lines;  
              StringBuffer sb = new StringBuffer("");  
              while ((lines = reader.readLine()) != null) {  
-                 lines = new String(lines.getBytes(), "UTF-8");  
+                 lines = new String(lines.getBytes());  
                  sb.append(lines);  
              }  
-             System.out.println(sb);  
+             System.out.println("来自服务端的消息：" + sb.toString());  
              reader.close();  
 ////	              断开连接  
              connection.disconnect();  

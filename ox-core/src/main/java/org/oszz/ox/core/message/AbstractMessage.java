@@ -129,13 +129,20 @@ public abstract class AbstractMessage implements IMessage{
 	
 	@Override
 	public String toString() {
+		String str = JsonFormat.printToString(getProtobufMessage());
+		str = "{" +StringUtils.toHex(this.getCode()) + ":" +
+			str +"}";
+		return str;
+	}
+	
+	@Override
+	public String toStringForBrowser() {
 		String lineln = SystemProperty.LINE_SEPARATOR.getValue();//换行
 		String table = SystemProperty.TABLE_CHAR.getValue();//换行
-		String str = getProtobufMessage().toString();
-		str = "{code: " +StringUtils.toHex(this.getCode()) + 
-				lineln + table +"{ " + lineln + table + table 
+		String str = JsonFormat.printToString(getProtobufMessage());
+		str = "{" +StringUtils.toHex(this.getCode()) +  ":" +
+				lineln + table 
 				+ str + 
-				table +"}" +
 				lineln + "}";
 		return str;
 	}

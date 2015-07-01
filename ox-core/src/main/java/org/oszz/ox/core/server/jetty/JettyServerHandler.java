@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.conf.HttpSessionKey;
 import org.oszz.ox.core.filter.DoGetDataFilter;
 import org.oszz.ox.core.filter.DoPostDataFilter;
@@ -64,6 +65,12 @@ public class JettyServerHandler extends AbstractHandler{
 		String charset = getCharset();
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
+//		response.setContentType("text/html;charset=UTF-8");
+//		response.setStatus(HttpServletResponse.SC_OK);
+		//如果是favicon.ico，直接返回
+		if(target.indexOf(DefaultConfig.FAVICON_ICO_URL_PATTERN.getValue()) > 0){
+			return ;
+		}
 		
 		HttpSession httpSession = request.getSession(true);
 		String gsSessionKey = HttpSessionKey.GS_SESSION.getValue();

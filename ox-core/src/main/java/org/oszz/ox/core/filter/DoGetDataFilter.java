@@ -42,22 +42,20 @@ public class DoGetDataFilter implements IFilter {
 	public IMessage doInputFilter(HttpServletRequest request){
 		IMessage message = null;
 		if(isDebug){
-			Map<String, String[]> paraMaps = request.getParameterMap();
-			short code = Short.parseShort(paraMaps.get(CODE_KEY)[0]);
-			
-			Class<? extends IMessage> msgClass = MessageCodeMappingHolder.getInstance().getMessageClass(code);
-			IMessageHandler msgHandler = MessageCodeMappingHolder.getInstance().getMessageHandler(code);
-			MessageProcesserType messageProcesserType = MessageCodeMappingHolder.getInstance().getMessageProcesserType(code);
-			
-			message = ClassUtils.newInstance(msgClass);
 			try {
+				Map<String, String[]> paraMaps = request.getParameterMap();
+				short code = Short.parseShort(paraMaps.get(CODE_KEY)[0]);
+				
+				Class<? extends IMessage> msgClass = MessageCodeMappingHolder.getInstance().getMessageClass(code);
+				IMessageHandler msgHandler = MessageCodeMappingHolder.getInstance().getMessageHandler(code);
+				MessageProcesserType messageProcesserType = MessageCodeMappingHolder.getInstance().getMessageProcesserType(code);
+				message = ClassUtils.newInstance(msgClass);
 				message.toProtobufMessage(toJson(paraMaps), message.getProtobufMessageClass());
+				message.setMsgHandler(msgHandler);
+				message.setMessageProcesserType(messageProcesserType);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			message.setMsgHandler(msgHandler);
-			message.setMessageProcesserType(messageProcesserType);
-			
 		}
 		return message;
 	}
