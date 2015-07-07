@@ -15,7 +15,6 @@ import org.oszz.ox.core.service.IService;
 import org.oszz.ox.core.template.ITemplateDataClassMapping;
 import org.oszz.ox.core.template.ITemplateService;
 import org.oszz.ox.core.template.TemplateService;
-import org.oszz.ox.server.base.cache.CacheService;
 import org.oszz.ox.server.base.conf.DBConfig;
 import org.oszz.ox.server.base.conf.JettyServerConfig;
 import org.oszz.ox.server.base.conf.RedisConfig;
@@ -132,9 +131,6 @@ public class Globals {
 		
 		ProcesserService processerService = new ProcesserService(serverConfig.getAsynThreadSize(), serverConfig.getSceneNum());
 		services.put(ProcesserService.class, processerService);
-		
-		IService cacheService = new CacheService();
-		services.put(CacheService.class, cacheService);
 		
 		String language = serverConfig.getLanguage();
 		String dirPath = templateConfig.getDirPath();
