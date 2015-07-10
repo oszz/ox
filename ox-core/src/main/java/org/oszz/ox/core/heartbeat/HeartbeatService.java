@@ -4,13 +4,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.oszz.ox.core.service.IService;
+import org.oszz.ox.core.service.ISystemService;
 
 /**
  * 心跳服务
  * @author ZZ
  */
-public class HeartbeatService implements IService {
+public class HeartbeatService implements ISystemService {
 	
 	
 	/**
@@ -33,10 +33,10 @@ public class HeartbeatService implements IService {
 	@Override
 	public boolean init() {
 		scheduledExecutorService = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
-		start();
 		return true;
 	}
-	private void start() {
+	@Override
+	public void start() {
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {

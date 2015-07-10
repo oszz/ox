@@ -1,5 +1,7 @@
 package org.oszz.ox.server.base.conf;
 
+import org.oszz.ox.core.conf.BaseConfig;
+
 
 /**
  * 数据库配置

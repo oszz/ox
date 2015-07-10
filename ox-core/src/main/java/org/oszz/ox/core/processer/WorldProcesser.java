@@ -1,4 +1,4 @@
-package org.oszz.ox.server.base.processer;
+package org.oszz.ox.core.processer;
 
 import org.oszz.ox.core.processer.AbstractSingleProcesser;
 

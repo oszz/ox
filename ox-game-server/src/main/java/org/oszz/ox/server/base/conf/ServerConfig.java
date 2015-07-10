@@ -1,8 +1,6 @@
 package org.oszz.ox.server.base.conf;
 
-
-
-
+import org.oszz.ox.core.conf.BaseConfig;
 /**
  * 服务端配置
  * @author ZZ

@@ -1,11 +1,6 @@
 package org.oszz.ox.core.service;
 
-/**
- * 将IService所有的的方法默认实现
- * @author ZZ
- *
- */
-public abstract class AbstractService implements IService {
+public abstract class AbstractModuleService implements IModuleService {
 
 	@Override
 	public boolean create() {
@@ -16,9 +11,10 @@ public abstract class AbstractService implements IService {
 	public boolean init() {
 		return true;
 	}
-	
+
 	@Override
 	public void onInitialized() {
+		// TODO Auto-generated method stub
 
 	}
 

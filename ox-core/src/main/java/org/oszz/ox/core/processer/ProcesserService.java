@@ -1,16 +1,14 @@
-package org.oszz.ox.server.base.processer;
+package org.oszz.ox.core.processer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.oszz.ox.core.service.IService;
 
 /**
  * 消息处理的线程服务
  * @author ZZ
  *
  */
-public class ProcesserService implements IService{
+public class ProcesserService implements IProcesserService{
 
 	private AsynProcesser asynProcesser;//异步处理器
 	private Map<String, SceneProcesser> sceneProcessers;//多个场景处理器
@@ -19,15 +17,26 @@ public class ProcesserService implements IService{
 	private int asynThreadSize;//异步服务的线程池大小
 	private int sceneNum;//场景线程的数量
 	
-	/**
-	 * 构建一个消息处理的服务
-	 * @param asynThreadSize 异步服务的线程池大小
-	 * @param sceneNum 场景线程的数量
-	 */
-	public ProcesserService(int asynThreadSize, int sceneNum){
+//	/**
+//	 * 构建一个消息处理的服务
+//	 * @param asynThreadSize 异步服务的线程池大小
+//	 * @param sceneNum 场景线程的数量
+//	 */
+//	public ProcesserService(int asynThreadSize, int sceneNum){
+//		this.asynThreadSize = asynThreadSize;
+//		this.sceneNum = sceneNum;
+//	}
+	@Override
+	public void setAsynThreadSize(int asynThreadSize) {
 		this.asynThreadSize = asynThreadSize;
+	}
+
+	@Override
+	public void setSceneNum(int sceneNum) {
 		this.sceneNum = sceneNum;
 	}
+	
+	
 
 	public AsynProcesser getAsynProcesser() {
 		return asynProcesser;
@@ -55,13 +64,6 @@ public class ProcesserService implements IService{
 			SceneProcesser sceneProcesser = new SceneProcesser();
 			sceneProcessers.put(i+"", sceneProcesser);
 		}
-		
-		asynProcesser.start();
-		worldProcesser.start();
-		for(Map.Entry<String, SceneProcesser> sceneProcesserEntry : sceneProcessers.entrySet()){
-			SceneProcesser sp = sceneProcesserEntry.getValue();
-			sp.start();
-		}
 		return true;
 	}
 
@@ -70,4 +72,15 @@ public class ProcesserService implements IService{
 		// TODO 什么都不做
 		
 	}
+
+	@Override
+	public void start() {
+		asynProcesser.start();
+		worldProcesser.start();
+		for(Map.Entry<String, SceneProcesser> sceneProcesserEntry : sceneProcessers.entrySet()){
+			SceneProcesser sp = sceneProcesserEntry.getValue();
+			sp.start();
+		}
+	}
+	
 }

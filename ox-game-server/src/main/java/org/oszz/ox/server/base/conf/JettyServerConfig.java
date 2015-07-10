@@ -1,5 +1,7 @@
 package org.oszz.ox.server.base.conf;
 
+import org.oszz.ox.core.conf.BaseConfig;
+
 /**
  * Jetty服务配置
  * @author ZZ

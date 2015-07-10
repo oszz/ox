@@ -1,4 +1,4 @@
-package org.oszz.ox.server.base.conf;
+package org.oszz.ox.core.conf;
 
 import org.oszz.ox.common.utils.ClassUtils;
 
