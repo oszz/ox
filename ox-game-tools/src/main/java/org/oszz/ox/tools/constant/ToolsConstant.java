@@ -170,7 +170,7 @@ public interface ToolsConstant {
 	/**
 	 * 映射类的完整报名
 	 */
-	public static final String MAPPING_PACKAGE_NAME = "org.oszz.ox.server.base.mapping";
+	public static final String MAPPING_PACKAGE_NAME = "org.oszz.ox.server.base.dom";
 	
 	
 }

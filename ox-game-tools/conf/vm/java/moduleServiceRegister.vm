@@ -1,0 +1,18 @@
+package ${packageName};
+
+import org.oszz.ox.core.regist.AbstractModuleServiceRegister;
+
+/**
+ * 模块service类的class注册类<br>
+ * Auto Generator, Don't Modify .
+ */
+public class ModuleServiceRegister extends AbstractModuleServiceRegister {
+
+	@Override
+	public void init() {
+	#foreach ($mapClass in ${mapClasses})
+	this.regist(${mapClass});
+	
+	#end
+}
+}

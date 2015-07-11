@@ -14,8 +14,7 @@ public class Launch {
 	private static final String SERVER_CONFIG_FILE = "server.properties";
 
 	public static void main(String[] args) throws Exception {
-		GameServer gameServer = new GameServer();
-		gameServer.init(SERVER_CONFIG_FILE);
+		GameServer gameServer = new GameServer(SERVER_CONFIG_FILE);
 		gameServer.start();
 	}
 }

@@ -9,9 +9,15 @@ import java.util.Properties;
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.core.conf.BaseConfig;
-import org.oszz.ox.core.service.IModuleServiceRegister;
+import org.oszz.ox.core.data.IHumanDataManager;
+import org.oszz.ox.core.message.MessageCodeMapping;
+import org.oszz.ox.core.regist.IHumanDataManagerRegister;
+import org.oszz.ox.core.regist.IMessageCodeRegister;
+import org.oszz.ox.core.regist.IModuleServiceRegister;
+import org.oszz.ox.core.regist.ITemplateDataRegister;
 import org.oszz.ox.core.service.IService;
 import org.oszz.ox.core.service.ISystemService;
+import org.oszz.ox.core.template.ITemplateData;
 
 /**
  * 这里的方法都是静态的
@@ -39,8 +45,15 @@ public class Globals {
 	 * service类的列表
 	 */
 	private static List<IService> serviceClassList;
+	private static Map<Short, MessageCodeMapping> messageCodeMappings;
+	private static List<Class<? extends ITemplateData>> templateDatClassList;
+	private static List<Class<? extends IHumanDataManager>> humanDataManagerClassList;
 	
 	private static IModuleServiceRegister moduleServiceRegister;
+	private static IMessageCodeRegister messageCodeRegister;
+	private static ITemplateDataRegister templateDataRegister;
+	private static IHumanDataManagerRegister humanDataManagerRegister;
+	
 	
 	public static void addConfigClass(Class<? extends BaseConfig> configClass){
 		configClassList.add(configClass);
@@ -62,11 +75,53 @@ public class Globals {
 		moduleServiceRegister = serviceRegister;
 	}
 	
+	public static void setMessageCodeRegister(IMessageCodeRegister msgCodeRegister){
+		messageCodeRegister = msgCodeRegister;
+	}
+	public static void setTemplateDataRegister(ITemplateDataRegister tempDataRegister){
+		templateDataRegister = tempDataRegister;
+	}
+	
+	public static void addMessageCodeMapping(MessageCodeMapping messageCodeMapping){
+		messageCodeMappings.put(messageCodeMapping.getMsgCode(), messageCodeMapping);
+	}
+	
+	public static void addTemplateDataClass(Class<? extends ITemplateData> tempDataClass){
+		templateDatClassList.add(tempDataClass);
+	}
+	
+	public static void addAllTemplateDataClasses(List<Class<? extends ITemplateData>> tempDataClasses){
+		templateDatClassList.addAll(tempDataClasses);
+	}
+	
+	public static List<Class<? extends ITemplateData>> getAllTemplateDataClasses(){
+		return templateDatClassList;
+	}
+	
+	public static void setHumanDataManagerRegister(IHumanDataManagerRegister humanManagerRegister){
+		humanDataManagerRegister = humanManagerRegister;
+	}
+	
+	public static void addHumanDataManagerClass(Class<? extends IHumanDataManager> humanDataManagerClass){
+		humanDataManagerClassList.add(humanDataManagerClass);
+	}
+	
+	public static void addAllHumanDataManagerClasses(List<Class<? extends IHumanDataManager>> humanDataManagerClasses){
+		humanDataManagerClassList.addAll(humanDataManagerClasses);
+	}
+	
+	public static List<Class<? extends IHumanDataManager>> getAllHumanDataManagerClasses(){
+		return humanDataManagerClassList;
+	}
+	
 	public static void create(){
 		configClassList = new ArrayList<Class<? extends BaseConfig>>();
 		serviceClassList = new ArrayList<IService>();
 		configs = new HashMap<Class<? extends BaseConfig>, BaseConfig>();
 		services = new HashMap<Class<? extends IService>, IService>();
+		messageCodeMappings = new HashMap<Short, MessageCodeMapping>();
+		templateDatClassList = new ArrayList<Class<? extends ITemplateData>>();
+		humanDataManagerClassList = new ArrayList<Class<? extends IHumanDataManager>>();
 	}
 	
 	
@@ -82,6 +137,11 @@ public class Globals {
 			BaseConfig configObj = lpf.load(confProps, clazz);
 			configs.put(clazz, configObj);
 		}
+	}
+	
+	public static void init(){
+		initRegister();
+		initService();
 	}
 
 	/**
@@ -99,8 +159,7 @@ public class Globals {
 	 * 初始化服务
 	 * @author ZZ
 	 */
-	public static void initService(){
-		moduleServiceRegister.init();
+	private static void initService(){
 		for(IService service : serviceClassList){
 			if(service.create() && service.init()){
 				service.onInitialized();
@@ -119,5 +178,25 @@ public class Globals {
 	public static <T extends IService> T getService(Class<T> clazz){
 		return (T)services.get(clazz);
 	}
-
+	
+	/**
+	 * 初始化注册的
+	 * @author ZZ
+	 */
+	private static void initRegister(){
+		moduleServiceRegister.init();
+		messageCodeRegister.init();
+		templateDataRegister.init();
+		humanDataManagerRegister.init();
+	}
+	
+	/**
+	 * 返回消息编码的映射类
+	 * @author ZZ
+	 * @param clazz
+	 * @return
+	 */
+	public static MessageCodeMapping getMessageCodeMapping(short msgCode) {
+		return messageCodeMappings.get(msgCode);
+	}
 }

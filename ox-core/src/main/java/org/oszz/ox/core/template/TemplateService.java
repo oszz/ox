@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.oszz.ox.core.Globals;
 import org.oszz.ox.core.template.excel.ExcelName;
 import org.oszz.ox.core.template.excel.ExcelTemplateReader;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class TemplateService implements ITemplateService {
 
 	@Override
 	public boolean init() {
-		List<Class<? extends ITemplateData>> allTempDataClasses = TemplateDataClassHolder.getInstance().getAllTemplateClass();
+		List<Class<? extends ITemplateData>> allTempDataClasses = Globals.getAllTemplateDataClasses();
 		log.info("开始读取模板数据文件 ...");
 		for(Class<? extends ITemplateData> tempDataClazz : allTempDataClasses){
 			if(tempDataClazz.isAnnotationPresent(ExcelName.class)){

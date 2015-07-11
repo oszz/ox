@@ -5,7 +5,7 @@ import java.util.List;
 import org.oszz.ox.tools.message.IMessageGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
 import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
-import org.oszz.ox.tools.message.java.JavaMsgCodeMappingGenerator;
+import org.oszz.ox.tools.message.java.JavaMsgCodeRegisterGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgHandlerGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
@@ -25,7 +25,7 @@ public class JavaMessageGenerator {
 	/**
 	 * 生成消息MsgCodeMappingRegisterService的模板类
 	 */
-	private static final String  JAVA_MSG_CODE_MAPPING_REGISTER_SERVICE_VM_FILE = "vm/java/messageCodeMapping.vm";
+	private static final String  JAVA_MSG_CODE_REGISTER_SERVICE_VM_FILE = "vm/java/messageCodeRegister.vm";
 	
 	/**
 	 * 生成消息MsgCodeMappingRegisterService的模板类
@@ -56,7 +56,7 @@ public class JavaMessageGenerator {
 		javaMsgGenerator.generate();
 		
 		//生成消息编码与消息、处理类的对应关系
-		IMessageGenerator javaMsgCodeMappingGenerator = new JavaMsgCodeMappingGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_CODE_MAPPING_REGISTER_SERVICE_VM_FILE);
+		IMessageGenerator javaMsgCodeMappingGenerator = new JavaMsgCodeRegisterGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_CODE_REGISTER_SERVICE_VM_FILE);
 		javaMsgCodeMappingGenerator.generate();
 	}
 }

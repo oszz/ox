@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONObject;
 
 import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.core.Globals;
 import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
-import org.oszz.ox.core.message.MessageCodeMappingHolder;
+import org.oszz.ox.core.message.MessageCodeMapping;
 import org.oszz.ox.core.message.MessageProcesserType;
 
 /**
@@ -46,9 +47,10 @@ public class DoGetDataFilter implements IFilter {
 				Map<String, String[]> paraMaps = request.getParameterMap();
 				short code = Short.parseShort(paraMaps.get(CODE_KEY)[0]);
 				
-				Class<? extends IMessage> msgClass = MessageCodeMappingHolder.getInstance().getMessageClass(code);
-				IMessageHandler msgHandler = MessageCodeMappingHolder.getInstance().getMessageHandler(code);
-				MessageProcesserType messageProcesserType = MessageCodeMappingHolder.getInstance().getMessageProcesserType(code);
+				MessageCodeMapping msgCodeMapping = Globals.getMessageCodeMapping(code);
+				Class<? extends IMessage> msgClass = msgCodeMapping.getMessageClass();
+				IMessageHandler msgHandler = msgCodeMapping.getMsgHandler();
+				MessageProcesserType messageProcesserType = msgCodeMapping.getMessageProcesserType();
 				message = ClassUtils.newInstance(msgClass);
 				message.toProtobufMessage(toJson(paraMaps), message.getProtobufMessageClass());
 				message.setMsgHandler(msgHandler);

@@ -12,7 +12,7 @@ public abstract class AbstractTemplateGenertor extends AbstractGenerator impleme
 		ITemplateGenertor {
 	protected static final Logger log = LoggerFactory.getLogger("JavaTemplateGenertor");
 	
-	protected static final String TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME = "TemplateDataClassMapping.java";
+	protected static final String TEMPLATE_DATA_CLASS_MAPPING_FILE_NAME = "TemplateDataRegister.java";
 	
 	protected ModuleConfig moduleConfig;
 	

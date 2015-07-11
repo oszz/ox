@@ -10,7 +10,7 @@ public abstract class AbstractServiceGenertor extends AbstractGenerator
 		implements IServiceGenertor {
 	protected static final Logger log = LoggerFactory.getLogger("ServiceGenertor");
 	
-	protected static final String MODULE_SERVICE_CLASS_MAPPING_FILE_NAME = "ModuleServiceClassMapping.java";
+	protected static final String MODULE_SERVICE_CLASS_MAPPING_FILE_NAME = "ModuleServiceRegister.java";
 	
 
 	protected ModuleConfig moduleConfig;

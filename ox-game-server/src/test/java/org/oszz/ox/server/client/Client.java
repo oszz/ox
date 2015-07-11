@@ -9,8 +9,8 @@ public class Client {
 //		httpReq.auth("openIdTest");
 		httpReq.authGet("openIdTest");
 		
-//		for(int i=0;i<10;i++){
-//			httpReq.authGet("openIdTest" + i);
-//		}
+		for(int i=0;i<10;i++){
+			httpReq.authGet("openIdTest" + i);
+		}
 	}
 }
