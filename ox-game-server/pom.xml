@@ -66,7 +66,7 @@
 					<repositoryName>lib</repositoryName>
 					<programs>
 						<program>
-							<mainClass>org.oszz.ox.server.GameServer</mainClass>
+							<mainClass>org.oszz.ox.server.Launch</mainClass>
 							<name>startup</name>
 						</program>
 					</programs>
