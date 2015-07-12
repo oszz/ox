@@ -28,4 +28,5 @@ public interface IService {
 	 * @author ZZ
 	 */
 	public void onInitialized();
+	
 }

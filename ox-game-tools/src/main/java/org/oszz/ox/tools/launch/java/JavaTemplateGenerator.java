@@ -6,7 +6,7 @@ import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.template.ITemplateGenertor;
 import org.oszz.ox.tools.template.conf.TemplateDataConfig;
 import org.oszz.ox.tools.template.java.JavaAbstractTemplateGenertor;
-import org.oszz.ox.tools.template.java.JavaTemplateDataClassMappingGenertor;
+import org.oszz.ox.tools.template.java.JavaTemplateDataClassRegisterGenertor;
 import org.oszz.ox.tools.template.java.JavaTemplateGenertor;
 
 public class JavaTemplateGenerator {
@@ -24,7 +24,7 @@ public class JavaTemplateGenerator {
 	/**
 	 * 生成模板类映射的模板
 	 */
-	private static final String  TEMP_DATA_CLASS_MAPPING_JAVA_VM_FILE = "vm/java/templateDataClassMapping.vm";
+	private static final String  TEMP_DATA_CLASS_MAPPING_JAVA_VM_FILE = "vm/java/templateDataRegister.vm";
 	
 	/**
 	 * 生成java相关的代码
@@ -41,7 +41,7 @@ public class JavaTemplateGenerator {
 				TEMPLATE_JAVA_VM_FILE);
 		javaTempGenerator.generate();
 		
-		ITemplateGenertor javaTemplateDataClassHolderGenertor = new JavaTemplateDataClassMappingGenertor(moduleConfig, tempDataConfigs,
+		ITemplateGenertor javaTemplateDataClassHolderGenertor = new JavaTemplateDataClassRegisterGenertor(moduleConfig, tempDataConfigs,
 				TEMP_DATA_CLASS_MAPPING_JAVA_VM_FILE);
 		javaTemplateDataClassHolderGenertor.generate();
 	

@@ -2,7 +2,11 @@ package org.oszz.ox.core.message;
 
 import java.nio.ByteBuffer;
 
+import net.sf.json.JSONObject;
+
 import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.common.utils.StringUtils;
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
@@ -10,6 +14,7 @@ import org.oszz.ox.core.server.IAsynResponseProcesser;
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.Builder;
 import com.google.protobuf.Message;
+import com.googlecode.protobuf.format.JsonFormat;
 
 public abstract class AbstractMessage implements IMessage{
 
@@ -95,5 +100,50 @@ public abstract class AbstractMessage implements IMessage{
 	@Override
 	public void setAsynResponseProcesser(IAsynResponseProcesser asynRespPro) {
 		this.asynRespPro = asynRespPro;
+	}
+	
+//	@SuppressWarnings("rawtypes")
+//	@Override
+//	public void toProtobufMessage(Map<String, String> paraMaps,
+//			Class<? extends GeneratedMessage> clazz) throws Exception {
+//		Builder builder = (Builder)ClassUtils.invokeStaticMethod(clazz, DefaultConfig.PROTO_BUF_NEW_BUILDER_METHOD_NAME.getValue());
+//		for(Map.Entry<String, String> paraEntry : paraMaps.entrySet()){
+//			String fieldName = paraEntry.getKey();//属性名称
+//			String value = paraEntry.getValue();//属性名称
+//			Method setterMethod = ClassUtils.getSetterMethod(builder.getClass(), fieldName);
+//			Object paraObj = ClassUtils.getMethodNeedValue(setterMethod, value);
+//			ClassUtils.invokeMethod(builder, setterMethod, paraObj);
+//		}
+//		this.protoMsg = builder.build();
+//		System.out.println(this);
+//	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void toProtobufMessage(JSONObject json,
+			Class<? extends GeneratedMessage> clazz) throws Exception {
+		Builder builder = (Builder)ClassUtils.invokeStaticMethod(clazz, DefaultConfig.PROTO_BUF_NEW_BUILDER_METHOD_NAME.getValue());
+		JsonFormat.merge(json.toString(), builder);
+		this.protoMsg = builder.build();
+	}
+	
+	@Override
+	public String toString() {
+		String str = JsonFormat.printToString(getProtobufMessage());
+		str = "{" +StringUtils.toHex(this.getCode()) + ":" +
+			str +"}";
+		return str;
+	}
+	
+	@Override
+	public String toStringForBrowser() {
+		String lineln = SystemProperty.LINE_SEPARATOR.getValue();//换行
+		String table = SystemProperty.TABLE_CHAR.getValue();//换行
+		String str = JsonFormat.printToString(getProtobufMessage());
+		str = "{" +StringUtils.toHex(this.getCode()) +  ":" +
+				lineln + table 
+				+ str + 
+				lineln + "}";
+		return str;
 	}
 }

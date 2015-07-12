@@ -27,6 +27,12 @@ public enum DefaultConfig {
 	 * ProtoBuf类的newBuilder方法名
 	 */
 	PROTO_BUF_NEW_BUILDER_METHOD_NAME("newBuilder"),
+	
+	/**
+	 * favicon.ico请求的URL样式
+	 */
+	FAVICON_ICO_URL_PATTERN("favicon.ico"),
+	
 	;
 
 	private String value = "";

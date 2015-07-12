@@ -1,5 +1,6 @@
 package org.oszz.ox.server.base.conf;
 
+import org.oszz.ox.core.conf.BaseConfig;
 import org.oszz.ox.core.template.ITemplateConfig;
 
 
@@ -8,7 +9,7 @@ import org.oszz.ox.core.template.ITemplateConfig;
  * @author ZZ
  *
  */
-public class TemplateConfig implements ITemplateConfig{
+public class TemplateConfig extends BaseConfig implements ITemplateConfig{
 	
 	private String dirPath;//excel文件目录
 	

@@ -13,6 +13,7 @@ public class AuthProtoCGLoginHnadler implements IMessageHandler{
 	@Override
 	public void handle(IPlayer player, IMessage message){
 		//TODO Handler Auto Generator
+		System.out.println("dddddddd");
 	}
 	
 }

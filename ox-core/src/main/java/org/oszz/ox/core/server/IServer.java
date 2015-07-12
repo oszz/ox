@@ -8,7 +8,7 @@ package org.oszz.ox.core.server;
  */
 public interface IServer {
 
-	public void setHandler(IHandler handler);
+	public void setHandler(IRequestHandler requestHandler);
 	
 	public void start() throws Exception ;
 	

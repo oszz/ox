@@ -1,7 +1,7 @@
 package org.oszz.ox.server.module.info.message;
 
 import org.oszz.ox.core.message.AbstractMessage;
-import org.oszz.ox.server.base.message.MessageCode;
+import org.oszz.ox.server.base.dom.MessageCode;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;

@@ -26,8 +26,7 @@ public class Player implements IPlayer {
 	
 	@Override
 	public void sendMessage(IMessage message) {
-		session.send(message.toBytes());
-//		session.sendTest("message");
+		session.send(message);
 	}
 
 	@Override

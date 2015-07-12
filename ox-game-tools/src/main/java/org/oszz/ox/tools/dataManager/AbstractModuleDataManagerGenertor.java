@@ -10,9 +10,8 @@ public abstract class AbstractModuleDataManagerGenertor extends AbstractGenerato
 		implements IModuleDataManagerGenertor {
 	protected static final Logger log = LoggerFactory.getLogger("DataManagerGenertor");
 	
-	protected static final String MODULE_DATA_MANAGER_CLASS_MAPPING_FILE_NAME = "ModuleDataManagerClassMapping.java";
+	protected static final String MODULE_DATA_MANAGER_CLASS_MAPPING_FILE_NAME = "HumanDataManagerRegister.java";
 	
-
 	protected ModuleConfig moduleConfig;
 	protected ModulesXMLConfig modulesXMLConfig;
 

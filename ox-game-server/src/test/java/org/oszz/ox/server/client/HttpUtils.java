@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 import org.oszz.ox.core.message.IMessage;
 
@@ -17,25 +18,28 @@ public class HttpUtils {
 	public static final String POST_REQ = "POST";
 	
 	
-	public static void read(String urlStr, String reqMethod, IMessage msg) throws IOException { 
+	public static void readPost(String urlStr, String reqMethod, IMessage msg) throws IOException { 
 		URL url = new URL(urlStr);
-		read(url, reqMethod, msg);
+		read(url, reqMethod, msg, null);
+	}
+	
+	public static void readGet(String urlStr, String reqMethod, Map<String, String> getMaps) throws IOException { 
+		URL url = new URL(urlStr);
+		read(url, reqMethod, null, getMaps);
 	}
 
-	public static void read(URL url, String reqMethod, IMessage msg) throws IOException { 
+	public static void read(URL url, String reqMethod, IMessage msg, Map<String, String> getMaps) throws IOException { 
 		HttpURLConnection connection=null;  
         try {  
         	
         	if(reqMethod == GET_REQ){
         		String urlStr = url.toString();
         		urlStr += "?";
-//        		for(Object key : para.keySet()){
-//        			String value = para.optString((String)key);
-//        			urlStr += key + "=" + value + "&";
-//        		}
-//        		urlStr = urlStr.substring(0, urlStr.length() - 1);
-        		
-        		
+        		for(String key : getMaps.keySet()){
+        			String value = getMaps.get(key);
+        			urlStr += key + "=" + value + "&";
+        		}
+        		urlStr = urlStr.substring(0, urlStr.length() - 1);
         		url = new URL(urlStr);
             }
              //创建连接  
@@ -73,10 +77,10 @@ public class HttpUtils {
              String lines;  
              StringBuffer sb = new StringBuffer("");  
              while ((lines = reader.readLine()) != null) {  
-                 lines = new String(lines.getBytes(), "UTF-8");  
+                 lines = new String(lines.getBytes());  
                  sb.append(lines);  
              }  
-             System.out.println(sb);  
+             System.out.println("来自服务端的消息：" + sb.toString());  
              reader.close();  
 ////	              断开连接  
              connection.disconnect();  

@@ -4,11 +4,12 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.SessionIdManager;
 import org.eclipse.jetty.server.SessionManager;
+import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.oszz.ox.core.conf.DefaultConfig;
-import org.oszz.ox.core.server.IHandler;
+import org.oszz.ox.core.server.IRequestHandler;
 import org.oszz.ox.core.server.IServer;
 import org.oszz.ox.core.server.ISessionFactory;
 
@@ -16,17 +17,11 @@ public class JettyServer implements IServer{
 	
 	private Server server;
 	
-	private IHandler handler;
+	private IRequestHandler requestHandler;
 	
 	private boolean isDebug = false;
 	
-//	private SessionIdManager sessionIdManager;
-	
-//	private SessionManager sessionManager;
-	
 	private SessionHandler sessions;
-	
-//	private ISessionFactory sessionFactory;
 	
 	public JettyServer(){
 		this(Boolean.FALSE, DefaultConfig.CHARSET.getValue());
@@ -36,21 +31,18 @@ public class JettyServer implements IServer{
 	public JettyServer(boolean isDebug, String charsetName){
 		server = new Server();
 		this.isDebug = isDebug;
-		
-		
-        
 	}
 
 	@Override
-	public void setHandler(IHandler handler) {
-		this.handler = handler;
+	public void setHandler(IRequestHandler requestHandler) {
+		this.requestHandler = requestHandler;
 	}
 
 	@Override
 	public void start() throws Exception {
-		handler.setDebug(this.isDebug);
+		requestHandler.setDebug(this.isDebug);
 
-        sessions.setHandler(handler.getServerHandler());
+        sessions.setHandler((AbstractHandler)requestHandler);
 		server.start();
 		server.join();
 	}

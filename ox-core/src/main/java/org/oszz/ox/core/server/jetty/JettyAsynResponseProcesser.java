@@ -9,8 +9,9 @@ import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.filter.IFilter;
 import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
-import org.oszz.ox.core.server.IHandler;
+import org.oszz.ox.core.server.IRequestHandler;
 import org.oszz.ox.core.session.GSSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +35,14 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 	
 	private final GSSession gsSession;
 	
-	private final IHandler handler;
+	private final IRequestHandler requestHandler;
 	
 //	private int timeoutSeconds;//超时秒数
 	
 	public JettyAsynResponseProcesser(GSSession gsSession, IFilter doGetDataFilter, 
-			IFilter doPostDataFilter, boolean isDebug, IHandler handler){
+			IFilter doPostDataFilter, boolean isDebug, IRequestHandler requestHandler){
 		this.gsSession = gsSession;
-		this.handler = handler;
+		this.requestHandler = requestHandler;
 		HttpServletRequest request = gsSession.getRequest();
 		this.continuation = ContinuationSupport.getContinuation(request); 
 //		this.request = request;
@@ -57,9 +58,7 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
 			message = doPostDataFilter.doInputFilter(request);
 		}
-		
 		message.setAsynResponseProcesser(this);
-		
 		initContinuationListener();
 	}
 	
@@ -78,7 +77,7 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 
 	@Override
 	public void asynHandle() {
-		this.handler.handle(gsSession, message);
+		this.requestHandler.requestHandle(gsSession.getPlayer(), message);
 	}
 
 	@Override

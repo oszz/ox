@@ -2,14 +2,14 @@ package org.oszz.ox.core.template;
 
 import java.util.Map;
 
-import org.oszz.ox.core.service.IService;
+import org.oszz.ox.core.service.ISystemService;
 
 /**
  * 模板数据服务接口
  * @author ZZ
  *
  */
-public interface ITemplateService extends IService{
+public interface ITemplateService extends ISystemService{
 	
 	/**
 	 * 根据id获得某个Class<T extends ITemplateData>的模板数据
@@ -27,5 +27,7 @@ public interface ITemplateService extends IService{
 	 * @return 返回所有模板数据
 	 */
 	public <T extends ITemplateData> Map<Integer, T> getAll(Class<T> clazz);
+	
+	public void setTemplateConfig(ITemplateConfig templateConfig);
 
 }

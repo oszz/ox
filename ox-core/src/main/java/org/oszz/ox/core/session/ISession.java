@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.player.IPlayer;
 
 public interface ISession {
@@ -22,6 +23,6 @@ public interface ISession {
 	
 	public void sendTest(String message);
 	
-	public void send(byte[] bytes);
+	public void send(IMessage message);
 	
 }

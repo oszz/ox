@@ -18,4 +18,6 @@ public interface IFilter {
 	 * @return 返回该请求对应的消息类
 	 */
 	public IMessage doInputFilter(HttpServletRequest request);
+	
+	public void setDebug(boolean isDebug);
 }

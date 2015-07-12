@@ -6,6 +6,7 @@ import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
+import org.oszz.ox.tools.constant.ToolsConstant;
 import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
 import org.oszz.ox.tools.module.conf.ModuleConfig;
@@ -18,7 +19,7 @@ import org.oszz.ox.tools.utils.VelocityUtils;
  */
 public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 	
-	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
+//	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
 	
 
 	private String msgCode_vmFile;//模板文件
@@ -38,11 +39,14 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 	@Override
 	public void generate() {
 		VelocityContext ctx = new VelocityContext();
+		String packageName = ToolsConstant.MAPPING_PACKAGE_NAME;
+		ctx.put("packageName", packageName);
 		ctx.put("msgCodeConfigs", this.msgCodeConfigs);
+		
 				 
 		String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
 		
-		String packagePath = ClassUtils.packageName2Path(PACKAGE_NAME);
+		String packagePath = ClassUtils.packageName2Path(packageName);
 		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
 		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 		

@@ -37,4 +37,49 @@ public class StringUtils {
 	public static String toHex(int code){
 		return String.format("0x%04X", code);	
 	}
+	
+	/**
+	 * 将二进制转换成16进制 
+	 * @param bytes 二进制的byte数组
+	 * @return 
+	 */  
+	public static String parseByte2HexStr(byte[] bytes) {  
+        StringBuffer sb = new StringBuffer();  
+        for (int i = 0; i < bytes.length; i++) {  
+            String hex = Integer.toHexString(bytes[i] & 0xFF);  
+            if (hex.length() == 1) {  
+                    hex = '0' + hex;  
+            }  
+            sb.append(hex.toUpperCase());  
+        }  
+        return sb.toString();  
+	}  
+	
+	/**  
+	 * 将16进制转换成二进制的byte数组
+	 * @param hexString 16进制字符串
+	 * @return byte[] 二进制的byte数组
+	 */  
+	public static byte[] parseHexStr2Bytes(String hexString) {   
+	    if (hexString == null || hexString.equals("")) {   
+	        return null;   
+	    }   
+	    hexString = hexString.toUpperCase();   
+	    int length = hexString.length() / 2;   
+	    char[] hexChars = hexString.toCharArray();   
+	    byte[] d = new byte[length];   
+	    for (int i = 0; i < length; i++) {   
+	        int pos = i * 2;   
+	        d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));   
+	    }   
+	    return d;   
+	}  
+	/**  
+	 * Convert char to byte  
+	 * @param c char  
+	 * @return byte  
+	 */  
+	 private static byte charToByte(char c) {   
+	    return (byte) "0123456789ABCDEF".indexOf(c);   
+	}  
 }

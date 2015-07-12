@@ -1,5 +1,7 @@
 package org.oszz.ox.server.base.conf;
 
+import org.oszz.ox.core.conf.BaseConfig;
+
 public class RedisConfig extends BaseConfig {
 
 	private boolean isOpen = false;
