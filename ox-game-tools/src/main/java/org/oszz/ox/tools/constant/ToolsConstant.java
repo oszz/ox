@@ -172,5 +172,8 @@ public interface ToolsConstant {
 	 */
 	public static final String MAPPING_PACKAGE_NAME = "org.oszz.ox.server.base.dom";
 	
-	
+	/**
+	 * MessageCode的类名
+	 */
+	public static final String MESSAGE_CODE_CLASS_NAME = "MessageCode";
 }

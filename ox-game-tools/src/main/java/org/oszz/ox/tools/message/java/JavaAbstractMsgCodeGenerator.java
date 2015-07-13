@@ -17,12 +17,12 @@ import org.oszz.ox.tools.utils.VelocityUtils;
  * @author ZZ
  *
  */
-public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
+public abstract class JavaAbstractMsgCodeGenerator extends AbstractMessageCodeGenerator {
 	
 //	private static final String PACKAGE_NAME = "org.oszz.ox.server.base.message";
 	
 
-	private String msgCode_vmFile;//模板文件
+	protected String msgCode_vmFile;//模板文件
 	
 	/**
 	 * java端的MessageCode生成器
@@ -30,7 +30,7 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 	 * @param messageCodeListPath 消息码列表文件的路径
 	 * @param msgCode_vmFile 模板数据
 	 */
-	public JavaMsgCodeGenerator(ModuleConfig moduleConfig, List<MessageCodeConfig> msgCodeConfigs, String msgCode_vmFile) {
+	public JavaAbstractMsgCodeGenerator(ModuleConfig moduleConfig, List<MessageCodeConfig> msgCodeConfigs, String msgCode_vmFile) {
 		super(moduleConfig, msgCodeConfigs);
 		this.msgCode_vmFile = msgCode_vmFile;
 		
@@ -50,7 +50,10 @@ public class JavaMsgCodeGenerator extends AbstractMessageCodeGenerator {
 		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
 		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
 		
-		VelocityUtils.write(this.msgCode_vmFile, ctx, outPath + JAVA_MESSAGE_CODE_FILE_NAME, moduleConfig.getCharsetName());
-		log.info("成功生成 {} . 字符集：{}", JAVA_MESSAGE_CODE_FILE_NAME, moduleConfig.getCharsetName());
+		String fileName = ToolsConstant.MESSAGE_CODE_CLASS_NAME + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
+		String filePath = outPath + fileName;
+		
+		VelocityUtils.write(this.msgCode_vmFile, ctx, filePath, moduleConfig.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
 	}
 }

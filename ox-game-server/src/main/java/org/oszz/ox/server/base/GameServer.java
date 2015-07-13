@@ -13,6 +13,7 @@ import org.oszz.ox.core.server.IServer;
 import org.oszz.ox.core.server.jetty.IJettySessionFactory;
 import org.oszz.ox.core.server.jetty.JettyHashSessionFactory;
 import org.oszz.ox.core.server.jetty.JettyServer;
+import org.oszz.ox.core.server.mina.MinaServer;
 import org.oszz.ox.core.service.IService;
 import org.oszz.ox.core.service.ISystemService;
 import org.oszz.ox.core.template.ITemplateService;
@@ -90,7 +91,8 @@ public class GameServer {
 	
 	
 	public void start() throws Exception {
-		startJettyServer();
+//		startJettyServer();
+		startMinaServer();
 	}
 	
 	private static void startJettyServer() throws Exception {
@@ -107,5 +109,13 @@ public class GameServer {
 		OXServerHandler oxsHandler = new OXServerHandler(jsConfig.getResponseTimeout());
 		jsServer.setHandler(oxsHandler);
 		jsServer.start();
+	}
+	
+	private static void startMinaServer() throws Exception {
+		ServerConfig serverCongfig = Globals.getCofing(ServerConfig.class);
+		
+		int port = 1111;
+		IServer server = new MinaServer(port, serverCongfig.getCharset());
+		server.start();
 	}
 }

@@ -1,5 +1,6 @@
 package org.oszz.ox.tools.message.conf;
 
+import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.NameUtils;
 import org.oszz.ox.tools.constant.ToolsConstant;
 
@@ -99,6 +100,10 @@ public class MessageCodeConfig {
 		return NameUtils.getClassName(msgName.replace(".", "")) + ToolsConstant.HANDLER_CLASS_NAME_SUFFIX;
 	}
 	
+	@Override
+	public String toString() {
+		return ClassUtils.toString(this);
+	}
 	
 	
 }

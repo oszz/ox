@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.oszz.ox.tools.message.IMessageGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgCodeRegisterGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgHandlerGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
+import org.oszz.ox.tools.message.java.gameServer.JavaGameServerMsgCodeGenerator;
 import org.oszz.ox.tools.module.conf.ModuleConfig;
 
 public class JavaMessageGenerator {
@@ -44,8 +44,11 @@ public class JavaMessageGenerator {
 		javaMsgProtoGenerator.generate();
 		
 		//生成java的MessageCode.java类
-		IMessageGenerator javaMsgCodeGenerator = new JavaMsgCodeGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_CODE_FOR_VM_FILE);
+//		IMessageGenerator javaMsgCodeGenerator = new JavaMsgCodeGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_CODE_FOR_VM_FILE);
+//		javaMsgCodeGenerator.generate();
+		IMessageGenerator javaMsgCodeGenerator = new JavaGameServerMsgCodeGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_CODE_FOR_VM_FILE);
 		javaMsgCodeGenerator.generate();
+		
 		
 		//生成消息的处理类
 		IMessageGenerator javaMsgHandlerGenerator = new JavaMsgHandlerGenerator(moduleConfig, msgCodeConfigs, JAVA_MSG_HANDLER_VM_FILE);

@@ -31,8 +31,12 @@
 	<!-- 消息类型的枚举： GC或CG -->
 	<xsd:simpleType name="messageType">
 	  <xsd:restriction base="xsd:string">
-	    <xsd:enumeration value="GC"/>
-	    <xsd:enumeration value="CG"/>
+	    <xsd:enumeration value="GC"/><!-- GameServer to Client -->
+	    <xsd:enumeration value="CG"/><!-- Client to GameServer -->
+	    <xsd:enumeration value="LG"/><!-- LoginServer to GameServer -->
+	    <xsd:enumeration value="GL"/><!-- GameServer to LoginServer -->
+	    <xsd:enumeration value="CL"/><!-- Client to LoginServer -->
+	    <xsd:enumeration value="LC"/><!-- LoginServer to Client -->
 	  </xsd:restriction>
 	</xsd:simpleType>
 	

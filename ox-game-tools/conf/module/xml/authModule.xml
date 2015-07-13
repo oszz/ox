@@ -9,7 +9,7 @@
    		 	comments="玩家登陆" />
 	    <message name="AuthProto.GCLoginInfo" type="GC" messageProcesserType="SCENE" 
 	    	comments="玩家登陆后返回的消息" />
-	    <message name="AuthProto.CGLogout" type="CG" messageProcesserType="SCENE" 
+	    <message name="AuthProto.CGLogout" type="LG" messageProcesserType="SCENE" 
 	    	comments="玩家主动退出"/>
    	</messages>
    	
