@@ -184,10 +184,18 @@ public class Globals {
 	 * @author ZZ
 	 */
 	private static void initRegister(){
-		moduleServiceRegister.init();
-		messageCodeRegister.init();
-		templateDataRegister.init();
-		humanDataManagerRegister.init();
+		if(moduleServiceRegister != null){
+			moduleServiceRegister.init();
+		}
+		if(messageCodeRegister != null){
+			messageCodeRegister.init();
+		}
+		if(templateDataRegister != null){
+			templateDataRegister.init();
+		}
+		if(humanDataManagerRegister != null){
+			humanDataManagerRegister.init();
+		}
 	}
 	
 	/**
