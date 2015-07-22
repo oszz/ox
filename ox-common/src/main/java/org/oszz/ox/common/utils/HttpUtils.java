@@ -14,6 +14,9 @@ import java.util.Map;
  *
  */
 public class HttpUtils {
+	
+	private static final int BUFF_SIZE = 512;
+	
 	/**
 	 * GET请求的方法名
 	 */
@@ -23,7 +26,7 @@ public class HttpUtils {
 	 */
 	public static final String POST_METHOD_NAME = "POST";
 	
-	public static byte[] sendGetRequest(String urlStr, Map<String, Object> paraMaps){
+	public static byte[] sendGetRequest(String urlStr, Map<String, String> paraMaps){
 		HttpURLConnection httpURLConnection = null;
 		try {
 			String urlPara = getUrlParamsByMap(paraMaps);
@@ -32,8 +35,7 @@ public class HttpUtils {
 			httpURLConnection = (HttpURLConnection)url.openConnection();
 			httpURLConnection = setProperty(httpURLConnection, GET_METHOD_NAME);
 			httpURLConnection.connect(); 
-			
-			
+			return read(httpURLConnection);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -47,7 +49,7 @@ public class HttpUtils {
 	public static byte[] sendPostRequest(String urlStr, byte[] paraBytes){
 		HttpURLConnection httpURLConnection = null;
 		OutputStream out = null;
-		BufferedInputStream bis = null;
+		
 		try {
 			URL url = new URL(urlStr);
 			httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -57,18 +59,11 @@ public class HttpUtils {
             out.write(paraBytes);  
             out.flush();  
             
-            bis = new BufferedInputStream(httpURLConnection.getInputStream());
-            int readIndex = 0;
-            byte[] buff = new byte[1024];
-            while ((readIndex = bis.read(buff)) != -1) {  
-//            	buff
-            }  
-            
+            return read(httpURLConnection);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if(out != null){try {out.close();} catch (IOException e) {}}
-			if(bis != null){try {bis.close();} catch (IOException e) {}}
 		}
 		return null;
 	}
@@ -98,12 +93,12 @@ public class HttpUtils {
      * @param map 
      * @return 
      */  
-    public static String getUrlParamsByMap(Map<String, Object> map) {  
+    public static String getUrlParamsByMap(Map<String, String> map) {  
         if (map == null) {  
             return "";  
         }  
         StringBuffer sb = new StringBuffer();  
-        for (Map.Entry<String, Object> entry : map.entrySet()) {  
+        for (Map.Entry<String, String> entry : map.entrySet()) {  
             sb.append(entry.getKey() + "=" + entry.getValue());  
             sb.append("&");  
         }  
@@ -127,4 +122,39 @@ public class HttpUtils {
 		httpURLConnection.setRequestProperty("Content-Type","application/octet-stream");
 		return httpURLConnection;
     }
+    
+    
+    private static byte[] read(HttpURLConnection httpURLConnection){
+    	BufferedInputStream bis = null;
+    	try {
+			bis = new BufferedInputStream(httpURLConnection.getInputStream());
+			int readIndex = 0;
+			byte[] totalBytes = new byte[0];//所有的bytes
+			byte[] buff = new byte[BUFF_SIZE];
+			while ((readIndex = bis.read(buff)) != -1) {  
+			 	if(readIndex == BUFF_SIZE){
+			 		totalBytes = byteMerger(totalBytes, buff);
+			 	}else{//说明到结尾了
+			 		byte[] tempBytes = new byte[readIndex];
+			 		for(int i=0 ; i<readIndex ; i++){
+			 			tempBytes[i] = buff[i];
+			 		}
+			 		totalBytes = byteMerger(totalBytes, tempBytes);
+			 	}
+			}
+			return totalBytes;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(bis != null){try {bis.close();} catch (IOException e) {}}
+		}
+    	return null;
+    }
+  //java 合并两个byte数组  
+    public static byte[] byteMerger(byte[] byte_1, byte[] byte_2){  
+        byte[] byte_3 = new byte[byte_1.length+byte_2.length];  
+        System.arraycopy(byte_1, 0, byte_3, 0, byte_1.length);  
+        System.arraycopy(byte_2, 0, byte_3, byte_1.length, byte_2.length);  
+        return byte_3;  
+    } 
 }

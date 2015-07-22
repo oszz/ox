@@ -91,8 +91,8 @@ public class GameServer {
 	
 	
 	public void start() throws Exception {
-//		startJettyServer();
-		startMinaServer();
+		startJettyServer();
+//		startMinaServer();
 	}
 	
 	private static void startJettyServer() throws Exception {

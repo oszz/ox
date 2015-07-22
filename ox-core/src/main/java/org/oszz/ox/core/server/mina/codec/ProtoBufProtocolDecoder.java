@@ -1,7 +1,5 @@
 package org.oszz.ox.core.server.mina.codec;
 
-import java.nio.charset.Charset;
-
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolDecoderAdapter;
@@ -15,11 +13,11 @@ import org.oszz.ox.core.message.MessageProcesserType;
 
 public class ProtoBufProtocolDecoder extends ProtocolDecoderAdapter{
 
-	private Charset charset;
+	/*private Charset charset;
 	
 	public ProtoBufProtocolDecoder(Charset charset){
 		this.charset = charset;
-	}
+	}*/
 	
 	@Override
 	public void decode(IoSession session, IoBuffer in, ProtocolDecoderOutput out)

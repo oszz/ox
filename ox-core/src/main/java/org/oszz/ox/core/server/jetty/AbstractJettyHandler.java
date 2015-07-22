@@ -16,7 +16,7 @@ import org.oszz.ox.core.filter.DoPostDataFilter;
 import org.oszz.ox.core.filter.IFilter;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 import org.oszz.ox.core.server.IRequestHandler;
-import org.oszz.ox.core.session.GSSession;
+import org.oszz.ox.core.session.Session;
 
 /**
  * 抽象的处理类
@@ -82,16 +82,16 @@ public abstract class AbstractJettyHandler extends AbstractHandler implements IR
 		
 		HttpSession httpSession = request.getSession(true);
 		String gsSessionKey = HttpSessionKey.GS_SESSION.getValue();
-		GSSession gsSession = (GSSession)httpSession.getAttribute(gsSessionKey);
-		if(gsSession == null){
-			gsSession = new GSSession();
-			gsSession.setHttpSession(httpSession);
-			gsSession.setResponse(response);
-			gsSession.setRequest(request);
+		Session session = (Session)httpSession.getAttribute(gsSessionKey);
+		if(session == null){
+			session = new Session();
+			session.setHttpSession(httpSession);
+			session.setResponse(response);
+			session.setRequest(request);
 			
-			httpSession.setAttribute(gsSessionKey, gsSession);
+			httpSession.setAttribute(gsSessionKey, session);
 		}
-		IAsynResponseProcesser iar = new JettyAsynResponseProcesser(gsSession,doGetDataFilter,doPostDataFilter,isDebug, this);
+		IAsynResponseProcesser iar = new JettyAsynResponseProcesser(session,doGetDataFilter,doPostDataFilter,isDebug, this);
 		iar.setTimeout(timeoutSeconds);
 		iar.asynHandle();
 	}

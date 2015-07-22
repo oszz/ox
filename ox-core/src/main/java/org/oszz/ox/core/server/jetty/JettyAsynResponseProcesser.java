@@ -12,7 +12,7 @@ import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 import org.oszz.ox.core.server.IRequestHandler;
-import org.oszz.ox.core.session.GSSession;
+import org.oszz.ox.core.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,20 +33,20 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 	
 	private IMessage message;
 	
-	private final GSSession gsSession;
+	private final Session session;
 	
 	private final IRequestHandler requestHandler;
 	
 //	private int timeoutSeconds;//超时秒数
 	
-	public JettyAsynResponseProcesser(GSSession gsSession, IFilter doGetDataFilter, 
+	public JettyAsynResponseProcesser(Session session, IFilter doGetDataFilter, 
 			IFilter doPostDataFilter, boolean isDebug, IRequestHandler requestHandler){
-		this.gsSession = gsSession;
+		this.session = session;
 		this.requestHandler = requestHandler;
-		HttpServletRequest request = gsSession.getRequest();
+		HttpServletRequest request = session.getRequest();
 		this.continuation = ContinuationSupport.getContinuation(request); 
 //		this.request = request;
-		this.response = gsSession.getResponse();
+		this.response = session.getResponse();
 		continuation.suspend(response);
 		
 		String methodName = request.getMethod();
@@ -77,7 +77,7 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 
 	@Override
 	public void asynHandle() {
-		this.requestHandler.requestHandle(gsSession.getPlayer(), message);
+		this.requestHandler.requestHandle(session.getPlayer(), message);
 	}
 
 	@Override

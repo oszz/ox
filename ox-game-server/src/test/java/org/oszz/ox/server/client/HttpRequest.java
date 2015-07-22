@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.oszz.ox.common.utils.HttpUtils;
 import org.oszz.ox.core.message.IMessage;
 
 public class HttpRequest {
@@ -45,7 +46,8 @@ public class HttpRequest {
 		paraMaps.put("code", "1");
 		paraMaps.put("openId", openId);
 		
-		HttpUtils.readGet(URL, HttpUtils.GET_REQ, paraMaps);
+		byte[] respBytes =  HttpUtils.sendGetRequest(URL, paraMaps);
+		System.out.println(new String(respBytes, "UTF-8"));
 	}
 	
 }

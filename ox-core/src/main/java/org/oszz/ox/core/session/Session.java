@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author ZZ
  *
  */
-public class GSSession implements ISession {
+public class Session implements ISession {
 	private static final Logger log = LoggerFactory.getLogger("GSSession");
 	
 	private HttpSession httpSession;
@@ -29,7 +29,7 @@ public class GSSession implements ISession {
 	
 	private IPlayer player;
 	
-	public GSSession(){
+	public Session(){
 		this.player = new Player();
 		player.setSession(this);
 	}

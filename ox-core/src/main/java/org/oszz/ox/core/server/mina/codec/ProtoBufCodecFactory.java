@@ -14,8 +14,10 @@ public class ProtoBufCodecFactory implements ProtocolCodecFactory {
 	
 	
 	public ProtoBufCodecFactory(Charset charset){
-		encoder = new ProtoBufProtocolEncoder(charset);
-		decoder = new ProtoBufProtocolDecoder(charset);
+		/*encoder = new ProtoBufProtocolEncoder(charset);
+		decoder = new ProtoBufProtocolDecoder(charset);*/
+		encoder = new ProtoBufProtocolEncoder();
+		decoder = new ProtoBufProtocolDecoder();
 	}
 
 	@Override
