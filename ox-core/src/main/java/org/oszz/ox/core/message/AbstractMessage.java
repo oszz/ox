@@ -6,7 +6,6 @@ import net.sf.json.JSONObject;
 
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.StringUtils;
-import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
@@ -129,21 +128,27 @@ public abstract class AbstractMessage implements IMessage{
 	
 	@Override
 	public String toString() {
-		String str = JsonFormat.printToString(getProtobufMessage());
-		str = "{" +StringUtils.toHex(this.getCode()) + ":" +
-			str +"}";
-		return str;
+		return toJson().toString();
 	}
 	
 	@Override
 	public String toStringForBrowser() {
-		String lineln = SystemProperty.LINE_SEPARATOR.getValue();//换行
-		String table = SystemProperty.TABLE_CHAR.getValue();//换行
-		String str = JsonFormat.printToString(getProtobufMessage());
-		str = "{" +StringUtils.toHex(this.getCode()) +  ":" +
-				lineln + table 
-				+ str + 
-				lineln + "}";
-		return str;
+		JSONObject json = toJson();
+		return json.toString(4, 2);
+	}
+	
+	@Override
+	public JSONObject toJson() {
+		Message protobufMsg = getProtobufMessage();
+		String str = JsonFormat.printToString(protobufMsg);
+		String codeHex = StringUtils.toHex(this.getCode());
+		
+		JSONObject protoMsgJson = JSONObject.fromObject(str);
+		
+		JSONObject json = new JSONObject();
+		json.put("CODE", codeHex);
+		json.put("TYPE", ClassUtils.getClassName(protobufMsg.getClass()));
+		json.put("MSG", protoMsgJson);
+		return json;
 	}
 }

@@ -93,6 +93,7 @@ public class Session implements ISession {
 		try {
 			pw = this.response.getWriter();
 			pw.print(message.toStringForBrowser());
+//			pw.print(message.toString());
 			pw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

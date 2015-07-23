@@ -110,4 +110,6 @@ public interface IMessage {
 	public void toProtobufMessage(JSONObject json, Class<? extends GeneratedMessage> clazz) throws Exception;
 	
 	public String toStringForBrowser();
+	
+	public JSONObject toJson();
 }

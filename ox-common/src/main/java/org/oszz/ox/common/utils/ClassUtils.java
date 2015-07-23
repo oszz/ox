@@ -131,55 +131,8 @@ public class ClassUtils {
 	public static TwoTuple<String, Object> getSetterMethodNameAndValue(Field field, String valueStr){
 		String fieldName = field.getName();
 		Class<?> typeClass = field.getType();
-		
-//		String fName = NameUtils.upperFirstChar(fieldName);
-//		Object value = null;
-//		String methodName = MethodNameEnum.SETTER_PREFIX.getName() + fName;
-		
-		
 		Object value = getValue(field.getType(), valueStr);
 		String methodName = getSetterMethodName(fieldName, typeClass);
-//		if(typeClass == Integer.class || typeClass == int.class){
-//			int pointIndex = valueStr.indexOf(".");
-//			if(pointIndex > 0){//说明有小数点
-//				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
-//			}
-//			value = Integer.parseInt(valueStr);
-//		}else if(typeClass == Byte.class || typeClass == byte.class){
-//			int pointIndex = valueStr.indexOf(".");
-//			if(pointIndex > 0){//说明有小数点
-//				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
-//			}
-//			value = Byte.parseByte(valueStr);
-//		}else if(typeClass == Short.class || typeClass == short.class){
-//			int pointIndex = valueStr.indexOf(".");
-//			if(pointIndex > 0){//说明有小数点
-//				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
-//			}
-//			value = Short.parseShort(valueStr);
-//		}else if(typeClass == Float.class || typeClass == float.class){
-//			value = Float.parseFloat(valueStr);
-//		}else if(typeClass == Double.class || typeClass == double.class){
-//			value = Double.parseDouble(valueStr);
-//		}else if(typeClass == Long.class || typeClass == long.class){
-//			int pointIndex = valueStr.indexOf(".");
-//			if(pointIndex > 0){//说明有小数点
-//				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
-//			}
-//			value = Long.parseLong(valueStr);
-//		}else if(typeClass == Character.TYPE || typeClass == char.class){
-//			value = (char)(Integer.parseInt(valueStr));
-//		}else if(typeClass == Boolean.class || typeClass == boolean.class){
-//			if(Boolean.TRUE.toString().equalsIgnoreCase(valueStr.trim())){
-//				value = true;
-//			}else{
-//				value = false;
-//			}
-//			int isIndex = fieldName.indexOf(MethodNameEnum.IS_PREFIX.getName());
-//			methodName = MethodNameEnum.SETTER_PREFIX.getName() + fieldName.substring(isIndex + 2);//去掉is
-//		}else if(typeClass == String.class){
-//			value = valueStr;
-//		}
 		
 		if(value == null){
 			return null;
@@ -446,6 +399,15 @@ public class ClassUtils {
 		Class<?>[] paraTypeClasses = method.getParameterTypes();
 		Class<?> paraTypeClass = paraTypeClasses[0];
 		return getValue(paraTypeClass, paraValue);
+	}
+	
+	public static String getClassName(Class<?> clazz){
+		String name = clazz.getName();
+		int lastPointIndex = name.lastIndexOf(".");
+		if(lastPointIndex > 0){
+			name = name.substring(lastPointIndex + 1);
+		}
+		return name;
 	}
 	
 }
