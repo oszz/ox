@@ -11,7 +11,8 @@ public class Player implements IPlayer {
 
 	@Override
 	public String getId() {
-		return null;
+		//TODO 临时的id，测试用
+		return "TODO";
 	}
 
 	@Override

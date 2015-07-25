@@ -1,5 +1,7 @@
 package org.oszz.ox.core.server.jetty;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +11,6 @@ import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.filter.IFilter;
 import org.oszz.ox.core.message.IMessage;
-import org.oszz.ox.core.player.IPlayer;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 import org.oszz.ox.core.server.IRequestHandler;
 import org.oszz.ox.core.session.Session;
@@ -25,11 +26,11 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 	
 	private static final Logger log = LoggerFactory.getLogger("JettyAsynResponseProcesser");
 	
-	private final Continuation continuation;
+	private Continuation continuation;
 	
 //	private final HttpServletRequest request;
 	
-	private final HttpServletResponse response;
+	private HttpServletResponse response;
 	
 	private IMessage message;
 	
@@ -44,10 +45,8 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 		this.session = session;
 		this.requestHandler = requestHandler;
 		HttpServletRequest request = session.getRequest();
-		this.continuation = ContinuationSupport.getContinuation(request); 
-//		this.request = request;
 		this.response = session.getResponse();
-		continuation.suspend(response);
+		
 		
 		String methodName = request.getMethod();
 		
@@ -58,8 +57,20 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 		}else if(DefaultConfig.HTTP_POST_REQUEST.getValue().equalsIgnoreCase(methodName)){
 			message = doPostDataFilter.doInputFilter(request);
 		}
-		message.setAsynResponseProcesser(this);
-		initContinuationListener();
+		if (message != null) {
+			this.continuation = ContinuationSupport.getContinuation(request); 
+			continuation.suspend(response);
+			
+			message.setAsynResponseProcesser(this);
+			initContinuationListener();
+		} else {
+			try {
+				this.response.getWriter().write("消息错误");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	private void initContinuationListener(){
@@ -77,7 +88,9 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 
 	@Override
 	public void asynHandle() {
-		this.requestHandler.requestHandle(session.getPlayer(), message);
+		if(message != null){
+			this.requestHandler.requestHandle(session.getPlayer(), message);
+		}
 	}
 
 	@Override
@@ -87,12 +100,14 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 
 	@Override
 	public void onTimeoutHandle() {
-		log.error("异步处理消息-{}时，超时出错: {}", message, continuation);
+		log.error("异步处理消息-{}时，超时: {}", message, continuation);
 	}
 
 	@Override
 	public void setTimeout(int seconds) {
-		continuation.setTimeout(seconds * 1000L);//转成毫秒
+		if(continuation != null){
+			continuation.setTimeout(seconds * 1000L);//转成毫秒
+		}
 	}
 
 }

@@ -86,13 +86,13 @@ public abstract class AbstractJettyHandler extends AbstractHandler implements IR
 		if(session == null){
 			session = new Session();
 			session.setHttpSession(httpSession);
-			session.setResponse(response);
-			session.setRequest(request);
-			
 			httpSession.setAttribute(gsSessionKey, session);
 		}
-		IAsynResponseProcesser iar = new JettyAsynResponseProcesser(session,doGetDataFilter,doPostDataFilter,isDebug, this);
-		iar.setTimeout(timeoutSeconds);
-		iar.asynHandle();
+		session.setResponse(response);
+		session.setRequest(request);
+		
+		IAsynResponseProcesser iarp = new JettyAsynResponseProcesser(session,doGetDataFilter,doPostDataFilter,isDebug, this);
+		iarp.setTimeout(timeoutSeconds);
+		iarp.asynHandle();
 	}
 }

@@ -1,4 +1,4 @@
-package org.oszz.ox.common.utils;
+package org.oszz.ox.common.utils.http;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.oszz.ox.common.utils.StringUtils;
 
 /**
  * HTTP请求工具类
@@ -109,7 +111,7 @@ public class HttpUtils {
         return s;  
     }  
     
-    private static HttpURLConnection setProperty(HttpURLConnection httpURLConnection, String reqMethod) throws IOException{
+   public static HttpURLConnection setProperty(HttpURLConnection httpURLConnection, String reqMethod) throws IOException{
     	 //设置http连接属性  
 		httpURLConnection.setDoOutput(true);  
 		httpURLConnection.setDoInput(true);  
@@ -124,7 +126,7 @@ public class HttpUtils {
     }
     
     
-    private static byte[] read(HttpURLConnection httpURLConnection){
+    public static byte[] read(HttpURLConnection httpURLConnection){
     	BufferedInputStream bis = null;
     	try {
 			bis = new BufferedInputStream(httpURLConnection.getInputStream());
@@ -158,3 +160,4 @@ public class HttpUtils {
         return byte_3;  
     } 
 }
+

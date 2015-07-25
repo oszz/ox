@@ -45,16 +45,18 @@ public class DoGetDataFilter implements IFilter {
 		if(isDebug){
 			try {
 				Map<String, String[]> paraMaps = request.getParameterMap();
-				short code = Short.parseShort(paraMaps.get(CODE_KEY)[0]);
-				
-				MessageCodeMapping msgCodeMapping = Globals.getMessageCodeMapping(code);
-				Class<? extends IMessage> msgClass = msgCodeMapping.getMessageClass();
-				IMessageHandler msgHandler = msgCodeMapping.getMsgHandler();
-				MessageProcesserType messageProcesserType = msgCodeMapping.getMessageProcesserType();
-				message = ClassUtils.newInstance(msgClass);
-				message.toProtobufMessage(toJson(paraMaps), message.getProtobufMessageClass());
-				message.setMsgHandler(msgHandler);
-				message.setMessageProcesserType(messageProcesserType);
+				if(paraMaps != null && paraMaps.size() != 0){
+					short code = Short.parseShort(paraMaps.get(CODE_KEY)[0]);
+					
+					MessageCodeMapping msgCodeMapping = Globals.getMessageCodeMapping(code);
+					Class<? extends IMessage> msgClass = msgCodeMapping.getMessageClass();
+					IMessageHandler msgHandler = msgCodeMapping.getMsgHandler();
+					MessageProcesserType messageProcesserType = msgCodeMapping.getMessageProcesserType();
+					message = ClassUtils.newInstance(msgClass);
+					message.toProtobufMessage(toJson(paraMaps), message.getProtobufMessageClass());
+					message.setMsgHandler(msgHandler);
+					message.setMessageProcesserType(messageProcesserType);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
