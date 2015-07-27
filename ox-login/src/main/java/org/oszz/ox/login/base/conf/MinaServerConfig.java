@@ -3,15 +3,15 @@ package org.oszz.ox.login.base.conf;
 import org.oszz.ox.core.conf.BaseConfig;
 
 /**
- * Jetty服务配置
+ * Mina服务配置
  * @author ZZ
  *
  */
-public class JettyServerConfig extends BaseConfig {
+public class MinaServerConfig extends BaseConfig {
 
 	private int port;//端口
-	private int sessionTimeout=600;//session超时时间（单位秒）
-	private int responseTimeout=10;//response处理超时时间（单位秒）
+	private int sessionTimeout=600;//Jetty的session超时时间（单位秒）
+	private int responseTimeout=10;//Jetty的response处理超时时间（单位秒）
 	
 	public int getPort() {
 		return port;
@@ -31,4 +31,6 @@ public class JettyServerConfig extends BaseConfig {
 	public void setResponseTimeout(int responseTimeout) {
 		this.responseTimeout = responseTimeout;
 	}
+	
+	
 }
