@@ -258,7 +258,8 @@ public class ClassUtils {
 		}else if(typeClass == Long.class || typeClass == long.class){
 			firstTypeClass = Long.class;
 			secondTypeClass = long.class;
-		}else if(typeClass == Character.TYPE || typeClass == char.class){
+//		}else if(typeClass == Character.TYPE || typeClass == char.class){
+		}else if(typeClass == Character.TYPE ){
 			firstTypeClass = char.class;
 		}else if(typeClass == Boolean.class || typeClass == boolean.class){
 			firstTypeClass = Boolean.class;
@@ -359,7 +360,8 @@ public class ClassUtils {
 				valueStr = valueStr.substring(0,valueStr.indexOf("."));//去掉小数点
 			}
 			value = Long.parseLong(valueStr);
-		}else if(typeClass == Character.TYPE || typeClass == char.class){
+//		}else if(typeClass == Character.TYPE || typeClass == char.class){
+		}else if(typeClass == Character.TYPE){
 			value = (char)(Integer.parseInt(valueStr));
 		}else if(typeClass == Boolean.class || typeClass == boolean.class){
 			if(Boolean.TRUE.toString().equalsIgnoreCase(valueStr.trim())){

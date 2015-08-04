@@ -99,18 +99,20 @@ public class FileUtils {
 			if(suffixName != null && !"".equals(suffixName)){
 				suffixNameIsBlank = false;
 			}
-			for(File file : files){
-				if(file.isFile()){
-					if(suffixNameIsBlank){//如果参数suffixName是空的
-						allFiles.add(file);
-					}else{//不是空白，则判断后缀是否一致
-						String fileName = file.getName();
-						int lastPointIndex = fileName.lastIndexOf(".");
-						if(lastPointIndex > 0){
-							//文件的后缀名
-							String fileSuffixName = fileName.substring(lastPointIndex);
-							if(fileSuffixName.equalsIgnoreCase(suffixName)){
-								allFiles.add(file);
+			if(!CollectionsUtils.isNull(files)){
+				for(File file : files){
+					if(file.isFile()){
+						if(suffixNameIsBlank){//如果参数suffixName是空的
+							allFiles.add(file);
+						}else{//不是空白，则判断后缀是否一致
+							String fileName = file.getName();
+							int lastPointIndex = fileName.lastIndexOf(".");
+							if(lastPointIndex > 0){
+								//文件的后缀名
+								String fileSuffixName = fileName.substring(lastPointIndex);
+								if(fileSuffixName.equalsIgnoreCase(suffixName)){
+									allFiles.add(file);
+								}
 							}
 						}
 					}
