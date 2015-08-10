@@ -38,23 +38,6 @@ public class JavaMsgHandlerGenerator extends AbstractMessageCodeGenerator {
 			if(msgCodeConf.isGenerator()){//如果是生成
 				String handlerClassPackageName = msgCodeConf.getHandlerClassPackageName().trim();
 				if(msgCodeConf.getMsgType().equals(ToolsConstant.MESSAGE_CG_TYPE)){//如果CG类型的消息，需要生成handler类
-//					VelocityContext ctx = new VelocityContext();
-//					String comments = msgCodeConf.getComments();
-//					String handlerClassName = msgCodeConf.getMsgHandlerClassName();
-//					
-//					ctx.put("handlerClassPackageName", handlerClassPackageName);
-//					ctx.put("comments", comments);
-//					ctx.put("handlerClassName", handlerClassName);
-//					
-//					String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
-//					String fileName = handlerClassName + javaClassSuffix;
-//					String packagePath = ClassUtils.packageName2Path(handlerClassPackageName);
-//					
-//					outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-//					outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
-//					VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath + fileName, moduleConfig.getCharsetName());
-//					log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
-					
 					String comments = msgCodeConf.getComments();
 					String handlerClassName = msgCodeConf.getMsgHandlerClassName();
 					String fileName = handlerClassName + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
