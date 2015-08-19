@@ -10,11 +10,15 @@
      <!-- 所有的模块都在这里声明 -->
      <!-- 生成的messageCode按这里模块声明的顺序 进行生成，
      	      尽量不要改动模块顺序，添加新模块，往后追加 -->
-     <module name="auth" desc="认证模块" package="org.oszz.ox.server.module.auth" isGenerator="true"
+     <module name="authd" desc="认证模块" package="org.oszz.ox.server.module.auth" isGenerator="true"
      			xmlFileName="authModule.xml"/>
      			
      <module name="info" desc="信息提示模块" package="org.oszz.ox.server.module.info" isGenerator="true"
      			xmlFileName="infoModule.xml"/>
- 
+  	
+  	<!-- client 2 loginServer -->
+  	<module name="auth" desc="客户端到登录服的认证模块" 
+  		package="org.oszz.ox.server.module" isGenerator="true" 
+  		xmlFileName="authModule.xml"/>
 </modules>   
      

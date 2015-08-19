@@ -168,7 +168,7 @@ public interface ToolsConstant {
 	public static final String TEMPLATE_CLASS_NAME_SUFFIX = "Template";
 	
 	/**
-	 * 映射类的完整报名
+	 * 映射类的完整包名
 	 */
 	public static final String MAPPING_PACKAGE_NAME = "org.oszz.ox.server.base.dom";
 	
