@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns= "http://www.ox.oszz.org/schema" 
+	xmlns:xsd= "http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.ox.oszz.org/schema" 
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+ 
+ 	<!-- 字符串 -->
+    <xsd:simpleType name="str">
+	  <xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+	  <!-- 属性 元素的定义 -->
+    <xsd:complexType name="fieldsComplexType">
+      	<xsd:sequence>
+      		<xsd:element name="field" type="str"  maxOccurs="unbounded" minOccurs="0"/>
+      	</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 整个模板的XML配置 -->	
+	<xsd:element name="template">  
+       <xsd:complexType>  
+         <xsd:sequence>  
+         	<!-- 可以有无限多个Template -->
+            <xsd:element name="fields" type="fieldsComplexType" maxOccurs="1" minOccurs="0" />
+         </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>  
+</xsd:schema> 

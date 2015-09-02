@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<messages xmlns= "http://www.ox.oszz.org/schema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.ox.oszz.org/schema ../xsd/ox-messages-1.0.xsd">  
+
+ 	<!-- 生成的messageCode按这里模块声明的顺序 进行生成，
+     	      尽量不要改动模块顺序，添加新模块，往后追加 -->
+	<message name="AuthProto.CGLogin" type="CG" processerType="ASYN"
+		   	package="org.oszz.ox.msg.auth" comments="玩家登陆" isGenerator="true"/>
+	<message name="AuthProto.GCLoginInfo" type="GC" processerType="SCENE" 
+			package="org.oszz.ox.msg.auth" comments="玩家登陆后返回的消息" isGenerator="true"/>
+	<message name="AuthProto.CGLogout" type="CG" processerType="SCENE" 
+			package="org.oszz.ox.msg.auth" comments="玩家主动退出" isGenerator="true"/>
+			
+</messages>

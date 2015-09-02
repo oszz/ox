@@ -3,9 +3,10 @@ package org.oszz.ox.tools.message.java;
 import java.io.File;
 import java.io.IOException;
 
-import org.oszz.ox.tools.message.AbstractMessageGenerator;
+import org.oszz.ox.tools.conf.Config;
+import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
+import org.oszz.ox.tools.message.IMessageProtoGenerator;
 import org.oszz.ox.tools.message.ProtocCommandConstants;
-import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,25 +15,26 @@ import org.slf4j.LoggerFactory;
  * @author ZZ
  *
  */
-public class JavaMsgProtoGenerator extends AbstractMessageGenerator {
+public class JavaMsgProtoGenerator extends GeneratorPathManagerAdapter implements IMessageProtoGenerator {
 	
 	private static final Logger log = LoggerFactory.getLogger("JavaMsgGenerator");
 
+	private String protocPath;
+	private String inputPath;
+	private String outPath;
+	
 	/**
 	 * 消息的Proto类生成器
-	 * @param msgConfig 消息配置
 	 */
-	public JavaMsgProtoGenerator(ModuleConfig moduleConfig) {
-		super(moduleConfig);
+	public JavaMsgProtoGenerator(Config config) {
+		this.protocPath = config.getProtocPath();
+		this.inputPath = getAbsoluteInputPath(config.getProtoBufFilePath());
+		this.outPath = getAbsoluteJavaOutputPath(config.getJavaOutputPath());
 	}
 
 	//protoc -I=E:/file/work/docs/技术文档/protoFile/message --java_out=E:/file/work/docs/技术文档/protoFile/message/java  E:/file/work/docs/技术文档/protoFile/message/equip.proto
 	@Override
 	public void generate() {
-		String protocPath = this.moduleConfig.getProtocPath();
-		String inputPath = getAbsoluteInputPath(moduleConfig.getProtoBufFilePath());
-		String outPath = getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
-		
 		log.info("protoc路径: " + protocPath);
 		log.info("proto文件目录: " + inputPath);
 		log.info("生成的java类输出目录: " + outPath);
@@ -58,6 +60,16 @@ public class JavaMsgProtoGenerator extends AbstractMessageGenerator {
 				log.debug("执行: {} 出错,错误信息：{}" , javaProtocCommond, e);
 			}
 		}
+	}
+
+	@Override
+	public File[] getProtoFiles() {
+		File protoFileDir = new File(this.inputPath);
+		File[] protoFiles = null;
+		if(protoFileDir.isDirectory()){
+			protoFiles = protoFileDir.listFiles();
+		}
+		return protoFiles;
 	}
 
 }

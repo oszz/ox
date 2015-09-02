@@ -7,7 +7,7 @@ import org.oszz.ox.server.base.dom.MessageCode;
  * 消息编码与消息类、消息处理类的对应关系<br>
  * Auto Generator, Don't Modify .
  */
-public class MessageCodeRegister extends AbstractMessageCodeRegister {
+public class MessageCodeMapping extends AbstractMessageCodeRegister {
 	
 	@Override
 	public void init() {

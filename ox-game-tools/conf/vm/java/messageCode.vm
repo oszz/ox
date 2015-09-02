@@ -1,12 +1,15 @@
 package ${packageName};
 
-public final class MessageCode {
-	
-	#foreach ($msgCodeConf in ${msgCodeConfigs})
 /**
-	 * ${msgCodeConf.comments}
+ * Auto Generator, Don't Modify .
+ */
+public final class ${className} {
+	
+	#foreach ($message in ${messages})
+/**
+	 * ${message.comments}
 	 */
-	public static final short ${msgCodeConf.constName} = ${msgCodeConf.hexCode};
+	public static final short ${message.constName} = ${message.hexCode};
 	#end
 	
 }

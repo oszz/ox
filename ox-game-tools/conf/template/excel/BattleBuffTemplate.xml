@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns= "http://www.ox.oszz.org/schema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.ox.oszz.org/schema ../../xsd/ox-template-1.0.xsd">  
+	 <!-- 模板用到的关联属性 -->
+	 <fields>
+		<field>buffName</field>
+		<field>buffType</field>
+		<field>continueType</field>
+		<field>buffID</field>
+	 </fields>
+</template>

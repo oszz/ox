@@ -61,7 +61,7 @@ public interface ToolsConstant {
 	/**
 	 * XML的messageProcesserType属性名称
 	 */
-	public static final String XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE = "messageProcesserType";
+	public static final String XML_ATTRIBUTE_MESSAGE_PROCESSER_TYPE = "processerType";
 	
 	/**
 	 * XML的template节点名称
@@ -151,6 +151,7 @@ public interface ToolsConstant {
 	 * XML的messages节点名称
 	 */
 	public static final String XML_NODE_MESSAGES = "messages";
+	
 	
 	/**
 	 * XML的comments属性名称

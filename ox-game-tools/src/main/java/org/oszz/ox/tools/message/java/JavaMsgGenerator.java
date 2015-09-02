@@ -1,25 +1,33 @@
 package org.oszz.ox.tools.message.java;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.SystemProperty;
-import org.oszz.ox.tools.message.AbstractMessageCodeGenerator;
-import org.oszz.ox.tools.message.conf.MessageCodeConfig;
-import org.oszz.ox.tools.module.conf.ModuleConfig;
+import org.oszz.ox.tools.conf.Config;
+import org.oszz.ox.tools.conf.ConfigManager;
+import org.oszz.ox.tools.conf.msg.Message;
+import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
+import org.oszz.ox.tools.message.IMessageGenerator;
 import org.oszz.ox.tools.utils.VelocityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * MessageCode的生成器
  * @author ZZ
  *
  */
-public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
+public class JavaMsgGenerator extends GeneratorPathManagerAdapter implements IMessageGenerator{
+	private static final Logger log = LoggerFactory.getLogger("JavaMsgGenerator");
 	
 
 	private String msg_vmFile;//模板文件
+	private Config config;
 	
 	/**
 	 * java端的Message生成器
@@ -27,38 +35,58 @@ public class JavaMsgGenerator extends AbstractMessageCodeGenerator {
 	 * @param messageCodeListPath 消息码列表文件的路径
 	 * @param msgCode_vmFile 模板数据
 	 */
-	public JavaMsgGenerator(ModuleConfig moduleConfig, List<MessageCodeConfig> msgCodeConfigs, String msg_vmFile) {
-		super(moduleConfig, msgCodeConfigs);
+	public JavaMsgGenerator(Config config, String msg_vmFile) {
+		this.config = config;
 		this.msg_vmFile = msg_vmFile;
 		
 	}
 
 	@Override
 	public void generate() {
-		String javaClassSuffix = SystemProperty.JAVA_CLASS_SUFFIX.getValue();
-		for(MessageCodeConfig msgCodeConf : this.msgCodeConfigs){
-			if(msgCodeConf.isGenerator()){
-				String msgClassName = msgCodeConf.getMsgClassName();
-				String msgPackageName = msgCodeConf.getMsgPackageName();
-				String msgCodeConstName = msgCodeConf.getConstName();
-				String comments = msgCodeConf.getComments();
-				String protobufMessageClass = this.getFullClassName(msgPackageName, msgCodeConf.getMsgName());
-				
-				VelocityContext ctx = new VelocityContext();
-				ctx.put("msgClassName", msgClassName);
-				ctx.put("msgPackageName", msgPackageName);
-				ctx.put("msgCodeConstName", msgCodeConstName);
-				ctx.put("comments", comments);
-				ctx.put("protobufMessageClass", protobufMessageClass);
-				
-				String packagePath = ClassUtils.packageName2Path(msgPackageName);
-				String outPath = this.getAbsoluteJavaOutputPath(moduleConfig.getJavaOutputPath());
-				outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
-				outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
-				String fileName = msgClassName + javaClassSuffix;
-				VelocityUtils.write(this.msg_vmFile, ctx, outPath+"/"+fileName, moduleConfig.getCharsetName());
-				log.info("成功生成 {} . 字符集：{}", fileName, moduleConfig.getCharsetName());
+		Map<MessageCodeFileType, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getCodeFileMessages();
+		for(Map.Entry<MessageCodeFileType, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
+			MessageCodeFileType mcft = codeFileTypeMessageEntry.getKey();
+			List<Message> messages = codeFileTypeMessageEntry.getValue();
+			String messageCodeClassName = this.getFullName(mcft.getPackageName(), mcft.getClassName());
+			for(Message message : messages){
+				if(message.isGenerator()){
+					write(message, messageCodeClassName);
+				}
 			}
 		}
+	}
+	
+	private void write(Message message, String messageCodeClassName){
+		String className = message.getMsgClassName();
+		String packageName = message.getPackageName();
+		String msgCodeConstName = message.getConstName();
+		String comments = message.getComments();
+		String protobufMessageClass = this.getFullClassName(packageName, message.getName());
+		
+		VelocityContext ctx = new VelocityContext();
+		ctx.put("className", className);
+		ctx.put("packageName", packageName);
+		ctx.put("msgCodeConstName", msgCodeConstName);
+		ctx.put("comments", comments);
+		ctx.put("protobufMessageClass", protobufMessageClass);
+		ctx.put("messageCodeClassName", messageCodeClassName);
+		
+		String packagePath = ClassUtils.packageName2Path(packageName);
+		String outPath = this.getAbsoluteJavaOutputPath(config.getJavaOutputPath());
+		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
+		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		String fileName = className + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
+		VelocityUtils.write(this.msg_vmFile, ctx, outPath+"/"+fileName, config.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", fileName, config.getCharsetName());
+	}
+	
+	@Override
+	public String getFullClassName(String packageName, String className) {
+		return getFullName(packageName, className)+ SystemProperty.CLASS_SUFFIX.getValue();
+	}
+	
+	@Override
+	public String getFullName(String packageName, String className) {
+		return packageName + "." + className;
 	}
 }

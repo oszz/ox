@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.oszz.ox.common.tuple.TwoTuple;
 
 /**
@@ -283,11 +285,12 @@ public class ClassUtils {
 	 * @return 返回String
 	 */
 	public static String toString(Object obj){
-		StringBuilder content = new StringBuilder();
-		content.append(obj.getClass().getSimpleName() + "( ");
-		
+//		StringBuilder content = new StringBuilder();
+//		content.append(obj.getClass().getSimpleName() + "( ");
+		JSONObject json = new JSONObject();
 //		Field[] fields = obj.getClass().getDeclaredFields();
-		Field[] fields = getAllFields(obj.getClass());
+		Class<?> clazz = obj.getClass();
+		Field[] fields = getAllFields(clazz);
 		if(fields != null && fields.length != 0){
 			for(Field field : fields){
 				String fieldName = field.getName();
@@ -298,11 +301,15 @@ public class ClassUtils {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				content.append(fieldName + ":" + value + " - ");
+//				content.append(fieldName + ":" + value + " - ");
+				
+				json.put(fieldName, value);
 			}
 		}
-		content.append(")");
-		return content.toString();
+//		content.append(")");
+//		return content.toString();
+//		return clazz + ":" + json.toString();
+		return clazz + ":\n" +json.toString(4, 2);
 	}
 	
 	/**

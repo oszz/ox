@@ -7,7 +7,6 @@ import java.util.Properties;
 import org.oszz.ox.common.conf.ILoadPropertiesFile;
 import org.oszz.ox.common.conf.LoadProperties;
 import org.oszz.ox.tools.launch.java.JavaDataManagerGenerator;
-import org.oszz.ox.tools.launch.java.JavaMessageGenerator;
 import org.oszz.ox.tools.launch.java.JavaServiceGenertor;
 import org.oszz.ox.tools.launch.java.JavaTemplateGenerator;
 import org.oszz.ox.tools.message.conf.MessageCodeConfig;
@@ -75,7 +74,7 @@ public class ModuleGenerator {
 			}
 		}
 		
-		JavaMessageGenerator.generator(moduleConfig, totalMsgCodeConfigs);
+//		JavaMessageGenerator.generator(moduleConfig, totalMsgCodeConfigs);
 		JavaTemplateGenerator.generator(moduleConfig, totalTempDataConfigs);
 		JavaDataManagerGenerator.generator(moduleConfig, modulesXMLConfig);
 		JavaServiceGenertor.generator(moduleConfig, modulesXMLConfig);

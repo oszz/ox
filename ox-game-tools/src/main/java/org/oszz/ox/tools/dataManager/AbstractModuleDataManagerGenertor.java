@@ -1,12 +1,12 @@
 package org.oszz.ox.tools.dataManager;
 
-import org.oszz.ox.tools.generator.AbstractGenerator;
+import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
 import org.oszz.ox.tools.module.conf.ModuleConfig;
 import org.oszz.ox.tools.module.conf.ModulesXMLConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractModuleDataManagerGenertor extends AbstractGenerator
+public abstract class AbstractModuleDataManagerGenertor extends GeneratorPathManagerAdapter
 		implements IModuleDataManagerGenertor {
 	protected static final Logger log = LoggerFactory.getLogger("DataManagerGenertor");
 	
