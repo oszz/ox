@@ -1,4 +1,4 @@
-option java_package = "org.oszz.ox.server.module.auth.message";   
+option java_package = "org.oszz.ox.msg.auth";   
 option java_outer_classname = "AuthProto";   
 
 //玩家登陆

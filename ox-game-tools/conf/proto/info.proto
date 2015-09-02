@@ -1,4 +1,4 @@
-option java_package = "org.oszz.ox.server.module.info.message";   
+option java_package = "org.oszz.ox.msg.info";   
 option java_outer_classname = "InfoProto";   
 
 //错误提示信息
