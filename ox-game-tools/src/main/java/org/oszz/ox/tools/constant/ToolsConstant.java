@@ -5,7 +5,7 @@ public interface ToolsConstant {
 	/**
 	 * 消息处理类的名字后缀
 	 */
-	public static final String HANDLER_CLASS_NAME_SUFFIX = "Hnadler";
+	public static final String HANDLER_NAME_SUFFIX = "Hnadler";
 	
 	/**
 	 * 消息类的名字后缀

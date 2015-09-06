@@ -9,12 +9,12 @@ import org.oszz.ox.core.player.IPlayer;
  * Handler Auto Generator
  */
 public interface ${className} extends IMessageHandler{
-
-	@Override
-	public void handle(IPlayer player, IMessage message){
-		//TODO Handler Auto Generator
-	}
 	
-	
+	#foreach ($message in ${messages})
+/**
+	 * ${message.comments}
+	 */
+	public void {message.handlerMethodName}(IPlayer player, IMessage message);
+	#end
 	
 }

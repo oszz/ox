@@ -97,7 +97,7 @@ public class MessageCodeConfig {
 	 */
 	public String getMsgHandlerClassName(){
 		//去掉点
-		return NameUtils.getClassName(msgName.replace(".", "")) + ToolsConstant.HANDLER_CLASS_NAME_SUFFIX;
+		return NameUtils.getClassName(msgName.replace(".", "")) + ToolsConstant.HANDLER_NAME_SUFFIX;
 	}
 	
 	@Override

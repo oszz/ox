@@ -16,7 +16,12 @@ public class Message {
 	private String packageName;
 	
 	private String constName;
-	private String msgClassName;
+	private String msgClassName;//生成消息类的类名
+	
+	private String protoName;//proto类的名称
+	private String msgName;//ptoto类中的消息名称
+	
+	private String handlerMethodName;//处理该消息的方法名
 	
 	public Message(String hexCode, String name, String type, String processerType,
 			String comments, boolean isGenerator, String packageName){
@@ -30,6 +35,12 @@ public class Message {
 		
 		this.constName = NameUtils.getConstName(name);//常量名;
 		this.msgClassName = NameUtils.getClassName(name.replace(".", "")) + ToolsConstant.MESSAGE_CLASS_NAME_SUFFIX;;
+		
+		String[] nameStrs = name.split(".");//加载xml已检测,这里不必再检查
+		this.protoName = nameStrs[0];
+		this.msgName = nameStrs[1];
+		
+		this.handlerMethodName = NameUtils.getMethodOrParaName(msgName) + ToolsConstant.HANDLER_NAME_SUFFIX;
 	}
 	
 	public String getHexCode() {
@@ -91,12 +102,44 @@ public class Message {
 		this.packageName = packageName;
 	}
 
+	/**
+	 * 返回生成消息类的类名
+	 * @author ZZ
+	 * @return
+	 */
 	public String getMsgClassName() {
 		return msgClassName;
 	}
 
 	public void setMsgClassName(String msgClassName) {
 		this.msgClassName = msgClassName;
+	}
+	
+	/**
+	 * 返回proto类的名称
+	 * @author ZZ
+	 * @return
+	 */
+	public String getProtoName() {
+		return protoName;
+	}
+
+	/**
+	 * 返回proto类中的消息名称
+	 * @author ZZ
+	 * @return
+	 */
+	public String getMsgName() {
+		return msgName;
+	}
+
+	/**
+	 * 返回处理该消息的方法名
+	 * @author ZZ
+	 * @return
+	 */
+	public String getHandlerMethodName() {
+		return handlerMethodName;
 	}
 
 	@Override

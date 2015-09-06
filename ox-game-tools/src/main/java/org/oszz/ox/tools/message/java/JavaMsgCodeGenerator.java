@@ -30,7 +30,7 @@ public class JavaMsgCodeGenerator extends GeneratorPathManagerAdapter implements
 	
 	@Override
 	public void generate() {
-		Map<MessageCodeFileType, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getCodeFileMessages();
+		Map<MessageCodeFileType, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getMessagesByType();
 		for(Map.Entry<MessageCodeFileType, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
 			MessageCodeFileType mcft = codeFileTypeMessageEntry.getKey();
 			List<Message> childMessages = codeFileTypeMessageEntry.getValue();
