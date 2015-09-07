@@ -5,8 +5,7 @@ import org.oszz.ox.core.message.IMessageHandler;
 import org.oszz.ox.core.player.IPlayer;
 
 /**
- * ${comments} <br>
- * Handler Auto Generator
+ * Handler Auto Generator, Don't modify.
  */
 public interface ${className} extends IMessageHandler{
 	
@@ -14,7 +13,7 @@ public interface ${className} extends IMessageHandler{
 /**
 	 * ${message.comments}
 	 */
-	public void {message.handlerMethodName}(IPlayer player, IMessage message);
+	public void ${message.handlerMethodName}(IPlayer player, IMessage message);
 	#end
 	
 }

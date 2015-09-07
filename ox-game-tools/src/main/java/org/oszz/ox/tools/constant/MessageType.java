@@ -49,6 +49,14 @@ public enum MessageType {
 	}
 	
 	public static MessageType get(String msgType){
-		return MessageType.valueOf(msgType);
+		MessageType[] msgTypes =  MessageType.values();
+		MessageType type = null;
+		for(MessageType mt : msgTypes){
+			if(mt.getType().equalsIgnoreCase(msgType)){
+				type = mt;
+				break;
+			}
+		}
+		return type;
 	}
 }

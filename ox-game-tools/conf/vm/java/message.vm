@@ -29,4 +29,8 @@ public class ${className} extends AbstractMessage {
 		return ${protobufMessageClass};
 	}
 
+	@Override
+	public String getHandlerMethodName() {
+		return "${handlerMethodName}";
+	}
 }

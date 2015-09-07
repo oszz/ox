@@ -10,7 +10,7 @@ import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.conf.Config;
 import org.oszz.ox.tools.conf.ConfigManager;
 import org.oszz.ox.tools.conf.msg.Message;
-import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.constant.MessageTypeCodeConfig;
 import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
 import org.oszz.ox.tools.message.IMessageGenerator;
 import org.oszz.ox.tools.utils.VelocityUtils;
@@ -43,9 +43,9 @@ public class JavaMsgGenerator extends GeneratorPathManagerAdapter implements IMe
 
 	@Override
 	public void generate() {
-		Map<MessageCodeFileType, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getMessagesByType();
-		for(Map.Entry<MessageCodeFileType, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
-			MessageCodeFileType mcft = codeFileTypeMessageEntry.getKey();
+		Map<MessageTypeCodeConfig, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getMessagesByType();
+		for(Map.Entry<MessageTypeCodeConfig, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
+			MessageTypeCodeConfig mcft = codeFileTypeMessageEntry.getKey();
 			List<Message> messages = codeFileTypeMessageEntry.getValue();
 			String messageCodeClassName = this.getFullName(mcft.getPackageName(), mcft.getClassName());
 			for(Message message : messages){
@@ -61,6 +61,7 @@ public class JavaMsgGenerator extends GeneratorPathManagerAdapter implements IMe
 		String packageName = message.getPackageName();
 		String msgCodeConstName = message.getConstName();
 		String comments = message.getComments();
+		String handlerMethodName = message.getHandlerMethodName();
 		String protobufMessageClass = this.getFullClassName(packageName, message.getName());
 		
 		VelocityContext ctx = new VelocityContext();
@@ -70,6 +71,7 @@ public class JavaMsgGenerator extends GeneratorPathManagerAdapter implements IMe
 		ctx.put("comments", comments);
 		ctx.put("protobufMessageClass", protobufMessageClass);
 		ctx.put("messageCodeClassName", messageCodeClassName);
+		ctx.put("handlerMethodName", handlerMethodName);
 		
 		String packagePath = ClassUtils.packageName2Path(packageName);
 		String outPath = this.getAbsoluteJavaOutputPath(config.getJavaOutputPath());

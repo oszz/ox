@@ -36,7 +36,7 @@ public class Message {
 		this.constName = NameUtils.getConstName(name);//常量名;
 		this.msgClassName = NameUtils.getClassName(name.replace(".", "")) + ToolsConstant.MESSAGE_CLASS_NAME_SUFFIX;;
 		
-		String[] nameStrs = name.split(".");//加载xml已检测,这里不必再检查
+		String[] nameStrs = name.split("\\.");//加载xml已检测,这里不必再检查
 		this.protoName = nameStrs[0];
 		this.msgName = nameStrs[1];
 		
@@ -140,6 +140,10 @@ public class Message {
 	 */
 	public String getHandlerMethodName() {
 		return handlerMethodName;
+	}
+
+	public void setHandlerMethodName(String handlerMethodName) {
+		this.handlerMethodName = handlerMethodName;
 	}
 
 	@Override

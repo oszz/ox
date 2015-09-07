@@ -10,7 +10,7 @@ import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.conf.Config;
 import org.oszz.ox.tools.conf.ConfigManager;
 import org.oszz.ox.tools.conf.msg.Message;
-import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.constant.MessageTypeCodeConfig;
 import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
 import org.oszz.ox.tools.message.IMessageCodeGenerator;
 import org.oszz.ox.tools.utils.VelocityUtils;
@@ -30,15 +30,15 @@ public class JavaMsgCodeGenerator extends GeneratorPathManagerAdapter implements
 	
 	@Override
 	public void generate() {
-		Map<MessageCodeFileType, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getMessagesByType();
-		for(Map.Entry<MessageCodeFileType, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
-			MessageCodeFileType mcft = codeFileTypeMessageEntry.getKey();
+		Map<MessageTypeCodeConfig, List<Message>> codeFileTypeMessages = ConfigManager.getInstance().getMessagesByType();
+		for(Map.Entry<MessageTypeCodeConfig, List<Message>> codeFileTypeMessageEntry : codeFileTypeMessages.entrySet()){
+			MessageTypeCodeConfig mcft = codeFileTypeMessageEntry.getKey();
 			List<Message> childMessages = codeFileTypeMessageEntry.getValue();
 			write(mcft, childMessages);
 		}
 	}
 	
-	private void write(MessageCodeFileType mcft , List<Message> messages){
+	private void write(MessageTypeCodeConfig mcft , List<Message> messages){
 		VelocityContext ctx = new VelocityContext();
 		String className = mcft.getClassName();
 		String packageName = mcft.getPackageName();

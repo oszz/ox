@@ -4,9 +4,11 @@ import org.oszz.ox.tools.conf.Config;
 import org.oszz.ox.tools.generator.IGenerator;
 import org.oszz.ox.tools.message.IMessageCodeGenerator;
 import org.oszz.ox.tools.message.IMessageGenerator;
+import org.oszz.ox.tools.message.IMessageHandlerGenerator;
 import org.oszz.ox.tools.message.IMessageProtoGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgCodeGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgGenerator;
+import org.oszz.ox.tools.message.java.JavaMsgHandlerGenerator;
 import org.oszz.ox.tools.message.java.JavaMsgProtoGenerator;
 
 public class JavaMessageGenerator implements IGenerator{
@@ -79,6 +81,9 @@ public class JavaMessageGenerator implements IGenerator{
 		//生成消息类（包装了code\protoBuf的消息）
 		IMessageGenerator javaMsgGenerator = new JavaMsgGenerator(config, JAVA_MSG_VM_FILE);
 		javaMsgGenerator.generate();
-			
+		
+		//生成消息的处理接口
+		IMessageHandlerGenerator javaMsgHandlerGenerator = new JavaMsgHandlerGenerator(config, JAVA_MSG_HANDLER_VM_FILE);
+		javaMsgHandlerGenerator.generate();	
 	}
 }

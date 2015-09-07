@@ -1,4 +1,4 @@
-package org.oszz.ox.msg;
+package org.oszz.ox.gs;
 
 /**
  * Auto Generator, Don't Modify .

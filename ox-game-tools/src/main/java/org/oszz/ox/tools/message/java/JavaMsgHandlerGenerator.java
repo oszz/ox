@@ -1,16 +1,18 @@
 package org.oszz.ox.tools.message.java;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
-import org.apache.xmlbeans.impl.common.NameUtil;
+import org.oszz.ox.common.utils.ClassUtils;
+import org.oszz.ox.common.utils.FileUtils;
 import org.oszz.ox.common.utils.NameUtils;
+import org.oszz.ox.common.utils.SystemProperty;
 import org.oszz.ox.tools.conf.Config;
 import org.oszz.ox.tools.conf.ConfigManager;
 import org.oszz.ox.tools.conf.msg.Message;
-import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.constant.MessageTypeCodeConfig;
 import org.oszz.ox.tools.constant.ToolsConstant;
 import org.oszz.ox.tools.generator.GeneratorPathManagerAdapter;
 import org.oszz.ox.tools.message.IMessageHandlerGenerator;
@@ -40,20 +42,43 @@ public class JavaMsgHandlerGenerator extends GeneratorPathManagerAdapter impleme
 		for(Map.Entry<String, List<Message>> protoMessageEntry : protoMessages.entrySet()){
 			String protoName = protoMessageEntry.getKey();
 			List<Message> messages = protoMessageEntry.getValue();
-			String className = NameUtils.getClassName(protoName) + ToolsConstant.HANDLER_NAME_SUFFIX;
-			write(className, messages);
+			//因为是接口，所以类名前加 I
+			String className = "I"+ NameUtils.getClassName(protoName) + ToolsConstant.HANDLER_NAME_SUFFIX;
+			MessageTypeCodeConfig[] mtccs = MessageTypeCodeConfig.values();
+			for(MessageTypeCodeConfig mtcc : mtccs){
+				List<Message> filterMessages = filter(messages, mtcc);
+				if(filterMessages != null && filterMessages.size() != 0){
+					write(className, filterMessages, mtcc.getHandlerPackageName());
+				}
+			}
 		}
 	}
 	
-	private void write(String className, List<Message> messages){
+	private List<Message> filter(List<Message> messages, MessageTypeCodeConfig mtcc){
+		List<Message> filterMessages = new ArrayList<Message>();
+		for(Message message : messages){
+			if(message.getType().endsWith(mtcc.getEndWithStrForHandler())){
+				filterMessages.add(message);
+			}
+		}
+		return filterMessages;
+	}
+	
+	private void write(String className, List<Message> messages, String packageName){
 		VelocityContext ctx = new VelocityContext();
 		
-//		ctx.put("packageName", packageName);
-//		ctx.put("className", className);
-//		ctx.put("messages", messages);
-//		
-//		VelocityUtils.write(this.msgHandler_vmFile, ctx, file.getAbsolutePath(), config.getCharsetName());
-//		log.info("成功生成 {} . 字符集：{}", className, config.getCharsetName());
+		ctx.put("packageName", packageName);
+		ctx.put("className", className);
+		ctx.put("messages", messages);
+		
+		String packagePath = ClassUtils.packageName2Path(packageName);
+		String outPath = this.getAbsoluteJavaOutputPath(config.getJavaOutputPath());
+		outPath += SystemProperty.FILE_SEPARATOR.getValue() + packagePath ;
+		outPath = FileUtils.getDirIfExists(outPath) + SystemProperty.FILE_SEPARATOR.getValue();
+		String fileName = className + SystemProperty.JAVA_CLASS_SUFFIX.getValue();
+		
+		VelocityUtils.write(this.msgHandler_vmFile, ctx, outPath+"/"+fileName, config.getCharsetName());
+		log.info("成功生成 {} . 字符集：{}", className, config.getCharsetName());
 	}
 
 }

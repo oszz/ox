@@ -21,7 +21,7 @@ public class AuthProtoCGLoginMessage extends AbstractMessage {
 
 	@Override
 	public short getCode() {
-		return org.oszz.ox.msg.MessageCodeForGameServer.AUTH_PROTO_C_G_LOGIN;
+		return org.oszz.ox.gs.MessageCodeForGameServer.AUTH_PROTO_C_G_LOGIN;
 	}
 
 	@Override
@@ -29,4 +29,8 @@ public class AuthProtoCGLoginMessage extends AbstractMessage {
 		return org.oszz.ox.msg.auth.AuthProto.CGLogin.class;
 	}
 
+	@Override
+	public String getHandlerMethodName() {
+		return "cGLoginHnadler";
+	}
 }

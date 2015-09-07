@@ -32,4 +32,10 @@ public class InfoProtoGCErrorPromptMessage extends AbstractMessage {
 		return org.oszz.ox.server.module.info.message.InfoProto.GCErrorPrompt.class;
 	}
 
+	@Override
+	public String getHandlerMethodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

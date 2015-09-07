@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.oszz.ox.tools.conf.msg.Message;
 import org.oszz.ox.tools.conf.msg.MessagesXMLLoader;
-import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.constant.MessageTypeCodeConfig;
 
 public class ConfigManager implements IConfigManager {
 	
@@ -19,17 +19,12 @@ public class ConfigManager implements IConfigManager {
 	/**
 	 * 按消息类型（GC\LG\CG 等）的分类
 	 */
-	private Map<MessageCodeFileType, List<Message>> codeFileTypeMessages;
+	private Map<MessageTypeCodeConfig, List<Message>> typeCodeMessages;
 	
 	/**
 	 * 按业务类型的分类
 	 */
 	private Map<String, List<Message>> protoMessages;
-	
-	/**
-	 * 生成的消息处理类的包名
-	 */
-	private String msgHandlerClassPackageName;
 	
 	
 	private ConfigManager(){}
@@ -43,8 +38,7 @@ public class ConfigManager implements IConfigManager {
 		try {
 			MessagesXMLLoader msgXMLLoader = new MessagesXMLLoader(msgXMLFilePath);
 			messages = msgXMLLoader.loadMessages();
-			msgHandlerClassPackageName = msgXMLLoader.loadMsgHandlerClassPackageName();
-			initCodeFileTypeMessages();
+			initTypeCodeMessages();
 			initProtoMessages();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,17 +50,17 @@ public class ConfigManager implements IConfigManager {
 	 * 初始化按消息类型（GC\LG\CG 等）的分类
 	 * @author ZZ
 	 */
-	private void initCodeFileTypeMessages(){
-		codeFileTypeMessages = new HashMap<MessageCodeFileType, List<Message>>();
+	private void initTypeCodeMessages(){
+		typeCodeMessages = new HashMap<MessageTypeCodeConfig, List<Message>>();
 		for(Message message : messages){
 			String msgType = message.getType();
-			MessageCodeFileType[] codeFileTypes = MessageCodeFileType.getType(msgType);
-			for(MessageCodeFileType mcft : codeFileTypes){
-				List<Message> childMessages = codeFileTypeMessages.get(mcft);
+			MessageTypeCodeConfig[] codeFileTypes = MessageTypeCodeConfig.getType(msgType);
+			for(MessageTypeCodeConfig mcft : codeFileTypes){
+				List<Message> childMessages = typeCodeMessages.get(mcft);
 				if(childMessages == null){
 					childMessages = new ArrayList<Message>();
 					childMessages.add(message);
-					codeFileTypeMessages.put(mcft, childMessages);
+					typeCodeMessages.put(mcft, childMessages);
 				}else{
 					childMessages.add(message);
 				}
@@ -98,24 +92,16 @@ public class ConfigManager implements IConfigManager {
 		return messages;
 	}
 	@Override
-	public Map<MessageCodeFileType, List<Message>> getMessagesByType() {
-		return codeFileTypeMessages;
+	public Map<MessageTypeCodeConfig, List<Message>> getMessagesByType() {
+		return typeCodeMessages;
 	}
 	
 	@Override
 	public Map<String, List<Message>> getMessagesByProto() {
 		return protoMessages;
 	}
-	@Override
-	public String getMsgHandlerClassPackageName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	private static class InnerClass {
 		public static ConfigManager instance = new ConfigManager();
 	}
-
-
-	
 }

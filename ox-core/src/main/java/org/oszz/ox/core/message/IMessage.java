@@ -112,4 +112,11 @@ public interface IMessage {
 	public String toStringForBrowser();
 	
 	public JSONObject toJson();
+	
+	/**
+	 * 返回处理该消息的方法名称
+	 * @author ZZ
+	 * @return
+	 */
+	public String getHandlerMethodName();
 }

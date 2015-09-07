@@ -21,7 +21,7 @@ public class AuthProtoCGLogoutMessage extends AbstractMessage {
 
 	@Override
 	public short getCode() {
-		return org.oszz.ox.msg.MessageCodeForGameServer.AUTH_PROTO_C_G_LOGOUT;
+		return org.oszz.ox.gs.MessageCodeForGameServer.AUTH_PROTO_C_G_LOGOUT;
 	}
 
 	@Override
@@ -29,4 +29,8 @@ public class AuthProtoCGLogoutMessage extends AbstractMessage {
 		return org.oszz.ox.msg.auth.AuthProto.CGLogout.class;
 	}
 
+	@Override
+	public String getHandlerMethodName() {
+		return "cGLogoutHnadler";
+	}
 }

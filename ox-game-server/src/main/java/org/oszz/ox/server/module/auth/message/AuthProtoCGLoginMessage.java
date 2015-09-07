@@ -32,4 +32,10 @@ public class AuthProtoCGLoginMessage extends AbstractMessage {
 		return org.oszz.ox.server.module.auth.message.AuthProto.CGLogin.class;
 	}
 
+	@Override
+	public String getHandlerMethodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

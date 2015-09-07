@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.oszz.ox.tools.conf.msg.Message;
-import org.oszz.ox.tools.constant.MessageCodeFileType;
+import org.oszz.ox.tools.constant.MessageTypeCodeConfig;
 
 public interface IConfigManager {
 
@@ -29,7 +29,7 @@ public interface IConfigManager {
 	 * @author ZZ
 	 * @return 返回消息列表
 	 */
-	public Map<MessageCodeFileType, List<Message>> getMessagesByType();
+	public Map<MessageTypeCodeConfig, List<Message>> getMessagesByType();
 	
 	/**
 	 * 返回已经分好类的消息列表,按业务类型分类<br>
@@ -38,12 +38,4 @@ public interface IConfigManager {
 	 * @return 返回消息列表
 	 */
 	public Map<String, List<Message>> getMessagesByProto();
-	
-	/**
-	 * 返回生成的消息处理类的包名<br>
-	 * 注：一定要先初始化，调用{@link #init(String)}
-	 * @author ZZ
-	 * @return 返回生成的消息处理类的包名
-	 */
-	public String getMsgHandlerClassPackageName();
 }
