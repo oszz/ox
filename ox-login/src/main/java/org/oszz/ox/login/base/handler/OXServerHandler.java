@@ -17,14 +17,14 @@ public class OXServerHandler extends AbstractJettyHandler {
 	}
 	@Override
 	public void requestHandle(IPlayer player, IMessage message) {
-		MessageProcesserType msgProType = message.getMessageProcesserType();
-		if(msgProType == MessageProcesserType.ASYN){
-			Globals.getService(ProcesserService.class).getAsynProcesser().putMessage(player, message);
-		}else if(msgProType == MessageProcesserType.SCENE){
-			
-		}else if(msgProType == MessageProcesserType.WORLD){
-			Globals.getService(ProcesserService.class).getWorldProcesser().putMessage(player, message);
-		}
+//		MessageProcesserType msgProType = message.getMessageProcesserType();
+//		if(msgProType == MessageProcesserType.ASYN){
+//			Globals.getService(ProcesserService.class).getAsynProcesser().putMessage(player, message);
+//		}else if(msgProType == MessageProcesserType.SCENE){
+//			
+//		}else if(msgProType == MessageProcesserType.WORLD){
+//			Globals.getService(ProcesserService.class).getWorldProcesser().putMessage(player, message);
+//		}
 		
 	}
 

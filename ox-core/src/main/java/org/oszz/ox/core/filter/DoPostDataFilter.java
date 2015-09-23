@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.core.Globals;
-import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.message.IMessageReceived;
 import org.oszz.ox.core.message.MessageCodeMapping;
 import org.oszz.ox.core.message.MessageProcesserType;
 import org.slf4j.Logger;
@@ -24,8 +24,9 @@ public class DoPostDataFilter implements IFilter {
 	protected static final Logger log = LoggerFactory.getLogger("DoPostDataFilter");
 	
 	@Override
-	public IMessage doInputFilter(HttpServletRequest request) {
-		IMessage message = null;
+	public IMessageReceived doInputFilter(HttpServletRequest request) {
+//		IMessage message = null;
+		IMessageReceived message = null;
 		InputStream is = null;
 		DataInputStream dis = null;
 		try{
@@ -37,7 +38,7 @@ public class DoPostDataFilter implements IFilter {
 			dis.read(bytes);
 			
 			MessageCodeMapping msgCodeMapping = Globals.getMessageCodeMapping(code);
-			Class<? extends IMessage> msgClass = msgCodeMapping.getMessageClass();
+			Class<? extends IMessageReceived> msgClass = msgCodeMapping.getMessageClass();
 			IMessageHandler msgHandler = msgCodeMapping.getMsgHandler();
 			MessageProcesserType messageProcesserType = msgCodeMapping.getMessageProcesserType();
 			

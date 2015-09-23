@@ -6,8 +6,8 @@ import org.apache.mina.filter.codec.ProtocolDecoderAdapter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.core.Globals;
-import org.oszz.ox.core.message.IMessage;
 import org.oszz.ox.core.message.IMessageHandler;
+import org.oszz.ox.core.message.IMessageReceived;
 import org.oszz.ox.core.message.MessageCodeMapping;
 import org.oszz.ox.core.message.MessageProcesserType;
 
@@ -27,11 +27,11 @@ public class ProtoBufProtocolDecoder extends ProtocolDecoderAdapter{
 		byte[] bytes = new byte[length];
 		in.get(bytes);
 		MessageCodeMapping msgCodeMapping = Globals.getMessageCodeMapping(code);
-		Class<? extends IMessage> msgClass = msgCodeMapping.getMessageClass();
+		Class<? extends IMessageReceived> msgClass = msgCodeMapping.getMessageClass();
 		IMessageHandler msgHandler = msgCodeMapping.getMsgHandler();
 		MessageProcesserType messageProcesserType = msgCodeMapping.getMessageProcesserType();
 		
-		IMessage message = ClassUtils.newInstance(msgClass);
+		IMessageReceived message = ClassUtils.newInstance(msgClass);
 		message.toProtobufMessage(bytes, message.getProtobufMessageClass());
 		message.setMsgHandler(msgHandler);
 		message.setMessageProcesserType(messageProcesserType);

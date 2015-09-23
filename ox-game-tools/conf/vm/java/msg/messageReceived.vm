@@ -1,6 +1,6 @@
 package ${packageName};
 
-import org.oszz.ox.core.message.AbstractMessage;
+import org.oszz.ox.core.message.AbstractMessageReceived;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
@@ -9,7 +9,7 @@ import com.google.protobuf.Message;
  * ${comments}<br>
  * Auto Generator, Don't Modify .
  */
-public class ${className} extends AbstractMessage {
+public class ${className} extends AbstractMessageReceived {
 
 	public ${className}() {
 		

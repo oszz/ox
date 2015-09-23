@@ -8,11 +8,11 @@ package org.oszz.ox.core.message;
 public class MessageCodeMapping {
 
 	private Short msgCode; 
-	private Class<? extends IMessage> messageClass;
+	private Class<? extends IMessageReceived> messageClass;
 	private IMessageHandler msgHandler;
 	private MessageProcesserType messageProcesserType;
 	
-	public MessageCodeMapping(Short msgCode, Class<? extends IMessage> messageClass,
+	public MessageCodeMapping(Short msgCode, Class<? extends IMessageReceived> messageClass,
 			IMessageHandler msgHandler, MessageProcesserType messageProcesserType){
 		this.msgCode = msgCode;
 		this.messageClass = messageClass;
@@ -26,10 +26,10 @@ public class MessageCodeMapping {
 	public void setMsgCode(Short msgCode) {
 		this.msgCode = msgCode;
 	}
-	public Class<? extends IMessage> getMessageClass() {
+	public Class<? extends IMessageReceived> getMessageClass() {
 		return messageClass;
 	}
-	public void setMessageClass(Class<? extends IMessage> messageClass) {
+	public void setMessageClass(Class<? extends IMessageReceived> messageClass) {
 		this.messageClass = messageClass;
 	}
 	public IMessageHandler getMsgHandler() {

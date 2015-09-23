@@ -2,7 +2,7 @@ package org.oszz.ox.core.filter;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.message.IMessageReceived;
 
 /**
  * HTTP请求过滤器接口
@@ -17,7 +17,7 @@ public interface IFilter {
 	 * @param request HTTP请求
 	 * @return 返回该请求对应的消息类
 	 */
-	public IMessage doInputFilter(HttpServletRequest request);
+	public IMessageReceived doInputFilter(HttpServletRequest request);
 	
 	public void setDebug(boolean isDebug);
 }

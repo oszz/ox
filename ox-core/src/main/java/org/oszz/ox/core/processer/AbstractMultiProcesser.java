@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.message.IMessageReceived;
 import org.oszz.ox.core.player.IPlayer;
 
 public abstract class AbstractMultiProcesser extends AbstractProcesser {
@@ -34,7 +35,7 @@ public abstract class AbstractMultiProcesser extends AbstractProcesser {
 		
 	}
 	@Override
-	public void putMessage(IPlayer palyer,IMessage message) {
+	public void putMessage(IPlayer palyer,IMessageReceived message) {
 		super.putMessage(palyer, message);
 		try {
 			ProcesserMessage pm = msgQueue.take();
@@ -60,7 +61,7 @@ public abstract class AbstractMultiProcesser extends AbstractProcesser {
 		
 		@Override
 		public void run() {
-			IMessage message = pm.getMessage();
+			IMessageReceived message = pm.getMessage();
 			message.execute(pm.getPlayer());
 			message.getAsynResponseProcesser().complete();
 		}

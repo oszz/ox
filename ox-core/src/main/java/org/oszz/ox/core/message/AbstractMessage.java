@@ -7,8 +7,6 @@ import net.sf.json.JSONObject;
 import org.oszz.ox.common.utils.ClassUtils;
 import org.oszz.ox.common.utils.StringUtils;
 import org.oszz.ox.core.conf.DefaultConfig;
-import org.oszz.ox.core.player.IPlayer;
-import org.oszz.ox.core.server.IAsynResponseProcesser;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.Builder;
@@ -18,12 +16,6 @@ import com.googlecode.protobuf.format.JsonFormat;
 public abstract class AbstractMessage implements IMessage{
 
 	protected Message protoMsg;
-	
-	private IMessageHandler msgHandler;
-	
-	private MessageProcesserType messageProcesserType;
-	
-	private IAsynResponseProcesser asynRespPro;
 	
 	public AbstractMessage(){
 	}
@@ -70,52 +62,6 @@ public abstract class AbstractMessage implements IMessage{
 		return (T)this.getProtobufMessage();
 	}
 	
-	@Override
-	public void setMsgHandler(IMessageHandler msgHandler) {
-		this.msgHandler = msgHandler;
-	}
-	
-	@Override
-	public void execute(IPlayer player) {
-		this.msgHandler.handle(player, this);
-	}
-	
-	@Override
-	public MessageProcesserType getMessageProcesserType() {
-		return this.messageProcesserType;
-	}
-	
-	@Override
-	public void setMessageProcesserType(
-			MessageProcesserType messageProcesserType) {
-		this.messageProcesserType = messageProcesserType;
-	}
-	
-	@Override
-	public IAsynResponseProcesser getAsynResponseProcesser() {
-		return asynRespPro;
-	}
-	
-	@Override
-	public void setAsynResponseProcesser(IAsynResponseProcesser asynRespPro) {
-		this.asynRespPro = asynRespPro;
-	}
-	
-//	@SuppressWarnings("rawtypes")
-//	@Override
-//	public void toProtobufMessage(Map<String, String> paraMaps,
-//			Class<? extends GeneratedMessage> clazz) throws Exception {
-//		Builder builder = (Builder)ClassUtils.invokeStaticMethod(clazz, DefaultConfig.PROTO_BUF_NEW_BUILDER_METHOD_NAME.getValue());
-//		for(Map.Entry<String, String> paraEntry : paraMaps.entrySet()){
-//			String fieldName = paraEntry.getKey();//属性名称
-//			String value = paraEntry.getValue();//属性名称
-//			Method setterMethod = ClassUtils.getSetterMethod(builder.getClass(), fieldName);
-//			Object paraObj = ClassUtils.getMethodNeedValue(setterMethod, value);
-//			ClassUtils.invokeMethod(builder, setterMethod, paraObj);
-//		}
-//		this.protoMsg = builder.build();
-//		System.out.println(this);
-//	}
 	
 	@SuppressWarnings("rawtypes")
 	@Override

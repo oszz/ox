@@ -16,21 +16,21 @@ public class JavaMessageGenerator implements IGenerator{
 	/**
 	 * 生成MessageCode.java的模板类
 	 */
-	private static final String JAVA_MSG_CODE_FOR_VM_FILE = "vm/java/messageCode.vm";
+	private static final String JAVA_MSG_CODE_FOR_VM_FILE = "vm/java/msg/messageCode.vm";
 	/**
 	 * 生成消息Handler.java的模板类
 	 */
-	private static final String JAVA_MSG_HANDLER_VM_FILE = "vm/java/messageHandler.vm";
+	private static final String JAVA_MSG_HANDLER_VM_FILE = "vm/java/msg/messageHandler.vm";
 	
 	/**
 	 * 生成消息MsgCodeMappingRegisterService的模板类
 	 */
-	private static final String  JAVA_MSG_CODE_REGISTER_SERVICE_VM_FILE = "vm/java/messageCodeRegister.vm";
+	private static final String  JAVA_MSG_CODE_REGISTER_SERVICE_VM_FILE = "vm/java/msg/messageCodeRegister.vm";
 	
 	/**
 	 * 生成消息MsgCodeMappingRegisterService的模板类
 	 */
-	private static final String  JAVA_MSG_VM_FILE = "vm/java/message.vm";
+	private static final String  JAVA_MSG_RECEIVED_VM_FILE = "vm/java/msg/messageReceived.vm";
 	
 	
 	private Config config;
@@ -79,7 +79,7 @@ public class JavaMessageGenerator implements IGenerator{
 		javaMsgCodeGenerator.generate();
 		
 		//生成消息类（包装了code\protoBuf的消息）
-		IMessageGenerator javaMsgGenerator = new JavaMsgGenerator(config, JAVA_MSG_VM_FILE);
+		IMessageGenerator javaMsgGenerator = new JavaMsgGenerator(config, JAVA_MSG_RECEIVED_VM_FILE);
 		javaMsgGenerator.generate();
 		
 		//生成消息的处理接口

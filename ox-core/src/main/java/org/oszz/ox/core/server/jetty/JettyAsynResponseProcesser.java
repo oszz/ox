@@ -10,7 +10,7 @@ import org.eclipse.jetty.continuation.ContinuationListener;
 import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.oszz.ox.core.conf.DefaultConfig;
 import org.oszz.ox.core.filter.IFilter;
-import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.message.IMessageReceived;
 import org.oszz.ox.core.server.IAsynResponseProcesser;
 import org.oszz.ox.core.server.IRequestHandler;
 import org.oszz.ox.core.session.Session;
@@ -32,7 +32,7 @@ public class JettyAsynResponseProcesser implements IAsynResponseProcesser{
 	
 	private HttpServletResponse response;
 	
-	private IMessage message;
+	private IMessageReceived message;
 	
 	private final Session session;
 	

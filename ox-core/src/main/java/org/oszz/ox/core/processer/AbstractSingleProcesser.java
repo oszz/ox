@@ -3,7 +3,7 @@ package org.oszz.ox.core.processer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.oszz.ox.core.message.IMessage;
+import org.oszz.ox.core.message.IMessageReceived;
 
 /**
  * 单线程处理器
@@ -28,7 +28,7 @@ public abstract class AbstractSingleProcesser extends AbstractProcesser{
 					try {
 						pm = msgQueue.take();
 						if(pm != null){
-							IMessage message = pm.getMessage();
+							IMessageReceived message = pm.getMessage();
 							message.execute(pm.getPlayer());
 							message.getAsynResponseProcesser().complete();
 						}

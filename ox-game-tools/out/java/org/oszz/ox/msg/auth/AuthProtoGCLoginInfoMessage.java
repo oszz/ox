@@ -1,6 +1,6 @@
 package org.oszz.ox.msg.auth;
 
-import org.oszz.ox.core.message.AbstractMessage;
+import org.oszz.ox.core.message.AbstractMessageReceived;
 
 import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
@@ -9,7 +9,7 @@ import com.google.protobuf.Message;
  * 玩家登陆后返回的消息<br>
  * Auto Generator, Don't Modify .
  */
-public class AuthProtoGCLoginInfoMessage extends AbstractMessage {
+public class AuthProtoGCLoginInfoMessage extends AbstractMessageReceived {
 
 	public AuthProtoGCLoginInfoMessage() {
 		

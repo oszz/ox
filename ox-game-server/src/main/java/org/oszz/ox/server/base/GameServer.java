@@ -24,7 +24,6 @@ import org.oszz.ox.server.base.conf.RedisConfig;
 import org.oszz.ox.server.base.conf.ServerConfig;
 import org.oszz.ox.server.base.conf.TemplateConfig;
 import org.oszz.ox.server.base.dom.HumanDataManagerRegister;
-import org.oszz.ox.server.base.dom.MessageCodeRegister;
 import org.oszz.ox.server.base.dom.ModuleServiceRegister;
 import org.oszz.ox.server.base.dom.TemplateDataRegister;
 import org.oszz.ox.server.base.handler.OXServerHandler;
@@ -45,7 +44,7 @@ public class GameServer {
 		Globals.addAllService(getSystemService());
 		
 		Globals.setModuleServiceRegister(new ModuleServiceRegister());
-		Globals.setMessageCodeRegister(new MessageCodeRegister());
+//		Globals.setMessageCodeRegister(new MessageCodeRegister());
 		Globals.setTemplateDataRegister(new TemplateDataRegister());
 		Globals.setHumanDataManagerRegister(new HumanDataManagerRegister());
 		
